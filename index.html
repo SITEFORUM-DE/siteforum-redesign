@@ -331,24 +331,35 @@
       font-weight: 500;
     }
 
-    .stats-logos {
+    .stats-logos-wrapper {
       max-width: 1200px;
       margin: 120px auto 0;
+      padding: 0 0 80px;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .stats-logos {
       display: flex;
       align-items: center;
-      justify-content: center;
       gap: 88px;
-      flex-wrap: wrap;
-      padding: 0 100px 80px;
+      width: max-content;
+      animation: marquee 30s linear infinite;
     }
+    .stats-logos:hover { animation-play-state: paused; }
     .stats-logos img {
       height: 38px;
       width: auto;
       opacity: 0.35;
       filter: grayscale(100%) brightness(1.8);
       transition: opacity 0.2s;
+      flex-shrink: 0;
     }
     .stats-logos img:hover { opacity: 0.7; }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
 
     /* ─── SECTION WRAPPER ───────────────────────────────────── */
     section { padding: 100px 40px; }
@@ -1024,8 +1035,9 @@
       .section-sub { font-size: 0.95rem; }
 
       /* Stats Logos */
-      .stats-logos { gap: 24px; padding: 0 20px; }
-      .stats-logos img { height: 34px; }
+      .stats-logos-wrapper { margin-top: 80px; }
+      .stats-logos { gap: 48px; animation-duration: 20s; }
+      .stats-logos img { height: 30px; }
 
       /* Challenge Grid */
       .challenge-grid { grid-template-columns: 1fr; }
@@ -1436,7 +1448,7 @@
 <!-- VERSPRECHEN -->
 <div class="wendepunkt">
   <div class="section-inner" style="text-align:center; max-width:720px;">
-    <h2 class="section-title" style="color:var(--navy); margin-bottom:16px;">Bessere Services. Zentrale Informationen. Mehr Automatisierung<em>.</em></h2>
+    <h2 class="section-title" style="color:var(--navy); margin-bottom:16px;">Bessere Services. Zentrale Informationen. Mehr Automatisierung für <em>unternehmenskritische Prozesse.</em></h2>
     <p style="font-size:1.05rem; color:var(--slate-600); line-height:1.7;">Eine Plattform, die mit Ihren Anforderungen wächst.</p>
   </div>
 </div>
@@ -1460,17 +1472,30 @@
       <div class="stat-label">Jahren Erfahrung</div>
     </div>
   </div>
-  <div class="stats-logos">
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="VBL" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="Abellio" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="National Express" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="THOR" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="Nordwest Factoring" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="HRcom" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odgers_mono.png" alt="Odgers Berndtson" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_spitzke_mono.png" alt="Spitzke" />
-    <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lak_mono.png" alt="LAK BW" />
+  <div class="stats-logos-wrapper">
+    <div class="stats-logos">
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="VBL" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="Abellio" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="National Express" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="THOR" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="Nordwest Factoring" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="HRcom" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odgers_mono.png" alt="Odgers Berndtson" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_spitzke_mono.png" alt="Spitzke" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lak_mono.png" alt="LAK BW" />
+      <!-- Duplikat für nahtlosen Loop -->
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="VBL" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="Abellio" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="National Express" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="THOR" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="Nordwest Factoring" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="HRcom" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odgers_mono.png" alt="Odgers Berndtson" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_spitzke_mono.png" alt="Spitzke" />
+      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lak_mono.png" alt="LAK BW" />
+    </div>
   </div>
 </div>
 
