@@ -409,10 +409,10 @@ footer { background: var(--navy); color: #94a3b8; padding: 64px 40px 32px; margi
   body.page-cloud .tech-cert-desc { font-size: 0.78rem; color: rgba(255,255,255,0.55); line-height: 1.4; }
   body.page-cloud .tech-logo-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px 40px; max-width: 900px; margin: 0 auto 56px; }
   body.page-cloud .tech-logo-item { display: flex; flex-direction: column; align-items: center; gap: 10px; width: 80px; }
-  body.page-cloud .tech-logo-item img { width: 44px; height: 44px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.5; transition: opacity 0.2s; }
-  body.page-cloud .tech-logo-item:hover img { opacity: 1; }
-  body.page-cloud .tech-logo-item span { font-size: 0.72rem; font-weight: 500; color: rgba(255,255,255,0.45); text-align: center; line-height: 1.3; transition: color 0.2s; }
-  body.page-cloud .tech-logo-item:hover span { color: rgba(255,255,255,0.85); }
+  body.page-cloud .tech-logo-item img { width: 44px; height: 44px; object-fit: contain; filter: brightness(0); opacity: 0.35; transition: opacity 0.2s; }
+  body.page-cloud .tech-logo-item:hover img { opacity: 0.7; }
+  body.page-cloud .tech-logo-item span { font-size: 0.72rem; font-weight: 500; color: var(--slate-500); text-align: center; line-height: 1.3; transition: color 0.2s; }
+  body.page-cloud .tech-logo-item:hover span { color: var(--navy); }
   body.page-cloud .uptime-bar-wrap { background: rgba(255,255,255,0.06); border-radius: 999px; height: 6px; overflow: hidden; margin-top: 4px; }
   body.page-cloud .uptime-bar { height: 100%; border-radius: 999px; background: linear-gradient(90deg, #93c5fd, #60a5fa); width: 99.9%; }
   body.page-cloud .eco-flow { display: flex; align-items: stretch; gap: 0; }
