@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karriere – SITEFORUM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:   #003366;
+      --secondary: #006699;
+      --blue-50:   #e6f0f7;
+      --blue-100:  #cce0ee;
+      --blue-200:  #99c2dd;
+      --blue-600:  #006699;
+      --blue-700:  #003366;
+      --navy:      #003366;
+      --slate-600: #475569;
+      --slate-100: #f1f5f9;
+      --white:     #ffffff;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+    }
+
+    html { scroll-behavior: smooth; }
+    h1, h2, h3, h4 { overflow-wrap: break-word; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 10px 24px; pointer-events: none;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+      border: 1px solid #e5e7eb; border-radius: 999px;
+      padding: .5rem .6rem .5rem 1.5rem;
+      box-shadow: 0 1px 2px 0 rgba(10,13,18,0.05);
+      pointer-events: all;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+    .nav-links li { display: flex; align-items: center; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500; color: #374151;
+      padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s;
+      display: inline-flex; align-items: center;
+    }
+    .nav-links a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: var(--blue-50); font-weight: 600; }
+    .nav-has-dropdown { position: relative; }
+    .nav-has-dropdown > a { gap: 2px; }
+    .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-has-dropdown::after {
+      content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px;
+    }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 20px); left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+      border: 1px solid #e5e7eb; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
+      min-width: 220px; padding: 6px;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      z-index: 200;
+    }
+    .nav-has-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; visibility: visible; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 8px 14px; border-radius: 8px;
+      color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500;
+      white-space: nowrap; transition: background 0.12s, color 0.12s;
+      background: none;
+    }
+    .nav-dropdown-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-dropdown-menu a.active { color: var(--blue-600); background: #eff6ff; }
+    .nav-dropdown-divider { height: 1px; background: #e5e7eb; margin: 4px 8px; }
+    .nav-lang { position: relative; display: flex; align-items: center; }
+    .nav-lang-btn { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; color: #374151; font-size: 0.9rem; font-weight: 500; padding: 8px 10px; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .nav-lang-btn:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-btn .nav-globe { font-size: 20px !important; }
+    .nav-lang-btn .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-lang:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-lang::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px; }
+    .nav-lang-menu { position: absolute; top: calc(100% + 20px); right: 0; transform: translateY(-6px); background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05); min-width: 160px; padding: 6px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; z-index: 200; }
+    .nav-lang:hover .nav-lang-menu { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .nav-lang-menu a { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 8px; color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500; white-space: nowrap; transition: background 0.12s, color 0.12s; background: none; }
+    .nav-lang-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-menu a.active { color: var(--blue-600); background: #eff6ff; }
+    .nav-lang-menu a .lang-code { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; color: #9ca3af; margin-left: auto; }
+    .nav-cta {
+      background: var(--blue-600); color: var(--white);
+      padding: 11px 22px; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta::after { content: "→"; }
+    .nav-cta:hover { background: var(--blue-700); transform: translateY(-1px); }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      padding: 220px 40px 170px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.16) 1.5px, transparent 1.5px);
+      background-size: 28px 28px; pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .solution-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 6px 16px;
+      border-radius: 999px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 800; letter-spacing: -1.5px;
+      line-height: 1.1; margin: 0 0 24px; color: var(--white);
+    }
+    .hero h1 em { font-style: normal; color: #93c5fd; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      max-width: 640px; margin: 0 0 40px; font-weight: 400; line-height: 1.65;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 12px; border-radius: 999px;
+    }
+    .hero-tag .material-symbols-rounded { font-size: 14px; color: #93c5fd; }
+
+    /* ─── SECTION WRAPPER ───────────────────────────────────── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .ani-fade-in { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease !important; }
+    .ani-fade-in.visible { opacity: 1; transform: none; }
+
+    .section-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue-600); margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.15; color: var(--navy); margin-bottom: 20px;
+    }
+    .section-title em { font-style: normal; color: var(--secondary); }
+    .section-sub {
+      font-size: 1.05rem; color: var(--slate-600);
+      max-width: 580px; margin-bottom: 60px;
+    }
+    .btn-primary {
+      background: var(--white); color: var(--primary);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 700; text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
+
+    /* ─── BENEFITS GRID ─────────────────────────────────────── */
+    .benefit-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .benefit-card {
+      background: var(--white); border-radius: var(--radius-md);
+      border: 1.5px solid #e5e7eb; padding: 32px 28px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .benefit-card:hover { box-shadow: 0 8px 32px rgba(0,51,102,0.08); border-color: var(--blue-200); }
+    .benefit-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: var(--blue-50); display: flex; align-items: center;
+      justify-content: center; margin-bottom: 20px;
+    }
+    .benefit-icon .material-symbols-rounded { font-size: 26px; color: var(--blue-600); }
+    .benefit-card h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .benefit-card p { font-size: 0.9rem; color: var(--slate-600); line-height: 1.7; }
+
+    /* ─── JOB AREAS GRID ────────────────────────────────────── */
+    .jobs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .job-card {
+      display: flex; align-items: center; gap: 16px;
+      background: var(--white); border-radius: var(--radius-md);
+      border: 1.5px solid #e5e7eb; padding: 22px 24px;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .job-card:hover { box-shadow: 0 4px 16px rgba(0,51,102,0.08); border-color: var(--blue-200); }
+    .job-icon {
+      width: 44px; height: 44px; border-radius: var(--radius-sm); flex-shrink: 0;
+      background: var(--blue-50); display: flex; align-items: center; justify-content: center;
+      color: var(--secondary);
+    }
+    .job-icon .material-symbols-rounded { font-size: 22px; }
+    .job-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); }
+    .job-card p { font-size: 0.8rem; color: var(--slate-600); margin-top: 2px; }
+
+    /* ─── PROCESS STEPS ─────────────────────────────────────── */
+    .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .how-grid::before {
+      content: ''; position: absolute; top: 28px; left: calc(12.5%); right: calc(12.5%);
+      height: 2px; background: var(--blue-100); z-index: 0;
+    }
+    .how-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+    .how-step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--blue-600); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 800; margin-bottom: 20px;
+      box-shadow: 0 0 0 6px var(--white);
+    }
+    .how-step h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .how-step p { font-size: 0.84rem; color: var(--slate-600); line-height: 1.55; }
+
+    /* ─── BEWERBUNGSFORMULAR ────────────────────────────────── */
+    .apply-section { background: var(--slate-100); }
+    .apply-layout { display: grid; grid-template-columns: 1fr 380px; gap: 48px; align-items: start; margin-top: 48px; }
+    .contact-form-card { background: var(--white); border-radius: var(--radius-md); border: 1.5px solid #e5e7eb; padding: 40px; }
+    .contact-form-card h3 { font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 28px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 20px; }
+    .form-group label { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: 11px 14px; border-radius: var(--radius-sm); border: 1.5px solid #e5e7eb;
+      font-family: inherit; font-size: 0.9rem; color: var(--navy);
+      background: var(--white); transition: border-color 0.15s;
+      appearance: none; -webkit-appearance: none; outline: none;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue-600); }
+    .form-group textarea { resize: vertical; min-height: 130px; }
+    .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23475569' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+    .form-group input[type="file"] { padding: 9px 14px; cursor: pointer; }
+    .form-group input[type="file"]::file-selector-button { font-family: inherit; font-size: 0.82rem; font-weight: 600; color: var(--navy); background: var(--slate-100); border: none; border-radius: 8px; padding: 7px 14px; margin-right: 12px; cursor: pointer; transition: background 0.15s; }
+    .form-group input[type="file"]::file-selector-button:hover { background: var(--blue-50); }
+    .form-hint { font-size: 0.78rem; color: var(--slate-600); margin-top: 2px; }
+    .form-submit { width: 100%; padding: 14px 24px; background: var(--navy); color: var(--white); border: none; border-radius: var(--radius-sm); font-family: inherit; font-size: 0.95rem; font-weight: 700; cursor: pointer; transition: background 0.2s, transform 0.15s; display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 8px; }
+    .form-submit:hover { background: var(--blue-600); transform: translateY(-1px); }
+    .form-privacy { font-size: 0.78rem; color: var(--slate-600); margin-top: 14px; text-align: center; line-height: 1.5; }
+    .form-privacy a { color: var(--blue-600); text-decoration: none; }
+    .apply-aside { display: flex; flex-direction: column; gap: 20px; }
+    .info-card { background: var(--white); border-radius: var(--radius-md); border: 1.5px solid #e5e7eb; padding: 28px; }
+    .info-card h4 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--slate-600); margin-bottom: 20px; }
+    .person-card { display: flex; gap: 16px; align-items: center; }
+    .person-avatar { width: 64px; height: 64px; border-radius: 50%; overflow: hidden; background: var(--blue-100); flex-shrink: 0; }
+    .person-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .person-name { font-size: 0.95rem; font-weight: 700; color: var(--navy); }
+    .person-role { font-size: 0.8rem; color: var(--slate-600); margin-top: 2px; }
+    .person-links { display: flex; flex-direction: column; gap: 8px; margin-top: 20px; }
+    .person-links a { font-size: 0.85rem; color: var(--blue-600); text-decoration: none; display: flex; align-items: center; gap: 8px; }
+    .person-links a .material-symbols-rounded { font-size: 16px; }
+    .info-card p { font-size: 0.88rem; color: var(--slate-600); line-height: 1.6; }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer { background: var(--navy); color: #94a3b8; padding: 64px 40px 32px; margin-top: 0; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand .nav-logo { color: var(--white); display: block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 260px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--white); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { text-decoration: none; color: #94a3b8; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; font-size: 0.82rem; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom a { color: #94a3b8; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── HAMBURGER ─────────────────────────────────────────── */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; pointer-events: all; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; display: block; }
+    .nav-mobile-menu { display: none; position: fixed; top: 76px; left: 16px; right: 16px; background: white; border: 1px solid #e5e7eb; border-radius: var(--radius-md); box-shadow: 0 8px 32px rgba(0,0,0,0.1); padding: 16px; z-index: 99; flex-direction: column; gap: 4px; }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu > a { text-decoration: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; transition: background 0.15s; display: block; }
+    .nav-mobile-menu > a:hover { background: var(--slate-100); }
+    .mob-group { display: flex; flex-direction: column; }
+    .mob-group-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; cursor: pointer; text-align: left; transition: background 0.15s; font-family: inherit; }
+    .mob-group-toggle:hover { background: var(--slate-100); }
+    .mob-chevron { font-size: 18px !important; transition: transform 0.2s; line-height: 1; flex-shrink: 0; }
+    .mob-group.open .mob-chevron { transform: rotate(180deg); }
+    .mob-sub { display: none; flex-direction: column; padding-left: 12px; }
+    .mob-group.open .mob-sub { display: flex; }
+    .mob-sub a { text-decoration: none; font-size: 0.88rem; font-weight: 400; color: #6b7280; padding: 8px 16px; border-radius: 8px; transition: background 0.15s; display: block; }
+    .mob-sub a:hover { background: var(--slate-100); color: var(--navy); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .nav-chevron { display: none; }
+      .nav-actions { gap: 4px !important; margin-right: 10px; }
+      .benefit-grid { grid-template-columns: repeat(2, 1fr); }
+      .jobs-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .how-grid::before { display: none; }
+      .apply-layout { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .benefit-grid { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    }
+    @media (max-width: 640px) {
+      h1, h2, h3, h4 { hyphens: auto; }
+      nav { padding: 10px 16px; }
+      .nav-inner { height: 52px; padding: 0.4rem 0.5rem 0.4rem 1rem; }
+      section { padding: 64px 20px; }
+      .hero { padding: 120px 20px 80px; }
+      .jobs-grid { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .contact-form-card { padding: 24px 20px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DARK THEME (dunkel & kontrast-reich) – zuletzt = gewinnt
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      --primary:   #5FC9F5;
+      --secondary: #5FC9F5;
+      --blue-50:   #0D1526;
+      --blue-100:  rgba(95,201,245,0.14);
+      --blue-200:  rgba(95,201,245,0.45);
+      --blue-600:  #5FC9F5;
+      --blue-700:  #8ADAF9;
+      --navy:      #F5F6F8;
+      --slate-600: #9AA7BD;
+      --slate-100: #101B2E;
+      --white:     #0A101E;
+      --bg-alt:    #0D1526;
+      --bg-deep:   #060A12;
+      --line:      rgba(255,255,255,0.10);
+    }
+    body { background: var(--white); color: var(--navy); }
+
+    /* ── NAV ── */
+    .nav-inner { background: rgba(13,21,38,0.85); border-color: var(--blue-200); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .nav-links a { color: rgba(245,246,248,0.75); }
+    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-menu, .nav-lang-menu { background: rgba(13,21,38,0.97); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-dropdown-menu a, .nav-lang-menu a { color: rgba(245,246,248,0.75); }
+    .nav-dropdown-menu a:hover, .nav-lang-menu a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-dropdown-menu a.active, .nav-lang-menu a.active { color: var(--blue-600); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-divider { background: var(--line); }
+    .nav-lang-btn { color: rgba(245,246,248,0.75); }
+    .nav-lang-btn:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-lang-menu a .lang-code { color: rgba(245,246,248,0.4); }
+    .nav-hamburger span { background: var(--navy); }
+    .nav-mobile-menu { background: rgba(13,21,38,0.98); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-mobile-menu > a, .mob-group-toggle { color: rgba(245,246,248,0.8); }
+    .nav-mobile-menu > a:hover, .mob-group-toggle:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .mob-sub a { color: rgba(245,246,248,0.55); }
+    .mob-sub a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+
+    /* ── BREADCRUMB ── */
+    .bc-bar { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .bc-sep { color: rgba(255,255,255,0.25); }
+    .bc-current { color: var(--slate-600); }
+
+    /* ── HERO (dunkel, Cyan-Akzent) ── */
+    .hero { background: var(--white); }
+    .solution-badge { background: rgba(95,201,245,0.12); border-color: rgba(95,201,245,0.3); color: var(--blue-600); }
+    .hero-actions .btn-secondary { background: var(--white); }
+    .hero h1 { color: var(--navy); }
+    .hero h1 em { color: var(--blue-600); }
+    .hero-tag .material-symbols-rounded { color: var(--blue-600); }
+    .hero-visual { --white:#fff; --navy:#0f172a; --blue-50:#e6f0f7; --blue-100:#cce0ee; --blue-200:#99c2dd; --blue-600:#006699; --blue-700:#003366; --primary:#003366; --secondary:#006699; --slate-600:#475569; --slate-100:#f1f5f9; }
+
+    /* ── STATS ── */
+    .stats { background: var(--white); border-bottom-color: var(--line); }
+
+    /* ── BUTTONS ── */
+    .btn-primary { background: var(--blue-600); color: #0A101E; }
+    .btn-secondary { background: transparent; color: var(--navy); border-color: rgba(255,255,255,0.25); }
+    .btn-secondary:hover { border-color: var(--blue-600); }
+
+    /* ── CARDS ── */
+    .intro-card, .feature-card, .story-card, .benefit-card, .job-card, .contact-form-card, .info-card { background: var(--bg-alt); border-color: var(--line); }
+    .intro-card:hover, .feature-card:hover, .story-card:hover, .benefit-card:hover, .job-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .form-group input, .form-group select, .form-group textarea { border-color: var(--line); background: var(--white); color: var(--navy); }
+    .intro-icon, .feature-icon, .benefit-check { background: var(--blue-100); color: var(--blue-600); }
+    .benefits-visual { background: var(--bg-alt); border: 1px solid var(--line); }
+    .benefits-divider { border-top-color: var(--line); }
+    .story-img-wrap { background: var(--bg-alt); }
+    .story-result { background: rgba(95,201,245,0.10); }
+    .story-customer-badge { background: #F5F6F8; border-color: var(--line); }
+
+    /* ── CTA BANNER (dunkles Panel) ── */
+    .cta-banner { background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%); border: 1px solid var(--line); }
+    .cta-banner::before { background-image: none; }
+    .cta-banner .section-title { color: var(--navy); }
+    .cta-banner .section-title em, .cta-banner .section-label { color: var(--blue-600); }
+    .cta-contact-label-top, .cta-contact-link .material-symbols-rounded { color: var(--blue-600); }
+    .cta-contact-name { color: var(--navy); }
+    .cta-contact-link:hover { color: var(--navy); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--bg-deep); color: var(--slate-600); }
+    .footer-brand .nav-logo, .footer-col h4 { color: var(--navy); }
+    .footer-col a, .footer-bottom a { color: var(--slate-600); }
+    .footer-col a:hover, .footer-bottom a:hover { color: var(--navy); }
+
+    /* ── TYPOGRAFIE: Outfit-Headlines ── */
+    h1, h2, h3, h4,
+    .hero h1, .section-title, .section-title em,
+    .stat-value, .story-title, .benefits-stat-big { font-family: 'Outfit', 'Inter', sans-serif; font-weight: 600; }
+
+    /* ── DEKO-LINIE vor Section-Labels ── */
+    .section-label { display: inline-flex; align-items: center; gap: 14px; }
+    .section-label::before { content: ''; width: 48px; height: 1px; background: var(--blue-600); flex: 0 0 auto; }
+    .cta-banner .section-label { justify-content: center; }
+    .cta-banner .section-label::before { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:32px; width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li class="nav-has-dropdown">
+        <a href="index.html#produkte">Kompetenzen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="cloud.html">Cloud</a>
+          <a href="plattform.html">Portale</a>
+          <a href="ki.html">Angewandte KI</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="implementierung-services.html">Implementierung &amp; Services</a>
+        </div>
+      </li>
+      <li class="nav-has-dropdown">
+        <a href="loesungen.html">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="mitgliederportale.html">Mitgliederportale</a>
+          <a href="kundenportale.html">Kundenportale</a>
+          <a href="mitarbeiterportale.html">Mitarbeiterportale</a>
+          <a href="informationsmanagement.html">Ereignis-Dokumentation</a>
+          <a href="communities.html">Community</a>
+        </div>
+      </li>
+<li><a href="referenzen.html">Referenzen</a></li>
+      <li class="nav-has-dropdown">
+        <a href="ueber-uns.html" class="active">Über uns <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ueber-uns.html">Team</a>
+          <a href="karriere.html" class="active">Karriere</a>
+          <a href="news.html">News</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
+      <div class="nav-lang">
+        <button class="nav-lang-btn" aria-label="Sprache wählen" aria-haspopup="true">
+          <span class="material-symbols-rounded nav-globe">language</span>
+          <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span>
+        </button>
+        <div class="nav-lang-menu">
+          <a href="#" class="active">Deutsch <span class="lang-code">DE</span></a>
+          <a href="#">English <span class="lang-code">EN</span></a>
+        </div>
+      </div>
+      <a href="kontakt.html" class="nav-cta">Gespräch anfragen</a>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Kompetenzen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="cloud.html" onclick="closeMenu()">Cloud</a>
+      <a href="plattform.html" onclick="closeMenu()">Portale</a>
+      <a href="ki.html" onclick="closeMenu()">Angewandte KI</a>
+      <a href="implementierung-services.html" onclick="closeMenu()">Implementierung &amp; Services</a>
+    </div>
+  </div>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Lösungen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="mitgliederportale.html" onclick="closeMenu()">Mitgliederportale</a>
+      <a href="kundenportale.html" onclick="closeMenu()">Kundenportale</a>
+      <a href="mitarbeiterportale.html" onclick="closeMenu()">Mitarbeiterportale</a>
+      <a href="informationsmanagement.html" onclick="closeMenu()">Ereignis-Dokumentation</a>
+      <a href="communities.html" onclick="closeMenu()">Community</a>
+    </div>
+  </div>
+  <a href="referenzen.html" onclick="closeMenu()">Referenzen</a>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Über uns <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="ueber-uns.html" onclick="closeMenu()">Team</a>
+      <a href="karriere.html" onclick="closeMenu()" style="color:var(--primary);font-weight:600;">Karriere</a>
+      <a href="news.html" onclick="closeMenu()">News</a>
+    </div>
+  </div>  <a href="kontakt.html" onclick="closeMenu()" style="color:var(--blue-600);font-weight:600;">Gespräch anfragen</a>
+</div>
+<script>
+  var navToggle = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-mobile-menu');
+  navToggle.addEventListener('click', function() { navMenu.classList.toggle('open'); });
+  function closeMenu() { navMenu.classList.remove('open'); }
+  function toggleMobGroup(btn) { btn.closest('.mob-group').classList.toggle('open'); }
+</script>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="solution-badge">
+      <span class="material-symbols-rounded" style="font-size:14px;">rocket_launch</span>
+      Karriere
+    </div>
+    <h1>Werde Teil unseres Teams<em>.</em></h1>
+    <p class="hero-sub">
+      Wir suchen talentierte und motivierte Menschen, die mit uns die digitale Zukunft gestalten –
+      in einem internationalen Team aus acht Nationen, mit flachen Hierarchien und echter Wirkung.
+    </p>
+    <div class="hero-actions">
+      <a href="#bewerben" class="btn-primary">Jetzt bewerben</a>
+      <a href="#bereiche" class="btn-secondary">Offene Bereiche</a>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag"><span class="material-symbols-rounded">home_work</span> Homeoffice Standard</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">schedule</span> Vertrauensarbeitszeit</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">public</span> 8 Nationalitäten</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">verified</span> Seit 1998 am Markt</span>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="bc-bar">
+  <div class="bc-inner">
+    <div class="bc-row">
+      <a href="index.html" aria-label="Startseite" title="Startseite" class="bc-home"><span class="material-symbols-rounded">home</span></a>
+      <span class="bc-sep">›</span>
+      <a href="ueber-uns.html">Über uns</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Karriere</span>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Warum SITEFORUM</p>
+      <h2 class="section-title">Was dich bei uns <em>erwartet.</em></h2>
+      <p class="section-sub">Stabilität eines etablierten Unternehmens, gepaart mit der Flexibilität und Atmosphäre eines kleinen, eingespielten Teams.</p>
+    </div>
+    <div class="benefit-grid">
+      <div class="benefit-card ani-fade-in" data-delay="0">
+        <div class="benefit-icon"><span class="material-symbols-rounded">home_work</span></div>
+        <h4>Homeoffice &amp; Flexibilität</h4>
+        <p>Homeoffice ist bei uns Standard, nicht die Ausnahme. Teilzeit oder Vollzeit – wir finden das Modell, das zu deinem Leben passt.</p>
+      </div>
+      <div class="benefit-card ani-fade-in" data-delay="80">
+        <div class="benefit-icon"><span class="material-symbols-rounded">schedule</span></div>
+        <h4>Vertrauensarbeitszeit</h4>
+        <p>Wir zählen keine Stunden, sondern setzen auf Ergebnisse und Eigenverantwortung. Du teilst dir deinen Tag so ein, wie er für dich am besten funktioniert.</p>
+      </div>
+      <div class="benefit-card ani-fade-in" data-delay="160">
+        <div class="benefit-icon"><span class="material-symbols-rounded">diversity_3</span></div>
+        <h4>Internationales Team</h4>
+        <p>Acht Nationalitäten unter einem Dach, alle per Du. Eine lockere, positive Arbeitsatmosphäre, in der sich Kolleginnen und Kollegen gegenseitig unterstützen.</p>
+      </div>
+      <div class="benefit-card ani-fade-in" data-delay="0">
+        <div class="benefit-icon"><span class="material-symbols-rounded">account_tree</span></div>
+        <h4>Flache Hierarchien</h4>
+        <p>Kurze Entscheidungswege und viel Freiraum für eigene Ideen. Du gestaltest aktiv mit, statt nur Vorgaben abzuarbeiten.</p>
+      </div>
+      <div class="benefit-card ani-fade-in" data-delay="80">
+        <div class="benefit-icon"><span class="material-symbols-rounded">verified</span></div>
+        <h4>Sicherheit &amp; Stabilität</h4>
+        <p>Seit 1998 inhabergeführt und erfolgreich am Markt. Ein solides Fundament, auf dem du langfristig planen kannst.</p>
+      </div>
+      <div class="benefit-card ani-fade-in" data-delay="160">
+        <div class="benefit-icon"><span class="material-symbols-rounded">local_cafe</span></div>
+        <h4>Büro mit Wohlfühlfaktor</h4>
+        <p>Zentral in der Erfurter Innenstadt, nahe Dom und Bahnhof. Mit Getränken, Fahrradstellplatz, Parkmöglichkeiten und Dachterrasse für die Pause.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOB AREAS -->
+<section id="bereiche" style="background:var(--slate-100);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Offene Bereiche</p>
+      <h2 class="section-title">Wo wir <em>Verstärkung suchen</em></h2>
+      <p class="section-sub">Du findest dich in einem dieser Bereiche wieder? Dann freuen wir uns auf deine Bewerbung – gerne auch initiativ.</p>
+    </div>
+    <div class="jobs-grid">
+      <div class="job-card ani-fade-in" data-delay="0">
+        <div class="job-icon"><span class="material-symbols-rounded">code</span></div>
+        <div>
+          <h4>Software-Entwicklung</h4>
+          <p>Backend, Plattform &amp; Web</p>
+        </div>
+      </div>
+      <div class="job-card ani-fade-in" data-delay="60">
+        <div class="job-icon"><span class="material-symbols-rounded">dns</span></div>
+        <div>
+          <h4>Server-Administration</h4>
+          <p>Infrastruktur &amp; Betrieb</p>
+        </div>
+      </div>
+      <div class="job-card ani-fade-in" data-delay="120">
+        <div class="job-icon"><span class="material-symbols-rounded">palette</span></div>
+        <div>
+          <h4>User Interfaces &amp; Webdesign</h4>
+          <p>UX/UI &amp; Frontend</p>
+        </div>
+      </div>
+      <div class="job-card ani-fade-in" data-delay="0">
+        <div class="job-icon"><span class="material-symbols-rounded">checklist</span></div>
+        <div>
+          <h4>Projekt- &amp; Account-Management</h4>
+          <p>Kundenprojekte &amp; Betreuung</p>
+        </div>
+      </div>
+      <div class="job-card ani-fade-in" data-delay="60">
+        <div class="job-icon"><span class="material-symbols-rounded">campaign</span></div>
+        <div>
+          <h4>Sales &amp; Marketing</h4>
+          <p>Vertrieb &amp; Kommunikation</p>
+        </div>
+      </div>
+      <div class="job-card ani-fade-in" data-delay="120">
+        <div class="job-icon"><span class="material-symbols-rounded">support_agent</span></div>
+        <div>
+          <h4>QA &amp; Support</h4>
+          <p>Qualität &amp; Kundenservice</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Bewerbungsprozess</p>
+      <h2 class="section-title">In vier Schritten <em>zu uns</em></h2>
+      <p class="section-sub">Unkompliziert, transparent und auf Augenhöhe – so läuft deine Bewerbung bei SITEFORUM ab.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step ani-fade-in" data-delay="0">
+        <div class="how-step-num">1</div>
+        <h4>Bewerbung senden</h4>
+        <p>Schick uns Anschreiben, Lebenslauf und Zeugnisse – am liebsten als PDF. Erzähl uns, was dich motiviert.</p>
+      </div>
+      <div class="how-step ani-fade-in" data-delay="80">
+        <div class="how-step-num">2</div>
+        <h4>Kennenlernen</h4>
+        <p>Wir melden uns zeitnah und laden dich zu einem ersten, lockeren Gespräch ein – persönlich oder per Video.</p>
+      </div>
+      <div class="how-step ani-fade-in" data-delay="160">
+        <div class="how-step-num">3</div>
+        <h4>Team treffen</h4>
+        <p>Du lernst dein zukünftiges Team kennen und bekommst einen echten Eindruck von unserer Arbeit und Atmosphäre.</p>
+      </div>
+      <div class="how-step ani-fade-in" data-delay="240">
+        <div class="how-step-num">4</div>
+        <h4>Willkommen an Bord</h4>
+        <p>Passt es für beide Seiten, machen wir es offiziell – und du startest mit einer strukturierten Einarbeitung.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEWERBUNGSFORMULAR -->
+<section class="apply-section" id="bewerben">
+  <div class="section-inner">
+    <div class="ani-fade-in" style="text-align:center;">
+      <p class="section-label">Jetzt bewerben</p>
+      <h2 class="section-title">Lust, mit uns <em>etwas zu bewegen?</em></h2>
+      <p class="section-sub" style="margin:0 auto;">Auch ohne passende Ausschreibung freuen wir uns über deine Initiativbewerbung. Erzähl uns, was du kannst und wo du hinwillst.</p>
+    </div>
+    <div class="apply-layout">
+
+      <!-- FORM -->
+      <div class="contact-form-card ani-fade-in">
+        <h3>Deine Bewerbung</h3>
+        <form action="#" method="post" enctype="multipart/form-data" onsubmit="return false;">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="vorname">Vorname *</label>
+              <input type="text" id="vorname" name="vorname" placeholder="Vorname" required />
+            </div>
+            <div class="form-group">
+              <label for="nachname">Nachname *</label>
+              <input type="text" id="nachname" name="nachname" placeholder="Nachname" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="email">E-Mail *</label>
+              <input type="email" id="email" name="email" placeholder="deine@email.de" required />
+            </div>
+            <div class="form-group">
+              <label for="telefon">Telefon</label>
+              <input type="tel" id="telefon" name="telefon" placeholder="+49 ..." />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="bereich">Bereich</label>
+              <select id="bereich" name="bereich">
+                <option value="">Bitte wählen</option>
+                <option>Software-Entwicklung</option>
+                <option>Server-Administration</option>
+                <option>UI- / Webdesign</option>
+                <option>Projekt- / Account-Management</option>
+                <option>Sales &amp; Marketing</option>
+                <option>QA &amp; Support</option>
+                <option>Initiativbewerbung</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="eintritt">Frühester Eintritt</label>
+              <input type="text" id="eintritt" name="eintritt" placeholder="z.B. sofort, ab 01.09." />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="unterlagen">Bewerbungsunterlagen</label>
+            <input type="file" id="unterlagen" name="unterlagen" accept=".pdf,.doc,.docx" multiple />
+            <span class="form-hint">Lebenslauf, Anschreiben und Zeugnisse – am liebsten als PDF (mehrere Dateien möglich).</span>
+          </div>
+          <div class="form-group">
+            <label for="motivation">Deine Nachricht *</label>
+            <textarea id="motivation" name="motivation" placeholder="Erzähl uns, was dich motiviert und wo du hinwillst..." required></textarea>
+          </div>
+          <button type="submit" class="form-submit">
+            <span class="material-symbols-rounded" style="font-size:18px;">send</span>
+            Bewerbung absenden
+          </button>
+          <p class="form-privacy">Mit dem Absenden stimmst du unserer <a href="#">Datenschutzerklärung</a> zu. Wir verwenden deine Daten ausschließlich zur Bearbeitung deiner Bewerbung.</p>
+        </form>
+      </div>
+
+      <!-- ANSPRECHPARTNER -->
+      <div class="apply-aside">
+        <div class="info-card ani-fade-in" data-delay="100">
+          <h4>Dein Ansprechpartner</h4>
+          <div class="person-card">
+            <div class="person-avatar"><img src="team/susie.jpg" alt="Susie" /></div>
+            <div>
+              <div class="person-name">Susie</div>
+              <div class="person-role">Accounting</div>
+            </div>
+          </div>
+          <div class="person-links">
+            <a href="mailto:jobs@siteforum.com"><span class="material-symbols-rounded">mail</span>jobs@siteforum.com</a>
+            <a href="tel:+4936166615810"><span class="material-symbols-rounded">phone</span>+49 361 6661 5810</a>
+          </div>
+        </div>
+        <div class="info-card ani-fade-in" data-delay="180">
+          <h4>Noch Fragen?</h4>
+          <p>Du bist dir nicht sicher, ob deine Qualifikation passt? Melde dich einfach – wir besprechen gemeinsam, wo du am besten ins Team passt.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:44px; width:auto;" /></a>
+        <p>We Build Digital Leaders.<div>Cloud | Portale | KI</div></p>
+        <p style="margin-top:14px;">Straße des Friedens 15a<br />99094 Erfurt</p>
+        <p style="margin-top:14px;"><a href="mailto:info@siteforum.com" style="color:inherit;text-decoration:none;">info@siteforum.com</a><br /><a href="tel:+4936166615810" style="color:inherit;text-decoration:none;">+49 361 6661 5810</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Kompetenzen</h4>
+        <ul>
+          <li><a href="cloud.html">Cloud</a></li>
+          <li><a href="plattform.html">Portale</a></li>
+          <li><a href="ki.html">Angewandte KI</a></li>
+          <li><a href="implementierung-services.html">Implementierung &amp; Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Lösungen</h4>
+        <ul>
+          <li><a href="mitgliederportale.html">Mitgliederportal</a></li>
+          <li><a href="kundenportale.html">Kundenportal</a></li>
+          <li><a href="mitarbeiterportale.html">Mitarbeiterportal</a></li>
+          <li><a href="informationsmanagement.html">Ereignis-Dokumentation</a></li>
+          <li><a href="communities.html">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Referenzen</h4>
+        <ul>
+          <li><a href="referenzen.html">Kundenprojekte</a></li>
+        </ul>
+        <h4 style="margin-top:24px;">Über uns</h4>
+        <ul>
+          <li><a href="ueber-uns.html">Team</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SITEFORUM GmbH. Alle Rechte vorbehalten.</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var delay = parseInt(entry.target.dataset.delay || 0, 10);
+      var el = entry.target;
+      setTimeout(function() { el.classList.add('visible'); }, delay);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.ani-fade-in').forEach(function(el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

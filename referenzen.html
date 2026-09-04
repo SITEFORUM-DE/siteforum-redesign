@@ -8,281 +8,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&display=block" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    /* ─── HERO (SUBPAGE) ────────────────────────────────────── */
-    .hero {
-      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
-      padding: 140px 40px 80px;
-      position: relative; overflow: hidden;
-    }
-    .hero::before {
-      content: ''; position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
-      background-size: 28px 28px; pointer-events: none;
-    }
-    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
-    .hero h1 {
-      font-size: clamp(2.4rem, 4vw, 3.4rem);
-      font-weight: 800; letter-spacing: -1.5px;
-      line-height: 1.1; margin: 0 0 24px; color: var(--white);
-    }
-    .hero h1 em { font-style: normal; color: #93c5fd; }
-    .hero-sub {
-      font-size: 1.1rem; color: rgba(255,255,255,0.7);
-      max-width: 620px; margin: 0 0 40px; font-weight: 400; line-height: 1.65;
-    }
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
-    .btn-primary {
-      background: var(--white); color: var(--primary);
-      padding: 16px 32px; border-radius: var(--radius-sm);
-      font-size: 0.95rem; font-weight: 700; text-decoration: none;
-      transition: opacity 0.2s, transform 0.15s; display: inline-block;
-    }
-    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
-    .btn-secondary {
-      background: transparent; color: var(--white);
-      padding: 16px 32px; border-radius: var(--radius-sm);
-      font-size: 0.95rem; font-weight: 600; text-decoration: none;
-      border: 1.5px solid rgba(255,255,255,0.3);
-      transition: border-color 0.2s, transform 0.15s; display: inline-block;
-    }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
-    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
-    .hero-tag {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.65);
-      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
-      padding: 5px 12px; border-radius: 999px;
-    }
-    .hero-tag .material-symbols-rounded { font-size: 14px; color: #93c5fd; }
-
-    /* ─── FILTER TABS ──────────────────────────────────────── */
-    .ref-filters {
-      display: flex; flex-wrap: wrap; gap: 10px;
-      margin-bottom: 40px; justify-content: center;
-    }
-    .ref-filter-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 9px 20px; border-radius: 999px;
-      font-size: 0.85rem; font-weight: 600; cursor: pointer;
-      border: 1.5px solid rgba(255,255,255,0.12);
-      background: transparent; color: var(--slate-600);
-      transition: all 0.2s;
-      font-family: 'Inter', sans-serif;
-    }
-    .ref-filter-btn:hover {
-      border-color: var(--blue-200);
-      color: var(--navy);
-    }
-    .ref-filter-btn.active {
-      background: rgba(95,201,245,0.12);
-      border-color: rgba(95,201,245,0.35);
-      color: var(--blue-600);
-    }
-
-    /* ─── REFERENCE CARD GRID ──────────────────────────────── */
-    .ref-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
-    }
-    .ref-card {
-      background: #0D1526; border: 1.5px solid rgba(255,255,255,0.10);
-      border-radius: var(--radius-md); overflow: hidden;
-      display: flex; flex-direction: column;
-      transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
-    }
-    .ref-card:hover {
-      border-color: var(--blue-200);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-      transform: translateY(-2px);
-    }
-    .ref-card.hidden {
-      display: none;
-    }
-    .ref-card-header {
-      display: flex; align-items: center; gap: 16px;
-      padding: 24px 28px 0;
-    }
-    .ref-card-logo {
-      width: 48px; height: 48px; min-width: 48px;
-      background: rgba(255,255,255,0.06); border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      overflow: hidden; padding: 6px;
-    }
-    .ref-card-logo img {
-      max-width: 100%; max-height: 100%; object-fit: contain; display: block;
-    }
-    .ref-card-logo .material-symbols-rounded {
-      font-size: 28px; color: var(--blue-600);
-    }
-    .ref-card-header-text {
-      flex: 1; min-width: 0;
-    }
-    .ref-card-branche {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
-      letter-spacing: 0.6px; color: var(--blue-600);
-      background: rgba(95,201,245,0.10); border-radius: 999px;
-      padding: 3px 10px; margin-bottom: 4px;
-    }
-    .ref-card-stat-row {
-      display: flex; align-items: baseline; gap: 8px; margin-top: 2px;
-    }
-    .ref-card-stat {
-      font-size: 1.6rem; font-weight: 800; letter-spacing: -0.5px;
-      color: #fff; line-height: 1.2;
-    }
-    .ref-card-stat-label {
-      font-size: 0.78rem; color: var(--slate-600); font-weight: 500;
-    }
-    .ref-card-body {
-      padding: 20px 28px 28px; display: flex; flex-direction: column; flex: 1;
-    }
-    .ref-card-body h3 {
-      font-size: 1.08rem; font-weight: 700; color: var(--navy);
-      margin-bottom: 16px; line-height: 1.3;
-    }
-    .ref-card-detail {
-      font-size: 0.86rem; color: var(--slate-600); line-height: 1.65;
-      margin-bottom: 10px;
-    }
-    .ref-card-detail:last-of-type { margin-bottom: 0; }
-    .ref-card-detail strong {
-      color: var(--navy); font-weight: 600;
-    }
-    .ref-card-detail a {
-      color: var(--blue-600); font-weight: 600; text-decoration: none;
-      transition: opacity 0.2s;
-    }
-    .ref-card-detail a:hover { opacity: 0.8; }
-
-    @media (max-width: 800px) {
-      .ref-grid { grid-template-columns: 1fr; }
-      .ref-filters { gap: 8px; }
-      .ref-filter-btn { padding: 7px 14px; font-size: 0.8rem; }
-    }
-
-    /* ─── LOGO GRID ─────────────────────────────────────────── */
-    .logo-grid-wrap { position: relative; }
-    .logo-grid {
-      display: grid; grid-template-columns: repeat(6, 1fr);
-      gap: 16px; width: 100%;
-    }
-    .logo-frame {
-      width: 100%; min-width: 0; position: relative;
-      background: var(--white); border: 1.5px solid #e5e7eb;
-      border-radius: var(--radius-sm); overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .logo-frame::before { content: ''; display: block; padding-bottom: 100%; }
-    .logo-frame img {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%; object-fit: contain; display: block;
-    }
-    .logo-frame:hover { border-color: var(--blue-200); box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
-    @media (max-width: 1024px) { .logo-grid { grid-template-columns: repeat(4, 1fr); } }
-    @media (max-width: 640px)  { .logo-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; } }
-
-    /* ═══════════════════════════════════════════════════════════
-       DARK THEME (dunkel & kontrast-reich) – zuletzt = gewinnt
-       ═══════════════════════════════════════════════════════════ */
-    :root {
-      --primary:   #5FC9F5;
-      --secondary: #5FC9F5;
-      --blue-50:   #0D1526;
-      --blue-100:  rgba(95,201,245,0.14);
-      --blue-200:  rgba(95,201,245,0.45);
-      --blue-600:  #5FC9F5;
-      --blue-700:  #8ADAF9;
-      --navy:      #F5F6F8;
-      --slate-600: #9AA7BD;
-      --slate-100: #101B2E;
-      --white:     #0A101E;
-    }
-    body { background: var(--white); color: var(--navy); }
-
-    /* ── NAV ── */
-    .nav-inner { background: rgba(13,21,38,0.85); border-color: rgba(255,255,255,0.10); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-    .nav-links a { color: rgba(245,246,248,0.75); }
-    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .nav-links a.active { color: var(--navy); background: rgba(95,201,245,0.12); }
-    .nav-dropdown-menu, .nav-lang-menu { background: rgba(13,21,38,0.97); border-color: rgba(255,255,255,0.10); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
-    .nav-dropdown-menu a, .nav-lang-menu a { color: rgba(245,246,248,0.75); }
-    .nav-dropdown-menu a:hover, .nav-lang-menu a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .nav-dropdown-menu a.active, .nav-lang-menu a.active { color: var(--blue-600); background: rgba(95,201,245,0.12); }
-    .nav-dropdown-divider { background: rgba(255,255,255,0.10); }
-    .nav-lang-btn { color: rgba(245,246,248,0.75); }
-    .nav-lang-btn:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .nav-lang-menu a .lang-code { color: rgba(245,246,248,0.4); }
-    .nav-hamburger span { background: var(--navy); }
-    .nav-mobile-menu { background: rgba(13,21,38,0.98); border-color: rgba(255,255,255,0.10); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
-    .nav-mobile-menu > a, .mob-group-toggle { color: rgba(245,246,248,0.8); }
-    .nav-mobile-menu > a:hover, .mob-group-toggle:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .mob-sub a { color: rgba(245,246,248,0.55); }
-    .mob-sub a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-
-    /* ── BREADCRUMB ── */
-    .bc-bar { background: #0D1526; border-top: 1px solid rgba(255,255,255,0.10); border-bottom: 1px solid rgba(255,255,255,0.10); }
-    .bc-sep { color: rgba(255,255,255,0.25); }
-    .bc-current { color: var(--slate-600); }
-
-    /* ── HERO ── */
-    .hero { background: linear-gradient(135deg, #0D1B30 0%, #0A1322 100%); }
-    .hero h1 { color: var(--navy); }
-    .hero h1 em { color: var(--blue-600); }
-    .hero-sub { color: rgba(245,246,248,0.7); }
-    .hero-tag { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: rgba(245,246,248,0.7); }
-    .hero-tag .material-symbols-rounded { color: var(--blue-600); }
-    .solution-badge { background: rgba(95,201,245,0.12); border-color: rgba(95,201,245,0.3); color: var(--blue-600); }
-
-    /* ── BUTTONS ── */
-    .btn-primary { background: var(--blue-600); color: #0A101E; }
-    .btn-secondary { background: transparent; color: var(--navy); border-color: rgba(255,255,255,0.25); }
-    .btn-secondary:hover { border-color: var(--blue-600); }
-
-    /* ── CARDS ── */
-    .sol-card, .case-card, .news-card { background: #0D1526; border-color: rgba(255,255,255,0.10); }
-    .sol-card:hover, .case-card:hover, .news-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-    .sol-icon { background: var(--blue-100); color: var(--blue-600); }
-    .sol-card h3, .case-body h3, .news-title { color: var(--navy); }
-    .sol-card p, .case-body p, .news-teaser { color: var(--slate-600); }
-    .case-top { background: linear-gradient(135deg, #10233D 0%, #0C1A2E 100%); }
-    .case-stat { color: #fff; }
-    .case-tag { color: var(--blue-600); }
-
-    /* ── LOGO WALL (helle Kacheln für JPG-Logos) ── */
-    .logo-frame { background: var(--bg-alt); border-color: rgba(255,255,255,0.10); opacity: 0.7; transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s; }
-    .logo-frame:hover { opacity: 1; border-color: var(--blue-200); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
-
-    /* ── CTA BANNER ── */
-    .cta-banner { background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%); border: 1px solid rgba(255,255,255,0.10); }
-    .cta-banner::before { background-image: none; }
-    .cta-banner .section-label, .cta-banner .section-title em { color: var(--blue-600); }
-    .cta-banner .section-title { color: var(--navy); }
-    .cta-banner .section-sub { color: var(--slate-600); }
-    .cta-contact-label-top, .cta-contact-link .material-symbols-rounded { color: var(--blue-600); }
-    .cta-contact-name { color: var(--navy); }
-    .cta-contact-link { color: rgba(245,246,248,0.7); }
-    .cta-contact-link:hover { color: var(--navy); }
-
-    /* ── FOOTER ── */
-    footer { background: #060A12; color: var(--slate-600); }
-    .footer-brand .nav-logo, .footer-col h4 { color: var(--navy); }
-    .footer-col a, .footer-bottom a { color: var(--slate-600); }
-    .footer-col a:hover, .footer-bottom a:hover { color: var(--navy); }
-
-    /* ── TYPOGRAFIE: Outfit-Headlines ── */
-    h1, h2, h3, h4, .hero h1, .section-title, .section-title em { font-family: 'Outfit', 'Inter', sans-serif; font-weight: 600; }
-
-    /* ── DEKO-LINIE vor Section-Labels ── */
-    .section-label { display: inline-flex; align-items: center; gap: 14px; }
-    .section-label::before { content: ''; width: 48px; height: 1px; background: var(--blue-600); flex: 0 0 auto; }
-    .cta-banner .section-label { justify-content: center; }
-    .cta-banner .section-label::before { display: none; }
-  </style>
 </head>
-<body>
+<body class="page-referenzen">
 
 <!-- NAV -->
 <nav>
@@ -302,7 +31,7 @@
         </div>
       </li>
       <li class="nav-has-dropdown">
-        <a href="loesungen.html">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <a href="index.html#loesungen">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
         <div class="nav-dropdown-menu">
           <a href="mitgliederportale.html">Mitgliederportale</a>
           <a href="kundenportale.html">Kundenportale</a>
@@ -332,6 +61,10 @@
           <a href="#">English <span class="lang-code">EN</span></a>
         </div>
       </div>
+      <a href="#" class="nav-login" aria-label="Login zum Kundenportal">
+        <span class="material-symbols-rounded">login</span>
+        <span class="nav-login-label">Login</span>
+      </a>
       <a href="kontakt.html" class="nav-cta">Gespräch anfragen</a>
       <button class="nav-hamburger" id="nav-toggle" aria-label="Menü">
         <span></span><span></span><span></span>
@@ -390,7 +123,6 @@
       <a href="#referenzen" class="btn-primary">Referenzen ansehen</a>
     </div>
     <div class="hero-tags">
-      <span class="hero-tag"><span class="material-symbols-rounded">verified_user</span> ISO 27001 zertifiziert</span>
       <span class="hero-tag"><span class="material-symbols-rounded">lock</span> DSGVO-konform</span>
       <span class="hero-tag"><span class="material-symbols-rounded">handshake</span> Langfristige Partnerschaften</span>
       <span class="hero-tag"><span class="material-symbols-rounded">location_on</span> Made in Germany</span>
@@ -564,11 +296,33 @@
         </div>
       </div>
 
+      <!-- Odgers Berndtson -->
+      <div class="ref-card ani-fade-in" data-branche="personal">
+        <div class="ref-card-header">
+          <div class="ref-card-logo">
+            <img src="customer-logos/SITEFORUM_Kunden_odgers.png" alt="Odgers Berndtson" />
+          </div>
+          <div class="ref-card-header-text">
+            <div class="ref-card-branche">Personaldienstleistungen</div>
+            <div class="ref-card-stat-row">
+              <span class="ref-card-stat">2.000+</span>
+              <span class="ref-card-stat-label">Partner &amp; Mitarbeiter weltweit</span>
+            </div>
+          </div>
+        </div>
+        <div class="ref-card-body">
+          <h3>Odgers Berndtson</h3>
+          <p class="ref-card-detail"><strong>Herausforderung:</strong> Mehr als 2.000 Partner und Mitarbeiter arbeiten an verschiedenen Standorten auf der ganzen Welt und benötigten hochwertige, personalisierte interne Kommunikation.</p>
+          <p class="ref-card-detail"><strong>Lösung:</strong> Intranetportal für personalisierte interne Kommunikation und Information auf hohem Niveau. <a href="intranet.html">Intranet &rarr;</a></p>
+          <p class="ref-card-detail"><strong>Ergebnis:</strong> Personalisierte interne Kommunikation für 2.000+ Partner und Mitarbeiter weltweit</p>
+        </div>
+      </div>
+
       <!-- 7. eurobahn -->
       <div class="ref-card ani-fade-in" data-branche="verkehr">
         <div class="ref-card-header">
           <div class="ref-card-logo">
-            <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_eurobahn_mono.png" alt="eurobahn" />
+            <img src="customer-logos/SITEFORUM_Kunden_eurobahn.jpg" alt="eurobahn" />
           </div>
           <div class="ref-card-header-text">
             <div class="ref-card-branche">Verkehr &amp; Transport</div>
@@ -590,7 +344,7 @@
       <div class="ref-card ani-fade-in" data-branche="verkehr">
         <div class="ref-card-header">
           <div class="ref-card-logo">
-            <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" />
+            <img src="customer-logos/SITEFORUM_Kunden_ODEG.jpg" alt="ODEG" />
           </div>
           <div class="ref-card-header-text">
             <div class="ref-card-branche">Verkehr &amp; Transport</div>
@@ -608,25 +362,47 @@
         </div>
       </div>
 
-      <!-- 9. Lineas -->
+      <!-- 9. Abellio -->
       <div class="ref-card ani-fade-in" data-branche="verkehr">
         <div class="ref-card-header">
           <div class="ref-card-logo">
-            <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lineas_mono.png" alt="Lineas" />
+            <img src="customer-logos/SITEFORUM_Kunden_abellio.jpg" alt="Abellio" />
           </div>
           <div class="ref-card-header-text">
             <div class="ref-card-branche">Verkehr &amp; Transport</div>
             <div class="ref-card-stat-row">
-              <span class="ref-card-stat">EU-weit</span>
-              <span class="ref-card-stat-label">Standorte vernetzt</span>
+              <span class="ref-card-stat">50.000+</span>
+              <span class="ref-card-stat-label">Betriebsvorfälle/Jahr dokumentiert</span>
             </div>
           </div>
         </div>
         <div class="ref-card-body">
-          <h3>Lineas – Lageberichtsystem</h3>
-          <p class="ref-card-detail"><strong>Herausforderung:</strong> Europas größter privater Güterverkehrsanbieter benötigte ein einheitliches System für die Dokumentation und Verteilung von Betriebsereignissen.</p>
-          <p class="ref-card-detail"><strong>Lösung:</strong> EU-weites Lageberichtsystem für standardisierte Ereignis-Dokumentation über alle Standorte. <a href="informationsmanagement.html">Ereignis-Dokumentation &rarr;</a></p>
-          <p class="ref-card-detail"><strong>Ergebnis:</strong> Standardisierte Dokumentation an allen europäischen Standorten</p>
+          <h3>Abellio</h3>
+          <p class="ref-card-detail"><strong>Herausforderung:</strong> Betriebsvorfälle im Bahnbetrieb mussten zuverlässig dokumentiert und an die richtigen Stellen verteilt werden.</p>
+          <p class="ref-card-detail"><strong>Lösung:</strong> Ereignis-Dokumentation mit intelligenter Verteilung der Betriebsvorfälle an Leitstellen und Fahrgastkanäle. <a href="informationsmanagement.html">Ereignis-Dokumentation &rarr;</a></p>
+          <p class="ref-card-detail"><strong>Ergebnis:</strong> Über 50.000 Betriebsvorfälle pro Jahr dokumentiert und intelligent verteilt</p>
+        </div>
+      </div>
+
+      <!-- 10. National Express -->
+      <div class="ref-card ani-fade-in" data-branche="verkehr">
+        <div class="ref-card-header">
+          <div class="ref-card-logo">
+            <img src="customer-logos/SITEFORUM_Kunden_national-express.jpg" alt="National Express" />
+          </div>
+          <div class="ref-card-header-text">
+            <div class="ref-card-branche">Verkehr &amp; Transport</div>
+            <div class="ref-card-stat-row">
+              <span class="ref-card-stat">Echtzeit</span>
+              <span class="ref-card-stat-label">Fahrgast- &amp; Betriebsinformation</span>
+            </div>
+          </div>
+        </div>
+        <div class="ref-card-body">
+          <h3>National Express</h3>
+          <p class="ref-card-detail"><strong>Herausforderung:</strong> Fahrgäste und interne Stellen benötigten aktuelle, verlässliche Betriebsinformationen über alle Kanäle.</p>
+          <p class="ref-card-detail"><strong>Lösung:</strong> Ereignis-Dokumentation mit Echtzeit-Verteilung von Betriebs- und Fahrgastinformationen. <a href="informationsmanagement.html">Ereignis-Dokumentation &rarr;</a></p>
+          <p class="ref-card-detail"><strong>Ergebnis:</strong> Betriebsinformationen in Echtzeit an Fahrgäste und Leitstellen verteilt</p>
         </div>
       </div>
 
@@ -656,7 +432,7 @@
       <div class="ref-card ani-fade-in" data-branche="weitere">
         <div class="ref-card-header">
           <div class="ref-card-logo">
-            <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_knm_mono.png" alt="Großer Preis des Mittelstandes" />
+            <img src="customer-logos/SITEFORUM_Kunden_kompetenznetz-mittelstand.jpg" alt="Kompetenznetz Mittelstand" />
           </div>
           <div class="ref-card-header-text">
             <div class="ref-card-branche">Weitere Projekte</div>
@@ -700,38 +476,13 @@
   </div>
 </section>
 
-<!-- LOGO WALL -->
-<section style="background:var(--slate-100);">
-  <div class="section-inner">
-    <div class="ani-fade-in" style="text-align:center;">
-      <h2 class="section-title"><em><font color="#f5f6f8">Zufriedene Kunden.</font></em></h2>
-      <p class="section-sub" style="margin:0 auto 48px;">Von innovativen Start-Ups bis zu Marktführern in unterschiedlichen Branchen. Eine Auszug unserer Kundenliste.</p>
-    </div>
-    <div class="logo-grid-wrap">
-    <div class="logo-grid">
-      <div class="logo-frame ani-fade-in" data-delay="0"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="National Express" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="60"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="VBL" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="120"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="nordwest" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="180"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="240"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="THOR" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="300"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="Abellio" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="0"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_eurobahn_mono.png" alt="Eurobahn" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="60"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="HR.com" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="120"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_knm_mono.png" alt="Kompetenznetz Mittelstand" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="180"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lineas_mono.png" alt="Lineas" /></div>
-      <div class="logo-frame ani-fade-in" data-delay="240"><img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_myfavorito_mono.png" alt="myfavorito" /></div>
-    </div>
-    </div>
-  </div>
-</section>
-
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-top">
       <div class="footer-brand">
         <a href="index.html" class="nav-logo"><img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:44px; width:auto;" /></a>
-        <p>We Build Digital Leaders.<div>Cloud | Portale | KI</div></p>
+        <p>We grow your digital business.<br />Cloud | Portale | KI</p>
         <p style="margin-top:14px;">Straße des Friedens 15a<br />99094 Erfurt</p>
         <p style="margin-top:14px;"><a href="mailto:info@siteforum.com" style="color:inherit;text-decoration:none;">info@siteforum.com</a><br /><a href="tel:+4936166615810" style="color:inherit;text-decoration:none;">+49 361 6661 5810</a></p>
       </div>

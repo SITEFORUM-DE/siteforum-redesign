@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Angewandte KI – SITEFORUM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:   #003366;
+      --secondary: #006699;
+      --blue-50:   #e6f0f7;
+      --blue-100:  #cce0ee;
+      --blue-200:  #99c2dd;
+      --blue-600:  #006699;
+      --blue-700:  #003366;
+      --navy:      #003366;
+      --slate-600: #475569;
+      --slate-100: #f1f5f9;
+      --white:     #ffffff;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+    }
+
+    html { scroll-behavior: smooth; }
+    h1, h2, h3, h4 { overflow-wrap: break-word; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 10px 24px; pointer-events: none;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+      border: 1px solid #e5e7eb; border-radius: 999px;
+      padding: .5rem .6rem .5rem 1.5rem;
+      box-shadow: 0 1px 2px 0 rgba(10,13,18,0.05);
+      pointer-events: all;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+    .nav-links li { display: flex; align-items: center; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500; color: #374151;
+      padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s;
+      display: inline-flex; align-items: center;
+    }
+    .nav-links a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: var(--blue-50); font-weight: 600; }
+    .nav-has-dropdown { position: relative; }
+    .nav-has-dropdown > a { gap: 2px; }
+    .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-has-dropdown::after {
+      content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px;
+    }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 20px); left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+      border: 1px solid #e5e7eb; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
+      min-width: 220px; padding: 6px;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      z-index: 200;
+    }
+    .nav-has-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; visibility: visible; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 8px 14px; border-radius: 8px;
+      color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500;
+      white-space: nowrap; transition: background 0.12s, color 0.12s; background: none;
+    }
+    .nav-dropdown-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-dropdown-menu a.active { color: var(--blue-600); background: #eff6ff; }
+    .nav-dropdown-divider { height: 1px; background: #e5e7eb; margin: 4px 8px; }
+    .nav-lang { position: relative; display: flex; align-items: center; }
+    .nav-lang-btn { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; color: #374151; font-size: 0.9rem; font-weight: 500; padding: 8px 10px; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .nav-lang-btn:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-btn .nav-globe { font-size: 20px !important; }
+    .nav-lang-btn .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-lang:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-lang::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px; }
+    .nav-lang-menu { position: absolute; top: calc(100% + 20px); right: 0; transform: translateY(-6px); background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05); min-width: 160px; padding: 6px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; z-index: 200; }
+    .nav-lang:hover .nav-lang-menu { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .nav-lang-menu a { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 8px; color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500; white-space: nowrap; transition: background 0.12s, color 0.12s; background: none; }
+    .nav-lang-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-menu a.active { color: var(--blue-600); background: #eff6ff; }
+    .nav-lang-menu a .lang-code { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; color: #9ca3af; margin-left: auto; }
+    .nav-cta {
+      background: var(--blue-600); color: var(--white);
+      padding: 11px 22px; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta::after { content: "→"; }
+    .nav-cta:hover { background: var(--blue-700); transform: translateY(-1px); }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      padding: 220px 40px 170px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.16) 1.5px, transparent 1.5px);
+      background-size: 28px 28px; pointer-events: none;
+    }
+    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .solution-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 6px 16px;
+      border-radius: 999px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 800; letter-spacing: -1.5px;
+      line-height: 1.1; margin: 0 0 24px; color: var(--white);
+    }
+    .hero h1 em { font-style: normal; color: #93c5fd; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      max-width: 600px; margin: 0 0 40px; font-weight: 400; line-height: 1.65;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      background: var(--white); color: var(--primary);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 700; text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 12px; border-radius: 999px;
+    }
+    .hero-tag .material-symbols-rounded { font-size: 14px; color: #93c5fd; }
+
+    /* ─── SECTION WRAPPER ───────────────────────────────────── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .ani-fade-in { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease !important; }
+    .ani-fade-in.visible { opacity: 1; transform: none; }
+
+    .section-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue-600); margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.15; color: var(--navy); margin-bottom: 20px;
+    }
+    .section-title em { font-style: normal; color: var(--secondary); }
+    .section-sub {
+      font-size: 1.05rem; color: var(--slate-600);
+      max-width: 580px; margin-bottom: 60px;
+    }
+
+    /* ─── INTRO GRID ────────────────────────────────────────── */
+    .intro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .intro-card {
+      display: flex; flex-direction: column; gap: 14px;
+      padding: 28px 24px; background: var(--white);
+      border-radius: var(--radius-md); border: 1.5px solid #e5e7eb;
+    }
+    .intro-icon {
+      width: 48px; height: 48px; border-radius: var(--radius-sm);
+      background: var(--blue-50); display: flex; align-items: center;
+      justify-content: center; color: var(--secondary); flex-shrink: 0;
+    }
+    .intro-icon .material-symbols-rounded { font-size: 24px; }
+    .intro-card h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .intro-card p { font-size: 0.88rem; color: var(--slate-600); line-height: 1.6; }
+
+    /* ─── USE CASE BLOCK ────────────────────────────────────── */
+    .usecase-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .usecase-layout.reverse { direction: rtl; }
+    .usecase-layout.reverse > * { direction: ltr; }
+    .usecase-content { display: flex; flex-direction: column; gap: 24px; }
+    .usecase-label {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--secondary);
+    }
+    .usecase-title {
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem); font-weight: 800;
+      letter-spacing: -0.5px; line-height: 1.2; color: var(--navy);
+    }
+    .usecase-title em { font-style: normal; color: var(--secondary); }
+    .usecase-text { font-size: 0.95rem; color: var(--slate-600); line-height: 1.7; }
+    .usecase-list { display: flex; flex-direction: column; gap: 12px; }
+    .usecase-list-item { display: flex; gap: 12px; align-items: flex-start; }
+    .usecase-check {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--blue-50); display: flex; align-items: center;
+      justify-content: center; color: var(--secondary); flex-shrink: 0; margin-top: 1px;
+    }
+    .usecase-check .material-symbols-rounded { font-size: 14px; }
+    .usecase-list-item p { font-size: 0.9rem; color: var(--slate-600); line-height: 1.55; }
+    .usecase-list-item strong { color: var(--navy); }
+
+    /* ─── VISUAL CARD (chat mockup) ─────────────────────────── */
+    .chat-mockup {
+      background: var(--white); border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,51,102,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb; overflow: hidden;
+    }
+    .chat-topbar {
+      background: #f8fafc; border-bottom: 1px solid #e5e7eb;
+      padding: 14px 20px; display: flex; align-items: center; gap: 12px;
+    }
+    .chat-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: var(--blue-600); display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .chat-avatar .material-symbols-rounded { font-size: 18px; color: #fff; }
+    .chat-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+    .chat-subtitle { font-size: 0.72rem; color: #94a3b8; }
+    .chat-status { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; margin-left: auto; }
+    .chat-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .chat-bubble {
+      max-width: 82%; padding: 10px 14px; border-radius: 14px;
+      font-size: 0.82rem; line-height: 1.5;
+    }
+    .chat-bubble.user {
+      background: var(--blue-600); color: #fff;
+      border-radius: 14px 14px 4px 14px; align-self: flex-end;
+    }
+    .chat-bubble.bot {
+      background: #f1f5f9; color: var(--navy);
+      border-radius: 14px 14px 14px 4px; align-self: flex-start;
+    }
+    .chat-bubble.bot strong { color: var(--secondary); }
+    .chat-source {
+      display: inline-flex; align-items: center; gap: 5px;
+      font-size: 0.68rem; color: #94a3b8; margin-top: 6px;
+    }
+    .chat-source .material-symbols-rounded { font-size: 12px; }
+    .chat-typing {
+      display: flex; gap: 4px; align-items: center;
+      background: #f1f5f9; padding: 10px 14px; border-radius: 14px 14px 14px 4px;
+      align-self: flex-start; width: fit-content;
+    }
+    .chat-dot {
+      width: 6px; height: 6px; border-radius: 50%; background: #94a3b8;
+      animation: chatDot 1.2s ease-in-out infinite;
+    }
+    .chat-dot:nth-child(2) { animation-delay: 0.2s; }
+    .chat-dot:nth-child(3) { animation-delay: 0.4s; }
+    @keyframes chatDot { 0%,80%,100% { opacity: 0.3; transform: scale(0.8); } 40% { opacity: 1; transform: scale(1); } }
+
+    /* ─── VISUAL CARD (invoice mockup) ─────────────────────── */
+    .invoice-mockup {
+      background: var(--white); border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,51,102,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb; overflow: hidden;
+    }
+    .invoice-topbar {
+      background: #f8fafc; border-bottom: 1px solid #e5e7eb;
+      padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .invoice-topbar-icon { color: var(--secondary); }
+    .invoice-topbar-icon .material-symbols-rounded { font-size: 20px; }
+    .invoice-topbar-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+    .invoice-topbar-sub { font-size: 0.72rem; color: #94a3b8; }
+    .invoice-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .invoice-file {
+      display: flex; align-items: center; gap: 12px;
+      background: #f8fafc; border: 1px solid #e5e7eb;
+      border-radius: 10px; padding: 12px 14px;
+    }
+    .invoice-file-icon { color: var(--secondary); }
+    .invoice-file-icon .material-symbols-rounded { font-size: 22px; }
+    .invoice-file-name { font-size: 0.82rem; font-weight: 600; color: var(--navy); }
+    .invoice-file-size { font-size: 0.7rem; color: #94a3b8; }
+    .invoice-progress {
+      background: #e5e7eb; border-radius: 4px; height: 4px; overflow: hidden; margin-top: 4px;
+    }
+    .invoice-progress-bar {
+      height: 100%; background: var(--secondary); border-radius: 4px;
+      animation: progressFill 2s ease-out infinite alternate;
+    }
+    @keyframes progressFill { from { width: 40%; } to { width: 92%; } }
+    .invoice-results { display: flex; flex-direction: column; gap: 8px; }
+    .invoice-result-row {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 8px 12px; background: #f8fafc; border-radius: 8px;
+      border: 1px solid #e5e7eb;
+    }
+    .invoice-result-label { font-size: 0.78rem; color: var(--slate-600); }
+    .invoice-result-value { font-size: 0.82rem; font-weight: 700; color: var(--navy); }
+    .invoice-result-value.ok { color: #15803d; }
+    .invoice-result-value.warn { color: #d97706; }
+    .invoice-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700; padding: 4px 10px; border-radius: 999px;
+    }
+    .invoice-badge.green { background: #dcfce7; color: #15803d; }
+    .invoice-badge.orange { background: #fef3c7; color: #d97706; }
+
+    /* ─── VISUAL CARD (cms mockup) ──────────────────────────── */
+    .cms-mockup {
+      background: var(--white); border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,51,102,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb; overflow: hidden;
+    }
+    .cms-topbar {
+      background: #f8fafc; border-bottom: 1px solid #e5e7eb;
+      padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .cms-topbar-icon { color: var(--secondary); }
+    .cms-topbar-icon .material-symbols-rounded { font-size: 20px; }
+    .cms-topbar-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+    .cms-topbar-sub { font-size: 0.72rem; color: #94a3b8; }
+    .cms-body { padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+    .cms-doc {
+      background: #f8fafc; border: 1px solid #e5e7eb;
+      border-radius: 10px; padding: 16px;
+    }
+    .cms-doc-title { font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .cms-doc-line { height: 7px; border-radius: 4px; background: #e5e7eb; margin-bottom: 8px; }
+    .cms-doc-line.w90 { width: 90%; }
+    .cms-doc-line.w75 { width: 75%; }
+    .cms-doc-line.w60 { width: 60%; }
+    .cms-suggest-head {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.74rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--secondary); margin-bottom: 4px;
+    }
+    .cms-suggest-head .material-symbols-rounded { font-size: 16px; }
+    .cms-suggest-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; background: #f8fafc; border: 1px solid #e5e7eb;
+      border-radius: 8px;
+    }
+    .cms-suggest-item .material-symbols-rounded { font-size: 18px; color: var(--secondary); flex-shrink: 0; }
+    .cms-suggest-text { font-size: 0.8rem; color: var(--navy); flex: 1; }
+    .cms-suggest-badge {
+      font-size: 0.68rem; font-weight: 700; padding: 3px 9px; border-radius: 999px;
+      background: #dbeafe; color: var(--blue-600); flex-shrink: 0;
+    }
+
+    /* ─── VISUAL CARD (mail mockup) ─────────────────────────── */
+    .mail-mockup {
+      background: var(--white); border-radius: 20px;
+      box-shadow: 0 24px 64px rgba(0,51,102,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      border: 1px solid #e5e7eb; overflow: hidden;
+    }
+    .mail-topbar {
+      background: #f8fafc; border-bottom: 1px solid #e5e7eb;
+      padding: 14px 20px; display: flex; align-items: center; gap: 10px;
+    }
+    .mail-topbar-icon { color: var(--secondary); }
+    .mail-topbar-icon .material-symbols-rounded { font-size: 20px; }
+    .mail-topbar-title { font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+    .mail-topbar-sub { font-size: 0.72rem; color: #94a3b8; }
+    .mail-body { padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .mail-meta { display: flex; flex-direction: column; gap: 2px; }
+    .mail-subject { font-size: 0.88rem; font-weight: 700; color: var(--navy); }
+    .mail-from { font-size: 0.74rem; color: #94a3b8; }
+    .mail-block {
+      background: #f8fafc; border: 1px solid #e5e7eb;
+      border-radius: 10px; padding: 12px 14px;
+    }
+    .mail-block-head {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--secondary); margin-bottom: 8px;
+    }
+    .mail-block-head .material-symbols-rounded { font-size: 15px; }
+    .mail-summary { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .mail-summary li {
+      position: relative; padding-left: 16px;
+      font-size: 0.8rem; color: var(--slate-600); line-height: 1.5;
+    }
+    .mail-summary li::before {
+      content: ''; position: absolute; left: 0; top: 7px;
+      width: 6px; height: 6px; border-radius: 50%; background: var(--secondary);
+    }
+    .mail-draft {
+      background: #f0f7ff; border: 1px solid #dbeafe;
+      border-radius: 10px; padding: 12px 14px;
+    }
+    .mail-draft-head {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 8px;
+    }
+    .mail-draft-head .material-symbols-rounded { font-size: 15px; color: var(--blue-600); }
+    .mail-draft-label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.05em; color: var(--blue-600);
+    }
+    .mail-draft-text { font-size: 0.8rem; color: var(--navy); line-height: 1.55; }
+
+    /* ─── HOW WE WORK ───────────────────────────────────────── */
+    .how-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; position: relative; }
+    .how-grid::before {
+      content: ''; position: absolute; top: 28px; left: calc(12.5%); right: calc(12.5%);
+      height: 2px; background: var(--blue-100); z-index: 0;
+    }
+    .how-step { display: flex; flex-direction: column; align-items: center; text-align: center; padding: 0 16px; position: relative; z-index: 1; }
+    .how-step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--blue-600); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; font-weight: 800; margin-bottom: 20px;
+      box-shadow: 0 0 0 6px var(--white);
+    }
+    .how-step h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .how-step p { font-size: 0.84rem; color: var(--slate-600); line-height: 1.55; }
+
+    /* ─── CTA BANNER ────────────────────────────────────────── */
+    .cta-banner {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      border-radius: var(--radius-lg); margin: 0 40px;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .cta-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
+      background-size: 28px 28px; pointer-events: none; z-index: 0;
+    }
+    .cta-banner .section-inner { padding: 80px 60px; position: relative; z-index: 1; text-align: center; }
+    .cta-banner .section-label { color: #93c5fd; }
+    .cta-banner .section-title { max-width: 640px; margin: 0 auto 16px; color: var(--white); }
+    .cta-banner .section-sub { margin: 0 auto 40px; text-align: center; color: #94a3b8; }
+    .cta-banner .section-title em { color: #93c5fd; }
+    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .cta-contact-block {
+      display: flex; flex-direction: column; align-items: center;
+      gap: 4px; margin: 40px 0; padding: 32px 0;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .cta-contact-label-top {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: #93c5fd; margin-bottom: 20px;
+    }
+    .cta-contact-avatar {
+      width: 100px; height: 100px; border-radius: 50%;
+      overflow: hidden; border: 3px solid rgba(255,255,255,0.2);
+      flex-shrink: 0; margin-bottom: 16px;
+    }
+    .cta-contact-avatar img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cta-contact-name { font-size: 1.05rem; font-weight: 700; color: var(--white); }
+    .cta-contact-role { font-size: 0.85rem; color: rgba(255,255,255,0.55); margin-bottom: 16px; }
+    .cta-contact-links { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+    .cta-contact-link {
+      display: flex; align-items: center; gap: 6px;
+      font-size: 0.85rem; color: rgba(255,255,255,0.75);
+      text-decoration: none; transition: color 0.15s;
+    }
+    .cta-contact-link:hover { color: var(--white); }
+    .cta-contact-link .material-symbols-rounded { font-size: 16px; color: #93c5fd; }
+
+    /* ─── BRIDGE BANNER ─────────────────────────────────────── */
+    .bridge-banner {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      border-radius: var(--radius-lg); margin: 100px 40px 0;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .bridge-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
+      background-size: 28px 28px; pointer-events: none; z-index: 0;
+    }
+    .bridge-inner { padding: 80px 60px; position: relative; z-index: 1; }
+    .bridge-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #93c5fd; margin-bottom: 16px;
+    }
+    .bridge-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.15; color: #fff;
+      max-width: 640px; margin: 0 auto 16px;
+    }
+    .bridge-title em { font-style: normal; color: #93c5fd; }
+    .bridge-sub {
+      font-size: 1.05rem; color: #94a3b8;
+      max-width: 580px; margin: 0 auto 40px;
+    }
+    .bridge-links {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .bridge-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2);
+      color: #fff; text-decoration: none;
+      padding: 16px 28px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .bridge-link:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.35); transform: translateY(-1px); }
+    .bridge-link .material-symbols-rounded { font-size: 20px; color: #93c5fd; }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer {
+      background: var(--navy); color: #94a3b8;
+      padding: 64px 40px 32px; margin-top: 100px;
+    }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px; padding-bottom: 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .footer-brand .nav-logo { color: var(--white); display: block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 260px; }
+    .footer-col h4 {
+      font-size: 0.85rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; color: var(--white); margin-bottom: 20px;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { text-decoration: none; color: #94a3b8; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 28px; font-size: 0.82rem; flex-wrap: wrap; gap: 12px;
+    }
+    .footer-bottom a { color: #94a3b8; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── HAMBURGER ─────────────────────────────────────────── */
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px; cursor: pointer;
+      padding: 6px; border: none; background: none; pointer-events: all;
+    }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; display: block; }
+    .nav-mobile-menu { display: none; position: fixed; top: 76px; left: 16px; right: 16px; background: white; border: 1px solid #e5e7eb; border-radius: var(--radius-md); box-shadow: 0 8px 32px rgba(0,0,0,0.1); padding: 16px; z-index: 99; flex-direction: column; gap: 4px; }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu > a { text-decoration: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; transition: background 0.15s; display: block; }
+    .nav-mobile-menu > a:hover { background: var(--slate-100); }
+    .mob-group { display: flex; flex-direction: column; }
+    .mob-group-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; cursor: pointer; text-align: left; transition: background 0.15s; font-family: inherit; }
+    .mob-group-toggle:hover { background: var(--slate-100); }
+    .mob-chevron { font-size: 18px !important; transition: transform 0.2s; line-height: 1; flex-shrink: 0; }
+    .mob-group.open .mob-chevron { transform: rotate(180deg); }
+    .mob-sub { display: none; flex-direction: column; padding-left: 12px; }
+    .mob-group.open .mob-sub { display: flex; }
+    .mob-sub a { text-decoration: none; font-size: 0.88rem; font-weight: 400; color: #6b7280; padding: 8px 16px; border-radius: 8px; transition: background 0.15s; display: block; }
+    .mob-sub a:hover { background: var(--slate-100); color: var(--navy); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .nav-chevron { display: none; }
+      .nav-actions { gap: 4px !important; margin-right: 10px; }
+      .usecase-layout { grid-template-columns: 1fr; gap: 40px; }
+      .usecase-layout.reverse { direction: ltr; }
+      .intro-grid { grid-template-columns: repeat(2, 1fr); }
+      .how-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+      .how-grid::before { display: none; }
+    }
+    @media (max-width: 640px) {
+      h1, h2, h3, h4 { hyphens: auto; }
+      nav { padding: 10px 16px; }
+      .nav-inner { height: 52px; padding: 0.4rem 0.5rem 0.4rem 1rem; }
+      section { padding: 64px 20px; }
+      .hero { padding: 120px 20px 80px; }
+      .intro-grid { grid-template-columns: 1fr; }
+      .how-grid { grid-template-columns: 1fr; }
+      .cta-banner { margin: 0 16px; }
+      .bridge-banner { margin: 64px 16px 0; }
+      .bridge-inner { padding: 48px 24px; }
+      .bridge-links { flex-direction: column; align-items: center; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DARK THEME (dunkel & kontrast-reich) – zuletzt = gewinnt
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      --primary:   #5FC9F5;
+      --secondary: #5FC9F5;
+      --blue-50:   #0D1526;
+      --blue-100:  rgba(95,201,245,0.14);
+      --blue-200:  rgba(95,201,245,0.45);
+      --blue-600:  #5FC9F5;
+      --blue-700:  #8ADAF9;
+      --navy:      #F5F6F8;
+      --slate-600: #9AA7BD;
+      --slate-100: #101B2E;
+      --white:     #0A101E;
+      --bg-alt:    #0D1526;
+      --bg-deep:   #060A12;
+      --line:      rgba(255,255,255,0.10);
+    }
+    body { background: var(--white); color: var(--navy); }
+
+    /* ── NAV ── */
+    .nav-inner { background: rgba(13,21,38,0.85); border-color: var(--blue-200); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .nav-links a { color: rgba(245,246,248,0.75); }
+    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-menu, .nav-lang-menu { background: rgba(13,21,38,0.97); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-dropdown-menu a, .nav-lang-menu a { color: rgba(245,246,248,0.75); }
+    .nav-dropdown-menu a:hover, .nav-lang-menu a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-dropdown-menu a.active, .nav-lang-menu a.active { color: var(--blue-600); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-divider { background: var(--line); }
+    .nav-lang-btn { color: rgba(245,246,248,0.75); }
+    .nav-lang-btn:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-lang-menu a .lang-code { color: rgba(245,246,248,0.4); }
+    .nav-hamburger span { background: var(--navy); }
+    .nav-mobile-menu { background: rgba(13,21,38,0.98); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-mobile-menu > a, .mob-group-toggle { color: rgba(245,246,248,0.8); }
+    .nav-mobile-menu > a:hover, .mob-group-toggle:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .mob-sub a { color: rgba(245,246,248,0.55); }
+    .mob-sub a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+
+    /* ── BREADCRUMB ── */
+    .bc-bar { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .bc-sep { color: rgba(255,255,255,0.25); }
+    .bc-current { color: var(--slate-600); }
+
+    /* ── HERO (dunkel, Cyan-Akzent) ── */
+    .hero { background: var(--white); }
+    .solution-badge { background: rgba(95,201,245,0.12); border-color: rgba(95,201,245,0.3); color: var(--blue-600); }
+    .hero-actions .btn-secondary { background: var(--white); }
+    .hero h1 { color: var(--navy); }
+    .hero h1 em { color: var(--blue-600); }
+    .hero-tag .material-symbols-rounded { color: var(--blue-600); }
+    .hero-visual { --white:#fff; --navy:#0f172a; --blue-50:#e6f0f7; --blue-100:#cce0ee; --blue-200:#99c2dd; --blue-600:#006699; --blue-700:#003366; --primary:#003366; --secondary:#006699; --slate-600:#475569; --slate-100:#f1f5f9; }
+
+    /* ── STATS ── */
+    .stats { background: var(--white); border-bottom-color: var(--line); }
+
+    /* ── BUTTONS ── */
+    .btn-primary { background: var(--blue-600); color: #0A101E; }
+    .btn-secondary { background: transparent; color: var(--navy); border-color: rgba(255,255,255,0.25); }
+    .btn-secondary:hover { border-color: var(--blue-600); }
+
+    /* ── CARDS ── */
+    .intro-card, .feature-card, .story-card { background: var(--bg-alt); border-color: var(--line); }
+    .intro-card:hover, .feature-card:hover, .story-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .intro-icon, .feature-icon, .benefit-check { background: var(--blue-100); color: var(--blue-600); }
+    .benefits-visual { background: var(--bg-alt); border: 1px solid var(--line); }
+    .benefits-divider { border-top-color: var(--line); }
+    .story-img-wrap { background: var(--bg-alt); }
+    .story-result { background: rgba(95,201,245,0.10); }
+    .story-customer-badge { background: #F5F6F8; border-color: var(--line); }
+
+    /* ── USE-CASE: Titel-Gewicht + Mockups als helle Illustrationen ── */
+    .usecase-title { font-weight: 600; }
+    .chat-mockup, .invoice-mockup, .cms-mockup, .mail-mockup { --white:#fff; --navy:#0f172a; --blue-50:#e6f0f7; --blue-100:#cce0ee; --blue-200:#99c2dd; --blue-600:#006699; --blue-700:#003366; --primary:#003366; --secondary:#006699; --slate-600:#475569; --slate-100:#f1f5f9; }
+
+    /* ── CTA BANNER (dunkles Panel) ── */
+    .cta-banner { background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%); border: 1px solid var(--line); }
+    .cta-banner::before { background-image: none; }
+    .cta-banner .section-title { color: var(--navy); }
+    .cta-banner .section-title em, .cta-banner .section-label { color: var(--blue-600); }
+    .cta-contact-label-top, .cta-contact-link .material-symbols-rounded { color: var(--blue-600); }
+    .cta-contact-name { color: var(--navy); }
+    .cta-contact-link:hover { color: var(--navy); }
+
+    /* ── BRIDGE BANNER ── */
+    .bridge-banner { background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%); border: 1px solid var(--line); }
+    .bridge-banner::before { background-image: none; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--bg-deep); color: var(--slate-600); }
+    .footer-brand .nav-logo, .footer-col h4 { color: var(--navy); }
+    .footer-col a, .footer-bottom a { color: var(--slate-600); }
+    .footer-col a:hover, .footer-bottom a:hover { color: var(--navy); }
+
+    /* ── TYPOGRAFIE: Outfit-Headlines ── */
+    h1, h2, h3, h4,
+    .hero h1, .section-title, .section-title em,
+    .stat-value, .story-title, .benefits-stat-big,
+    .bridge-title, .bridge-title em { font-family: 'Outfit', 'Inter', sans-serif; font-weight: 600; }
+
+    /* ── DEKO-LINIE vor Section-Labels ── */
+    .section-label { display: inline-flex; align-items: center; gap: 14px; }
+    .section-label::before { content: ''; width: 48px; height: 1px; background: var(--blue-600); flex: 0 0 auto; }
+    .cta-banner .section-label { justify-content: center; }
+    .cta-banner .section-label::before { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:32px; width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li class="nav-has-dropdown">
+        <a href="index.html#produkte" class="active">Kompetenzen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="cloud.html">Cloud</a>
+          <a href="plattform.html">Portale</a>
+          <a href="ki.html" class="active">Angewandte KI</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="implementierung-services.html">Implementierung &amp; Services</a>
+        </div>
+      </li>
+      <li class="nav-has-dropdown">
+        <a href="loesungen.html">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="mitgliederportale.html">Mitgliederportale</a>
+          <a href="kundenportale.html">Kundenportale</a>
+          <a href="mitarbeiterportale.html">Mitarbeiterportale</a>
+          <a href="informationsmanagement.html">Ereignis-Dokumentation</a>
+          <a href="communities.html">Community</a>
+        </div>
+      </li>
+<li><a href="referenzen.html">Referenzen</a></li>
+      <li class="nav-has-dropdown">
+        <a href="ueber-uns.html">Über uns <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ueber-uns.html">Team</a>
+          <a href="karriere.html">Karriere</a>
+          <a href="news.html">News</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
+      <div class="nav-lang">
+        <button class="nav-lang-btn" aria-label="Sprache wählen" aria-haspopup="true">
+          <span class="material-symbols-rounded nav-globe">language</span>
+          <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span>
+        </button>
+        <div class="nav-lang-menu">
+          <a href="#" class="active">Deutsch <span class="lang-code">DE</span></a>
+          <a href="#">English <span class="lang-code">EN</span></a>
+        </div>
+      </div>
+      <a href="kontakt.html" class="nav-cta">Gespräch anfragen</a>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Kompetenzen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="cloud.html" onclick="closeMenu()">Cloud</a>
+      <a href="plattform.html" onclick="closeMenu()">Portale</a>
+      <a href="ki.html" onclick="closeMenu()">Angewandte KI</a>
+      <a href="implementierung-services.html" onclick="closeMenu()">Implementierung &amp; Services</a>
+    </div>
+  </div>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Lösungen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="mitgliederportale.html" onclick="closeMenu()">Mitgliederportale</a>
+      <a href="kundenportale.html" onclick="closeMenu()">Kundenportale</a>
+      <a href="mitarbeiterportale.html" onclick="closeMenu()">Mitarbeiterportale</a>
+      <a href="informationsmanagement.html" onclick="closeMenu()">Ereignis-Dokumentation</a>
+      <a href="communities.html" onclick="closeMenu()">Community</a>
+    </div>
+  </div>
+  <a href="referenzen.html" onclick="closeMenu()">Referenzen</a>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Über uns <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="ueber-uns.html" onclick="closeMenu()">Team</a>
+      <a href="karriere.html" onclick="closeMenu()">Karriere</a>
+      <a href="news.html" onclick="closeMenu()">News</a>
+    </div>
+  </div>  <a href="kontakt.html" onclick="closeMenu()" style="color:var(--blue-600);font-weight:600;">Gespräch anfragen</a>
+</div>
+<script>
+  var navToggle = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-mobile-menu');
+  navToggle.addEventListener('click', function() { navMenu.classList.toggle('open'); });
+  function closeMenu() { navMenu.classList.remove('open'); }
+  function toggleMobGroup(btn) { btn.closest('.mob-group').classList.toggle('open'); }
+</script>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="solution-badge">
+      <span class="material-symbols-rounded" style="font-size:14px;">auto_awesome</span>
+      Kompetenzen
+    </div>
+    <h1>Angewandte KI. <em>Eingebettet in Ihre Lösung.</em></h1>
+    <p class="hero-sub">KI als fester Bestandteil Ihrer Lösung. Chatbots, Assistenten, Dokumentenanalyse und automatisierte Prozesse, die zu Ihrer Organisation passen.</p>
+    <div class="hero-actions">
+      <a href="#anwendungsfaelle" class="btn-primary">Anwendungsfälle ansehen</a>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag"><span class="material-symbols-rounded">verified_user</span> DSGVO-konform</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">location_on</span> Made in Germany</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">integration_instructions</span> Nahtlos integriert</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">tune</span> Individuell konfigurierbar</span>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="bc-bar">
+  <div class="bc-inner">
+    <div class="bc-row">
+      <a href="index.html" aria-label="Startseite" title="Startseite" class="bc-home"><span class="material-symbols-rounded">home</span></a>
+      <span class="bc-sep">›</span>
+      <a href="index.html#produkte">Kompetenzen</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Angewandte KI</span>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">KI bei SITEFORUM</p>
+      <h2 class="section-title">Ihr Portal. <em>Noch smarter.</em></h2>
+      <p class="section-sub">Wir integrieren KI dort, wo sie echten Nutzen bringt: im direkten Kontakt mit Ihren Nutzern und in Ihren internen Abläufen.</p>
+    </div>
+    <div class="intro-grid">
+      <div class="intro-card ani-fade-in" data-delay="0">
+        <div class="intro-icon"><span class="material-symbols-rounded">check_circle</span></div>
+        <div>
+          <h4>KI-ready ab Tag eins</h4>
+          <p>Die SITEFORUM-Plattform ist so gebaut, dass KI-Funktionen jederzeit ergänzt werden können – ohne Systemwechsel oder aufwendige Migration.</p>
+        </div>
+      </div>
+      <div class="intro-card ani-fade-in" data-delay="100">
+        <div class="intro-icon"><span class="material-symbols-rounded">smart_toy</span></div>
+        <div>
+          <h4>KI-Chatbot für Ihr Portal</h4>
+          <p>Ein Assistent, der die Inhalte Ihres Portals kennt und Nutzerfragen sofort und präzise beantwortet – rund um die Uhr, ohne Wartezeit.</p>
+        </div>
+      </div>
+      <div class="intro-card ani-fade-in" data-delay="200">
+        <div class="intro-icon"><span class="material-symbols-rounded">receipt_long</span></div>
+        <div>
+          <h4>Automatisierte Dokumentenanalyse</h4>
+          <p>Rechnungen, Belege und Formulare werden von der KI ausgelesen, geprüft und zur Weiterverarbeitung aufbereitet – schnell und zuverlässig.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASE 1: CHATBOT -->
+<section id="anwendungsfaelle" style="background:var(--slate-100);">
+  <div class="section-inner">
+    <div class="usecase-layout">
+      <div class="usecase-content">
+        <div>
+          <span class="usecase-label">
+            <span class="material-symbols-rounded" style="font-size:16px;">smart_toy</span>
+            Anwendungsfall 1
+          </span>
+        </div>
+        <h3 class="usecase-title">Der Assistent, der Ihr Portal <em>kennt</em></h3>
+        <p class="usecase-text">Stellen Sie sich vor, Ihre Mitglieder oder Kunden bekommen auf jede Frage zum Portal sofort eine präzise Antwort – ohne Wartezeit, ohne Hotline. Unser KI-Chatbot liest die Inhalte Ihres Portals, Ihre Dokumente und FAQs und gibt darauf basierend verlässliche Auskunft.</p>
+        <div class="usecase-list">
+          <div class="usecase-list-item ani-fade-in" data-delay="0">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Basiert auf Ihren Inhalten</strong> – der Chatbot antwortet nur auf Basis der von Ihnen freigegebenen Dokumente und Seiten, keine Halluzinationen aus dem Internet.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="80">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Entlastet Ihr Team</strong> – wiederkehrende Standardfragen werden automatisch beantwortet, Ihre Mitarbeiter kümmern sich um komplexe Fälle.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="160">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Immer verfügbar</strong> – 24 Stunden, 7 Tage die Woche, ohne Wartezeit und ohne Warteschleife.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="240">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>DSGVO-konform</strong> – alle Anfragen und Antworten bleiben innerhalb Ihrer geschützten Infrastruktur in Deutschland.</p>
+          </div>
+        </div>
+      </div>
+      <div class="chat-mockup ani-fade-in">
+        <div class="chat-topbar">
+          <div class="chat-avatar"><span class="material-symbols-rounded">smart_toy</span></div>
+          <div>
+            <div class="chat-title">Portal-Assistent</div>
+            <div class="chat-subtitle">Beantwortet Ihre Fragen</div>
+          </div>
+          <div class="chat-status"></div>
+        </div>
+        <div class="chat-body">
+          <div class="chat-bubble user">Wie beantrage ich eine Befreiung von der Fortbildungspflicht?</div>
+          <div class="chat-bubble bot">
+            Eine Befreiung von der Fortbildungspflicht können Sie direkt über das Portal beantragen. Gehen Sie dazu unter <strong>„Mein Bereich" → „Anträge" → „Befreiungsantrag Fortbildung"</strong>.<br><br>
+            Folgende Unterlagen werden benötigt:<br>
+            • Formular FB-07 (ausgefüllt)<br>
+            • Nachweis über den Befreiungsgrund<br><br>
+            Die Bearbeitungszeit beträgt in der Regel 2–3 Werktage.
+            <div class="chat-source"><span class="material-symbols-rounded">description</span> Quelle: Merkblatt Fortbildungspflicht, S. 4</div>
+          </div>
+          <div class="chat-bubble user">Wo finde ich das Formular FB-07?</div>
+          <div class="chat-typing"><div class="chat-dot"></div><div class="chat-dot"></div><div class="chat-dot"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASE 2: RECHNUNGSANALYSE -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+    <div class="usecase-layout reverse">
+      <div class="usecase-content">
+        <div>
+          <span class="usecase-label">
+            <span class="material-symbols-rounded" style="font-size:16px;">receipt_long</span>
+            Anwendungsfall 2
+          </span>
+        </div>
+        <h3 class="usecase-title">Belege, die sich <em>selbst prüfen</em></h3>
+        <p class="usecase-text">Das manuelle Durchsehen von Eingangsrechnungen kostet Zeit und ist fehleranfällig. Mit KI-gestützter Beleganalyse werden Dokumente von Agenten automatisch gelesen, relevante Daten extrahiert und direkt in Ihren Verarbeitungsprozess übergeben.</p>
+        <div class="usecase-list">
+          <div class="usecase-list-item ani-fade-in" data-delay="0">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Automatisches Auslesen</strong> – Lieferant, Betrag, Datum, Steuersatz und Positionen werden zuverlässig erkannt, auch bei unterschiedlichen Layouts.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="80">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Plausibilitätsprüfung</strong> – die KI erkennt ungewöhnliche Beträge, fehlende Pflichtangaben oder Abweichungen von Bestelldaten.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="160">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Nahtlose Weiterverarbeitung</strong> – extrahierte Daten werden direkt in Ihre Buchhaltung, Ihr ERP oder ein Freigabe-Workflow übergeben.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="240">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Bereits im Einsatz</strong> – mehrere SITEFORUM-Kunden nutzen diese Funktion heute produktiv und haben die Bearbeitungszeit deutlich reduziert.</p>
+          </div>
+        </div>
+      </div>
+      <div class="invoice-mockup ani-fade-in">
+        <div class="invoice-topbar">
+          <div class="invoice-topbar-icon"><span class="material-symbols-rounded">auto_awesome</span></div>
+          <div>
+            <div class="invoice-topbar-title">KI-Beleganalyse</div>
+            <div class="invoice-topbar-sub">Automatische Erkennung &amp; Prüfung</div>
+          </div>
+        </div>
+        <div class="invoice-body">
+          <div class="invoice-file">
+            <div class="invoice-file-icon"><span class="material-symbols-rounded">picture_as_pdf</span></div>
+            <div style="flex:1;">
+              <div class="invoice-file-name">Rechnung_2024_04892.pdf</div>
+              <div class="invoice-file-size">248 KB · wird analysiert ...</div>
+              <div class="invoice-progress"><div class="invoice-progress-bar"></div></div>
+            </div>
+          </div>
+          <div class="invoice-results">
+            <div class="invoice-result-row">
+              <span class="invoice-result-label">Lieferant</span>
+              <span class="invoice-result-value">Muster GmbH, Erfurt</span>
+            </div>
+            <div class="invoice-result-row">
+              <span class="invoice-result-label">Rechnungsdatum</span>
+              <span class="invoice-result-value">14.04.2025</span>
+            </div>
+            <div class="invoice-result-row">
+              <span class="invoice-result-label">Nettobetrag</span>
+              <span class="invoice-result-value">4.280,00 €</span>
+            </div>
+            <div class="invoice-result-row">
+              <span class="invoice-result-label">MwSt. (19 %)</span>
+              <span class="invoice-result-value">813,20 €</span>
+            </div>
+            <div class="invoice-result-row">
+              <span class="invoice-result-label">Abgleich Bestellung</span>
+              <span class="invoice-result-value ok"><span class="invoice-badge green">✓ Übereinstimmung</span></span>
+            </div>
+            <div class="invoice-result-row">
+              <span class="invoice-result-label">Zahlungsziel</span>
+              <span class="invoice-result-value warn"><span class="invoice-badge orange">! 3 Tage verbleibend</span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASE 3: CMS INHALTSANALYSE -->
+<section style="background:var(--slate-100);">
+  <div class="section-inner">
+    <div class="usecase-layout">
+      <div class="usecase-content">
+        <div>
+          <span class="usecase-label">
+            <span class="material-symbols-rounded" style="font-size:16px;">edit_note</span>
+            Anwendungsfall 3
+          </span>
+        </div>
+        <h3 class="usecase-title">Inhalte, die sich <em>selbst verbessern</em></h3>
+        <p class="usecase-text">Beim Pflegen von Portal- und Webseiten-Inhalten unterstützt Sie die KI direkt im CMS. Sie analysiert Ihre Texte beim Schreiben, erkennt Schwachstellen und liefert konkrete Vorschläge – für bessere Lesbarkeit, stärkere Auffindbarkeit und konsistente Inhalte.</p>
+        <div class="usecase-list">
+          <div class="usecase-list-item ani-fade-in" data-delay="0">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Inhaltsanalyse in Echtzeit</strong> – Lesbarkeit, Tonalität und Struktur werden direkt beim Bearbeiten bewertet.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="80">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Konkrete Vorschläge</strong> – von der treffenden Überschrift bis zur fehlenden Meta-Beschreibung erhalten Sie umsetzbare Empfehlungen.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="160">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Bessere Auffindbarkeit</strong> – die KI schlägt passende interne Verlinkungen und Schlüsselbegriffe vor.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="240">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Sie behalten die Kontrolle</strong> – jeder Vorschlag wird angezeigt und nur auf Wunsch übernommen, nichts wird automatisch geändert.</p>
+          </div>
+        </div>
+      </div>
+      <div class="cms-mockup ani-fade-in">
+        <div class="cms-topbar">
+          <div class="cms-topbar-icon"><span class="material-symbols-rounded">auto_awesome</span></div>
+          <div>
+            <div class="cms-topbar-title">KI-Inhaltsanalyse</div>
+            <div class="cms-topbar-sub">Vorschläge beim Bearbeiten</div>
+          </div>
+        </div>
+        <div class="cms-body">
+          <div class="cms-doc">
+            <div class="cms-doc-title">Neue Fortbildungsangebote 2025</div>
+            <div class="cms-doc-line w90"></div>
+            <div class="cms-doc-line w75"></div>
+            <div class="cms-doc-line w60"></div>
+          </div>
+          <div class="cms-suggest-head">
+            <span class="material-symbols-rounded">tips_and_updates</span> Vorschläge
+          </div>
+          <div class="cms-suggest-item">
+            <span class="material-symbols-rounded">title</span>
+            <span class="cms-suggest-text">Überschrift kürzen für mehr Wirkung</span>
+            <span class="cms-suggest-badge">Lesbarkeit</span>
+          </div>
+          <div class="cms-suggest-item">
+            <span class="material-symbols-rounded">link</span>
+            <span class="cms-suggest-text">Internen Link zu „Fortbildungspflicht" ergänzen</span>
+            <span class="cms-suggest-badge">Auffindbarkeit</span>
+          </div>
+          <div class="cms-suggest-item">
+            <span class="material-symbols-rounded">description</span>
+            <span class="cms-suggest-text">Meta-Beschreibung fehlt</span>
+            <span class="cms-suggest-badge">SEO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- USE CASE 4: WEBMAIL -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+    <div class="usecase-layout reverse">
+      <div class="usecase-content">
+        <div>
+          <span class="usecase-label">
+            <span class="material-symbols-rounded" style="font-size:16px;">mail</span>
+            Anwendungsfall 4
+          </span>
+        </div>
+        <h3 class="usecase-title">E-Mails, die sich <em>kürzer fassen</em></h3>
+        <p class="usecase-text">Lange E-Mail-Verläufe und volle Postfächer kosten täglich Zeit. Direkt in Webmail fasst die KI eingehende Nachrichten auf das Wesentliche zusammen und erstellt auf Knopfdruck passende Antwortentwürfe – damit Sie schneller reagieren können.</p>
+        <div class="usecase-list">
+          <div class="usecase-list-item ani-fade-in" data-delay="0">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Inhaltliche Zusammenfassung</strong> – lange Nachrichten und Verläufe werden auf die Kernpunkte verdichtet.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="80">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Antwortentwürfe auf Knopfdruck</strong> – die KI formuliert einen passenden Entwurf, den Sie nur noch anpassen und absenden.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="160">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>Passender Ton</strong> – Entwürfe übernehmen Anliegen und Tonalität der ursprünglichen Nachricht.</p>
+          </div>
+          <div class="usecase-list-item ani-fade-in" data-delay="240">
+            <div class="usecase-check"><span class="material-symbols-rounded">check</span></div>
+            <p><strong>DSGVO-konform</strong> – die Verarbeitung erfolgt innerhalb Ihrer geschützten Infrastruktur in Deutschland.</p>
+          </div>
+        </div>
+      </div>
+      <div class="mail-mockup ani-fade-in">
+        <div class="mail-topbar">
+          <div class="mail-topbar-icon"><span class="material-symbols-rounded">auto_awesome</span></div>
+          <div>
+            <div class="mail-topbar-title">KI in Webmail</div>
+            <div class="mail-topbar-sub">Zusammenfassen &amp; Antworten</div>
+          </div>
+        </div>
+        <div class="mail-body">
+          <div class="mail-meta">
+            <div class="mail-subject">Rückfrage zur Mitgliedschaft &amp; Beitragsanpassung</div>
+            <div class="mail-from">von Maria Schneider · 14:32 · 4 Nachrichten im Verlauf</div>
+          </div>
+          <div class="mail-block">
+            <div class="mail-block-head"><span class="material-symbols-rounded">summarize</span> Zusammenfassung</div>
+            <ul class="mail-summary">
+              <li>Mitglied bittet um Klärung der neuen Beitragshöhe ab 2025.</li>
+              <li>Fragt, ob die Ermäßigung für Studierende weiterhin gilt.</li>
+              <li>Wünscht Rückmeldung bis Ende der Woche.</li>
+            </ul>
+          </div>
+          <div class="mail-draft">
+            <div class="mail-draft-head">
+              <span class="material-symbols-rounded">edit</span>
+              <span class="mail-draft-label">Antwortentwurf</span>
+            </div>
+            <div class="mail-draft-text">Sehr geehrte Frau Schneider, vielen Dank für Ihre Nachricht. Der angepasste Beitrag ab 2025 beträgt … Die Ermäßigung für Studierende bleibt unverändert bestehen …</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW WE WORK -->
+<section style="background:var(--slate-100);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Unser Ansatz</p>
+      <h2 class="section-title">Wie wir KI <em>einbinden.</em></h2>
+      <p class="section-sub" style="margin-bottom:80px;">Wir setzen KI pragmatisch und sicher ein.</p>
+    </div>
+    <div class="how-grid">
+      <div class="how-step ani-fade-in">
+        <div class="how-step-num">1</div>
+        <h4>Anforderungen klären</h4>
+        <p>Gemeinsam definieren wir, welcher Anwendungsfall für Ihre Organisation den größten Nutzen bringt.</p>
+      </div>
+      <div class="how-step ani-fade-in">
+        <div class="how-step-num">2</div>
+        <h4>Datengrundlage vorbereiten</h4>
+        <p>Wir verbinden die KI mit Ihren Portal-Inhalten, Dokumenten oder Systemen – DSGVO-konform und in Ihrer Infrastruktur.</p>
+      </div>
+      <div class="how-step ani-fade-in">
+        <div class="how-step-num">3</div>
+        <h4>Pilotbetrieb &amp; Feintuning</h4>
+        <p>Die Lösung wird in einem kontrollierten Piloten getestet und gemeinsam mit Ihnen verfeinert.</p>
+      </div>
+      <div class="how-step ani-fade-in">
+        <div class="how-step-num">4</div>
+        <h4>Live-Betrieb</h4>
+        <p>Nach dem Go-live überwachen wir die Qualität und passen die KI bei Bedarf kontinuierlich an.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBERLEITUNG: ÖKOSYSTEM IN DER PRAXIS -->
+<div class="bridge-banner">
+  <div class="bridge-inner">
+    <p class="bridge-label">Die ganze Plattform</p>
+    <h2 class="bridge-title">Cloud | Portale | KI – <em>in der Praxis.</em></h2>
+    <p class="bridge-sub">Sehen Sie, wie Organisationen die SITEFORUM-Plattform einsetzen. Oder erfahren Sie, wie wir Ihr Projekt umsetzen.</p>
+    <div class="bridge-links">
+      <a href="referenzen.html" class="bridge-link">
+        <span class="material-symbols-rounded">cases</span>
+        Kundenprojekte ansehen
+      </a>
+      <a href="implementierung-services.html" class="bridge-link">
+        <span class="material-symbols-rounded">handshake</span>
+        Implementierung &amp; Services
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:44px; width:auto;" /></a>
+        <p>We Build Digital Leaders.<div>Cloud | Portale | KI</div></p>
+        <p style="margin-top:14px;">Straße des Friedens 15a<br />99094 Erfurt</p>
+        <p style="margin-top:14px;"><a href="mailto:info@siteforum.com" style="color:inherit;text-decoration:none;">info@siteforum.com</a><br /><a href="tel:+4936166615810" style="color:inherit;text-decoration:none;">+49 361 6661 5810</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Kompetenzen</h4>
+        <ul>
+          <li><a href="cloud.html">Cloud</a></li>
+          <li><a href="plattform.html">Portale</a></li>
+          <li><a href="ki.html">Angewandte KI</a></li>
+          <li><a href="implementierung-services.html">Implementierung &amp; Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Lösungen</h4>
+        <ul>
+          <li><a href="mitgliederportale.html">Mitgliederportal</a></li>
+          <li><a href="kundenportale.html">Kundenportal</a></li>
+          <li><a href="mitarbeiterportale.html">Mitarbeiterportal</a></li>
+          <li><a href="informationsmanagement.html">Ereignis-Dokumentation</a></li>
+          <li><a href="communities.html">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Referenzen</h4>
+        <ul>
+          <li><a href="referenzen.html">Kundenprojekte</a></li>
+        </ul>
+        <h4 style="margin-top:24px;">Über uns</h4>
+        <ul>
+          <li><a href="ueber-uns.html">Team</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SITEFORUM GmbH. Alle Rechte vorbehalten.</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var delay = parseInt(entry.target.dataset.delay || 0, 10);
+      var el = entry.target;
+      setTimeout(function() { el.classList.add('visible'); }, delay);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.ani-fade-in').forEach(function(el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

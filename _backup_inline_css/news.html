@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News – SITEFORUM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:   #003366;
+      --secondary: #006699;
+      --blue-50:   #e6f0f7;
+      --blue-100:  #cce0ee;
+      --blue-200:  #99c2dd;
+      --blue-600:  #006699;
+      --blue-700:  #003366;
+      --navy:      #003366;
+      --slate-600: #475569;
+      --slate-100: #f1f5f9;
+      --white:     #ffffff;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+    }
+
+    html { scroll-behavior: smooth; }
+    h1, h2, h3, h4 { overflow-wrap: break-word; }
+    body { font-family: 'Inter', sans-serif; color: var(--navy); background: var(--white); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 10px 24px; pointer-events: none; }
+    .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border: 1px solid #e5e7eb; border-radius: 999px; padding: .5rem .6rem .5rem 1.5rem; box-shadow: 0 1px 2px 0 rgba(10,13,18,0.05); pointer-events: all; }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+    .nav-links li { display: flex; align-items: center; }
+    .nav-links a { text-decoration: none; font-size: 0.9rem; font-weight: 500; color: #374151; padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s; display: inline-flex; align-items: center; }
+    .nav-links a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: var(--blue-50); font-weight: 600; }
+    .nav-has-dropdown { position: relative; }
+    .nav-has-dropdown > a { gap: 2px; }
+    .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-has-dropdown::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px; }
+    .nav-dropdown-menu { position: absolute; top: calc(100% + 20px); left: 50%; transform: translateX(-50%) translateY(-6px); background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05); min-width: 220px; padding: 6px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; z-index: 200; }
+    .nav-has-dropdown:hover .nav-dropdown-menu { opacity: 1; visibility: visible; pointer-events: all; transform: translateX(-50%) translateY(0); }
+    .nav-dropdown-menu a { display: block; padding: 8px 14px; border-radius: 8px; color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500; white-space: nowrap; transition: background 0.12s, color 0.12s; background: none; }
+    .nav-dropdown-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-dropdown-divider { height: 1px; background: #e5e7eb; margin: 4px 8px; }
+    .nav-lang { position: relative; display: flex; align-items: center; }
+    .nav-lang-btn { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; color: #374151; font-size: 0.9rem; font-weight: 500; padding: 8px 10px; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .nav-lang-btn:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-btn .nav-globe { font-size: 20px !important; }
+    .nav-lang-btn .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-lang:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-lang::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px; }
+    .nav-lang-menu { position: absolute; top: calc(100% + 20px); right: 0; transform: translateY(-6px); background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05); min-width: 160px; padding: 6px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; z-index: 200; }
+    .nav-lang:hover .nav-lang-menu { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .nav-lang-menu a { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 8px; color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500; white-space: nowrap; transition: background 0.12s, color 0.12s; background: none; }
+    .nav-lang-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-menu a.active { color: var(--blue-600); background: #eff6ff; }
+    .nav-lang-menu a .lang-code { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; color: #9ca3af; margin-left: auto; }
+    .nav-cta { background: var(--blue-600); color: var(--white); padding: 11px 22px; border-radius: 999px; font-size: 0.9rem; font-weight: 600; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 8px; white-space: nowrap; flex-shrink: 0; }
+    .nav-cta::after { content: "→"; }
+    .nav-cta:hover { background: var(--blue-700); transform: translateY(-1px); }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero { background: linear-gradient(135deg, #003366 0%, #004d99 100%); padding: 220px 40px 170px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.16) 1.5px, transparent 1.5px); background-size: 28px 28px; pointer-events: none; }
+    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .solution-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9); border: 1px solid rgba(255,255,255,0.2); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; padding: 6px 16px; border-radius: 999px; margin-bottom: 24px; }
+    .hero h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 800; letter-spacing: -1.5px; line-height: 1.1; margin: 0 0 24px; color: var(--white); }
+    .hero h1 em { font-style: normal; color: #93c5fd; }
+    .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0; font-weight: 400; line-height: 1.65; }
+
+    /* ─── SECTIONS ──────────────────────────────────────────── */
+    section { padding: 80px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .ani-fade-in { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease !important; }
+    .ani-fade-in.visible { opacity: 1; transform: none; }
+    .section-label { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--blue-600); margin-bottom: 16px; }
+    .section-title { font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800; letter-spacing: -1px; line-height: 1.15; color: var(--navy); margin-bottom: 20px; }
+    .section-title em { font-style: normal; color: var(--secondary); }
+
+    /* ─── FILTER BAR ────────────────────────────────────────── */
+    .filter-bar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid #e5e7eb; }
+    .filter-label { font-size: 0.82rem; font-weight: 600; color: var(--slate-600); margin-right: 4px; }
+    .filter-btn { font-size: 0.82rem; font-weight: 600; padding: 6px 16px; border-radius: 999px; border: 1.5px solid #e5e7eb; background: var(--white); color: #374151; cursor: pointer; transition: all 0.15s; font-family: inherit; }
+    .filter-btn:hover { border-color: var(--blue-200); color: var(--navy); }
+    .filter-btn.active { background: var(--navy); color: var(--white); border-color: var(--navy); }
+
+    /* ─── NEWS GRID ─────────────────────────────────────────── */
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .news-card { background: var(--white); border-radius: var(--radius-md); border: 1.5px solid #e5e7eb; padding: 28px 24px; text-decoration: none; color: inherit; transition: box-shadow 0.2s, border-color 0.2s; display: block; }
+    .news-card:hover { box-shadow: 0 4px 20px rgba(0,51,102,0.08); border-color: var(--blue-200); }
+    .news-card[data-hidden="true"] { display: none; }
+    .news-meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+    .news-date { font-size: 0.75rem; font-weight: 600; color: var(--slate-600); }
+    .news-tag { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--blue-600); background: var(--blue-50); padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+    .news-title { font-size: 0.98rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; line-height: 1.45; }
+    .news-teaser { font-size: 0.86rem; color: var(--slate-600); line-height: 1.65; }
+    .news-link { font-size: 0.84rem; font-weight: 600; color: var(--blue-600); display: inline-flex; align-items: center; gap: 4px; margin-top: 16px; }
+    .news-link::after { content: "→"; }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer { background: var(--navy); color: #94a3b8; padding: 64px 40px 32px; margin-top: 80px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand .nav-logo { color: var(--white); display: block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 260px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--white); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { text-decoration: none; color: #94a3b8; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; font-size: 0.82rem; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom a { color: #94a3b8; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── HAMBURGER ─────────────────────────────────────────── */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; pointer-events: all; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; display: block; }
+    .nav-mobile-menu { display: none; position: fixed; top: 76px; left: 16px; right: 16px; background: white; border: 1px solid #e5e7eb; border-radius: var(--radius-md); box-shadow: 0 8px 32px rgba(0,0,0,0.1); padding: 16px; z-index: 99; flex-direction: column; gap: 4px; }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu > a { text-decoration: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; transition: background 0.15s; display: block; }
+    .nav-mobile-menu > a:hover { background: var(--slate-100); }
+    .mob-group { display: flex; flex-direction: column; }
+    .mob-group-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; cursor: pointer; text-align: left; transition: background 0.15s; font-family: inherit; }
+    .mob-group-toggle:hover { background: var(--slate-100); }
+    .mob-chevron { font-size: 18px !important; transition: transform 0.2s; line-height: 1; flex-shrink: 0; }
+    .mob-group.open .mob-chevron { transform: rotate(180deg); }
+    .mob-sub { display: none; flex-direction: column; padding-left: 12px; }
+    .mob-group.open .mob-sub { display: flex; }
+    .mob-sub a { text-decoration: none; font-size: 0.88rem; font-weight: 400; color: #6b7280; padding: 8px 16px; border-radius: 8px; transition: background 0.15s; display: block; }
+    .mob-sub a:hover { background: var(--slate-100); color: var(--navy); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .nav-chevron { display: none; }
+      .nav-actions { gap: 4px !important; margin-right: 10px; }
+      .news-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      h1, h2, h3, h4 { hyphens: auto; }
+      nav { padding: 10px 16px; }
+      .nav-inner { height: 52px; padding: 0.4rem 0.5rem 0.4rem 1rem; }
+      section { padding: 64px 20px; }
+      .hero { padding: 120px 20px 80px; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .news-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DARK THEME (dunkel & kontrast-reich) – zuletzt = gewinnt
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      --primary:   #5FC9F5;
+      --secondary: #5FC9F5;
+      --blue-50:   #0D1526;
+      --blue-100:  rgba(95,201,245,0.14);
+      --blue-200:  rgba(95,201,245,0.45);
+      --blue-600:  #5FC9F5;
+      --blue-700:  #8ADAF9;
+      --navy:      #F5F6F8;
+      --slate-600: #9AA7BD;
+      --slate-100: #101B2E;
+      --white:     #0A101E;
+      --bg-alt:    #0D1526;
+      --bg-deep:   #060A12;
+      --line:      rgba(255,255,255,0.10);
+    }
+    body { background: var(--white); color: var(--navy); }
+
+    /* ── NAV ── */
+    .nav-inner { background: rgba(13,21,38,0.85); border-color: var(--blue-200); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .nav-links a { color: rgba(245,246,248,0.75); }
+    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-menu, .nav-lang-menu { background: rgba(13,21,38,0.97); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-dropdown-menu a, .nav-lang-menu a { color: rgba(245,246,248,0.75); }
+    .nav-dropdown-menu a:hover, .nav-lang-menu a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-dropdown-menu a.active, .nav-lang-menu a.active { color: var(--blue-600); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-divider { background: var(--line); }
+    .nav-lang-btn { color: rgba(245,246,248,0.75); }
+    .nav-lang-btn:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-lang-menu a .lang-code { color: rgba(245,246,248,0.4); }
+    .nav-hamburger span { background: var(--navy); }
+    .nav-mobile-menu { background: rgba(13,21,38,0.98); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-mobile-menu > a, .mob-group-toggle { color: rgba(245,246,248,0.8); }
+    .nav-mobile-menu > a:hover, .mob-group-toggle:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .mob-sub a { color: rgba(245,246,248,0.55); }
+    .mob-sub a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+
+    /* ── BREADCRUMB ── */
+    .bc-bar { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .bc-sep { color: rgba(255,255,255,0.25); }
+    .bc-current { color: var(--slate-600); }
+
+    /* ── HERO (dunkel, Cyan-Akzent) ── */
+    .hero { background: var(--white); }
+    .solution-badge { background: rgba(95,201,245,0.12); border-color: rgba(95,201,245,0.3); color: var(--blue-600); }
+    .hero h1 { color: var(--navy); }
+    .hero h1 em { color: var(--blue-600); }
+    .hero-tag .material-symbols-rounded { color: var(--blue-600); }
+    .hero-visual { --white:#fff; --navy:#0f172a; --blue-50:#e6f0f7; --blue-100:#cce0ee; --blue-200:#99c2dd; --blue-600:#006699; --blue-700:#003366; --primary:#003366; --secondary:#006699; --slate-600:#475569; --slate-100:#f1f5f9; }
+
+    /* ── STATS ── */
+    .stats { background: var(--white); border-bottom-color: var(--line); }
+
+    /* ── BUTTONS ── */
+    .btn-primary { background: var(--blue-600); color: #0A101E; }
+    .btn-secondary { background: transparent; color: var(--navy); border-color: rgba(255,255,255,0.25); }
+    .btn-secondary:hover { border-color: var(--blue-600); }
+
+    /* ── CARDS ── */
+    .intro-card, .feature-card, .story-card, .news-card { background: var(--bg-alt); border-color: var(--line); }
+    .intro-card:hover, .feature-card:hover, .story-card:hover, .news-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .filter-bar { border-bottom-color: var(--line); }
+    .filter-btn { border-color: var(--line); background: var(--bg-alt); color: var(--slate-600); }
+    .intro-icon, .feature-icon, .benefit-check { background: var(--blue-100); color: var(--blue-600); }
+    .benefits-visual { background: var(--bg-alt); border: 1px solid var(--line); }
+    .benefits-divider { border-top-color: var(--line); }
+    .story-img-wrap { background: var(--bg-alt); }
+    .story-result { background: rgba(95,201,245,0.10); }
+    .story-customer-badge { background: #F5F6F8; border-color: var(--line); }
+
+    /* ── CTA BANNER (dunkles Panel) ── */
+    .cta-banner { background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%); border: 1px solid var(--line); }
+    .cta-banner::before { background-image: none; }
+    .cta-banner .section-title { color: var(--navy); }
+    .cta-banner .section-title em, .cta-banner .section-label { color: var(--blue-600); }
+    .cta-contact-label-top, .cta-contact-link .material-symbols-rounded { color: var(--blue-600); }
+    .cta-contact-name { color: var(--navy); }
+    .cta-contact-link:hover { color: var(--navy); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--bg-deep); color: var(--slate-600); }
+    .footer-brand .nav-logo, .footer-col h4 { color: var(--navy); }
+    .footer-col a, .footer-bottom a { color: var(--slate-600); }
+    .footer-col a:hover, .footer-bottom a:hover { color: var(--navy); }
+
+    /* ── TYPOGRAFIE: Outfit-Headlines ── */
+    h1, h2, h3, h4,
+    .hero h1, .section-title, .section-title em,
+    .stat-value, .story-title, .benefits-stat-big { font-family: 'Outfit', 'Inter', sans-serif; font-weight: 600; }
+
+    /* ── DEKO-LINIE vor Section-Labels ── */
+    .section-label { display: inline-flex; align-items: center; gap: 14px; }
+    .section-label::before { content: ''; width: 48px; height: 1px; background: var(--blue-600); flex: 0 0 auto; }
+    .cta-banner .section-label { justify-content: center; }
+    .cta-banner .section-label::before { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:32px; width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li class="nav-has-dropdown">
+        <a href="index.html#produkte">Kompetenzen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="cloud.html">Cloud</a>
+          <a href="plattform.html">Portale</a>
+          <a href="ki.html">Angewandte KI</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="implementierung-services.html">Implementierung &amp; Services</a>
+        </div>
+      </li>
+      <li class="nav-has-dropdown">
+        <a href="loesungen.html">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="mitgliederportale.html">Mitgliederportale</a>
+          <a href="kundenportale.html">Kundenportale</a>
+          <a href="mitarbeiterportale.html">Mitarbeiterportale</a>
+          <a href="informationsmanagement.html">Ereignis-Dokumentation</a>
+          <a href="communities.html">Community</a>
+        </div>
+      </li>
+<li><a href="referenzen.html">Referenzen</a></li>
+      <li class="nav-has-dropdown">
+        <a href="ueber-uns.html" class="active">Über uns <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ueber-uns.html">Team</a>
+          <a href="karriere.html">Karriere</a>
+          <a href="news.html" class="active">News</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
+      <div class="nav-lang">
+        <button class="nav-lang-btn" aria-label="Sprache wählen" aria-haspopup="true">
+          <span class="material-symbols-rounded nav-globe">language</span>
+          <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span>
+        </button>
+        <div class="nav-lang-menu">
+          <a href="#" class="active">Deutsch <span class="lang-code">DE</span></a>
+          <a href="#">English <span class="lang-code">EN</span></a>
+        </div>
+      </div>
+      <a href="kontakt.html" class="nav-cta">Gespräch anfragen</a>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Kompetenzen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="cloud.html" onclick="closeMenu()">Cloud</a>
+      <a href="plattform.html" onclick="closeMenu()">Portale</a>
+      <a href="ki.html" onclick="closeMenu()">Angewandte KI</a>
+      <a href="implementierung-services.html" onclick="closeMenu()">Implementierung &amp; Services</a>
+    </div>
+  </div>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Lösungen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="mitgliederportale.html" onclick="closeMenu()">Mitgliederportale</a>
+      <a href="kundenportale.html" onclick="closeMenu()">Kundenportale</a>
+      <a href="mitarbeiterportale.html" onclick="closeMenu()">Mitarbeiterportale</a>
+      <a href="informationsmanagement.html" onclick="closeMenu()">Ereignis-Dokumentation</a>
+      <a href="communities.html" onclick="closeMenu()">Community</a>
+    </div>
+  </div>
+  <a href="referenzen.html" onclick="closeMenu()">Referenzen</a>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Über uns <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="ueber-uns.html" onclick="closeMenu()">Team</a>
+      <a href="karriere.html" onclick="closeMenu()">Karriere</a>
+      <a href="news.html" onclick="closeMenu()" style="color:var(--primary);font-weight:600;">News</a>
+    </div>
+  </div>  <a href="kontakt.html" onclick="closeMenu()" style="color:var(--blue-600);font-weight:600;">Gespräch anfragen</a>
+</div>
+<script>
+  var navToggle = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-mobile-menu');
+  navToggle.addEventListener('click', function() { navMenu.classList.toggle('open'); });
+  function closeMenu() { navMenu.classList.remove('open'); }
+  function toggleMobGroup(btn) { btn.closest('.mob-group').classList.toggle('open'); }
+</script>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="solution-badge">
+      <span class="material-symbols-rounded" style="font-size:14px;">newspaper</span>
+      News</div>
+    <h1>Aktuelles und Wissenswertes.</h1>
+    <p class="hero-sub">Kundenprojekte, Produktneuigkeiten und Wissensartikel rund um Digitalisierung, Portale und intelligente Self-Services.</p>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="bc-bar">
+  <div class="bc-inner">
+    <div class="bc-row">
+      <a href="index.html" aria-label="Startseite" title="Startseite" class="bc-home"><span class="material-symbols-rounded">home</span></a>
+      <span class="bc-sep">›</span>
+      <a href="ueber-uns.html">Über uns</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">News</span>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS ARCHIVE -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+
+    <!-- Filter -->
+    <div class="filter-bar">
+      <span class="filter-label">Kategorie:</span>
+      <button class="filter-btn active" data-filter="alle" onclick="filterNews('alle', this)">Alle</button>
+      <button class="filter-btn" data-filter="Kundenprojekt" onclick="filterNews('Kundenprojekt', this)">Kundenprojekte</button>
+      <button class="filter-btn" data-filter="Unternehmen" onclick="filterNews('Unternehmen', this)">Unternehmen</button>
+      <button class="filter-btn" data-filter="Produkt" onclick="filterNews('Produkt', this)">Produkt</button>
+      <button class="filter-btn" data-filter="Wissen" onclick="filterNews('Wissen', this)">Wissen</button>
+    </div>
+
+    <div class="news-grid" id="news-grid">
+
+      <a href="#" class="news-card ani-fade-in" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">14. November 2025</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Digitalisierung der Mitglieder-Services bei der Landesapothekerkammer Baden-Württemberg</div>
+        <div class="news-teaser">Die LAK BW ist die Berufsvertretung der mehr als 13.500 Apothekerinnen und Apotheker in Baden-Württemberg.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">6. August 2024</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Teilnehmer-Management für mehr als 10.000 Läufer beim „RUN Thüringer Unternehmenslauf"</div>
+        <div class="news-teaser">Der „RUN Thüringer Unternehmenslauf" ist ein Teambuilding-Sport-Event für Unternehmen und deren Mitarbeiter aus ganz Thüringen.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Unternehmen">
+        <div class="news-meta"><span class="news-date">5. März 2024</span><span class="news-tag">Unternehmen</span></div>
+        <div class="news-title">SITEFORUM im Podcast „MITTELSTÄNDISCH"</div>
+        <div class="news-teaser">Projektleiter Nick Walter spricht über den partnerschaftlichen Ansatz des Unternehmens und digitale Transformationsprojekte.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Wissen">
+        <div class="news-meta"><span class="news-date">24. Januar 2024</span><span class="news-tag">Wissen</span></div>
+        <div class="news-title">Wie entwickelt man als Unternehmen die richtige Digitalisierungs-Strategie?</div>
+        <div class="news-teaser">Welche Schritte helfen Unternehmen, trotz technologischem Wandel eine wirksame Digitalisierungsstrategie zu entwickeln?</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Unternehmen">
+        <div class="news-meta"><span class="news-date">25. September 2023</span><span class="news-tag">Unternehmen</span></div>
+        <div class="news-title">SITEFORUM ist umgezogen</div>
+        <div class="news-teaser">Nach 15 Jahren hat SITEFORUM seinen Erfurter Standort in moderne Räumlichkeiten auf der Straße des Friedens verlegt.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Wissen">
+        <div class="news-meta"><span class="news-date">28. April 2023</span><span class="news-tag">Wissen</span></div>
+        <div class="news-title">Digitalisierung im Rechnungs-Management mit OCR-Erkennung und KI</div>
+        <div class="news-teaser">OCR und KI im Rechnungsmanagement bieten Automatisierungsvorteile und Kosteneinsparungen für Unternehmen im Finanzsektor.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Produkt">
+        <div class="news-meta"><span class="news-date">12. September 2022</span><span class="news-tag">Produkt</span></div>
+        <div class="news-title">SITEFORUM Release 12.1, Digitalisierung im Finanzsektor und Microsoft Dynamics Integration</div>
+        <div class="news-teaser">Neues Produkt-Release, Neukundengewinnung im Finanzsektor und Deployment der Microsoft Dynamics Integration.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Unternehmen">
+        <div class="news-meta"><span class="news-date">28. März 2022</span><span class="news-tag">Unternehmen</span></div>
+        <div class="news-title">SITEFORUM Website mit neuen Inhalten</div>
+        <div class="news-teaser">Websiteinhalte wurden neu strukturiert und erweitert, um Kundenprojekte und Lösungen besser zu kommunizieren.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">17. September 2020</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Mit THOR® digital auf der Baustelle</div>
+        <div class="news-teaser">Digitale Lösung für typische Herausforderungen auf der Baustelle rund um Stundenzettel und Dokumentation.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Unternehmen">
+        <div class="news-meta"><span class="news-date">20. Februar 2020</span><span class="news-tag">Unternehmen</span></div>
+        <div class="news-title">Umgang mit Covid-19</div>
+        <div class="news-teaser">Sicherstellung des zuverlässigen Plattformbetriebs für Kunden, die geschäftskritische Applikationen betreiben.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">13. November 2019</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Nachhaltige Digitalisierung bei der Versorgungsanstalt des Bundes und der Länder (VBL)</div>
+        <div class="news-teaser">Die Kundenplattform „Meine VBL" steht als Beispiel für eine gelungene Digitalisierungsumsetzung.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">1. November 2019</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Go-Live Mitgliederportal VAKdirekt</div>
+        <div class="news-teaser">Launch des VAK-Portals für Mitgliedsservices in den Bereichen Rente, Zuschuss und Gehaltsabrechnung.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">15. Oktober 2019</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">CFL Cargo Deutschland GmbH entscheidet sich für SITEFORUM im Bereich Ereignis-Dokumentation</div>
+        <div class="news-teaser">Das Schienengüterunternehmen setzt auf die SITEFORUM-Plattform für Ereignis-Dokumentation an mehreren europäischen Standorten.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">17. Mai 2019</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">HR.com – mehr als 1,5 Mio. Personaler verwenden die weltweit führende Community im HR-Bereich</div>
+        <div class="news-teaser">Die HR.com-Plattform läuft seit 2006 auf SITEFORUM-Technologie mit 24/7-Betrieb und kontinuierlicher Weiterentwicklung.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">12. Februar 2019</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Über 5.700 Nominierungen zum Großen Preis des Mittelstandes 2019 – powered by SITEFORUM</div>
+        <div class="news-teaser">Die erste Phase des 25. jährlichen Mittelstandspreis-Wettbewerbs wurde mit Rekordnominierungen abgeschlossen.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Unternehmen">
+        <div class="news-meta"><span class="news-date">13. September 2018</span><span class="news-tag">Unternehmen</span></div>
+        <div class="news-title">SITEFORUM stellt auf der InnoTrans vom 18. bis 21. September aus</div>
+        <div class="news-teaser">Präsentation der Plattformanwendung für Transportunternehmen am Beispiel von Eurobahn als Fallstudie.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">9. August 2018</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Die Digitalisierung in der VBL – viele Chancen für alle Beteiligten</div>
+        <div class="news-teaser">Digitalisierungsinitiativen zeigen spürbare Vorteile für Kunden des Rentenversicherungsträgers.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Produkt">
+        <div class="news-meta"><span class="news-date">5. Juli 2018</span><span class="news-tag">Produkt</span></div>
+        <div class="news-title">SITEFORUM Version 10 steht in den Startlöchern – Was gibt es Neues?</div>
+        <div class="news-teaser">Das Oktober-2018-Release bringt verbesserte und neue Funktionen für die BusinessCloud-Plattform.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">8. Februar 2018</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Über 4.900 Nominierungen zum Großen Preis des Mittelstandes 2018 – powered by SITEFORUM</div>
+        <div class="news-teaser">Der jährliche Preis betont eine umfassende Unternehmensbewertung jenseits von reinen Finanzkennzahlen.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">6. Februar 2018</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">SITEFORUM-basiertes Portal erhält erneut das europäische Datenschutzgütesiegel</div>
+        <div class="news-teaser">Die VBL-Website erhält die erneuerte EuroPriSe-Datenschutzzertifizierung.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">15. Januar 2018</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Eurobahn optimiert seine Betriebsabläufe und informiert Fahrgäste mit SITEFORUM</div>
+        <div class="news-teaser">Das Bahnunternehmen verwaltet 133 Züge und über 20 Mio. Zugkilometer jährlich auf der Plattform.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">15. September 2017</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Ingenieur.de Mailservice wird ausgebaut zum digitalen Arbeitsplatz für Ingenieure</div>
+        <div class="news-teaser">VDI-Verlag erweitert den Ingenieur-Mailservice zu einer umfassenden digitalen Arbeitsplattform.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Produkt">
+        <div class="news-meta"><span class="news-date">1. Februar 2017</span><span class="news-tag">Produkt</span></div>
+        <div class="news-title">SITEFORUM Version 9 veröffentlicht – die leistungsstärkste Release der SITEFORUM BusinessCloud</div>
+        <div class="news-teaser">Highlights sind Projektmanagement, Richtlinienverwaltung, Social Media und Kalenderfunktionen.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">10. August 2016</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Kompetenznetz Mittelstand feiert Steigerung der Suchergebnisse</div>
+        <div class="news-teaser">Das Mittelstandsnetzwerk erzielte innerhalb von drei Monaten deutliche Verbesserungen der Suchergebnisse durch das SEO-Modul.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">1. März 2016</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Kompetenznetz Mittelstand geht online</div>
+        <div class="news-teaser">Das deutsche Mittelstandsnetzwerk launcht mit Unternehmensprofilen und Mitarbeiterverzeichnissen.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="60" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">20. September 2015</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">SITEFORUM-basiertes Portal der VBL erhält Datenschutzgütesiegel</div>
+        <div class="news-teaser">Das öffentliche VBL-Portal erhält die EuroPriSe-Datenschutzzertifizierung.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+      <a href="#" class="news-card ani-fade-in" data-delay="120" data-category="Kundenprojekt">
+        <div class="news-meta"><span class="news-date">9. Juni 2015</span><span class="news-tag">Kundenprojekt</span></div>
+        <div class="news-title">Online-Pensionsauskunft für europäische Wissenschaftler</div>
+        <div class="news-teaser">Grenzüberschreitender Wissenschaftsaustausch wird durch Pensionsinformationsservices unterstützt.</div>
+        <span class="news-link">Weiterlesen</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:44px; width:auto;" /></a>
+        <p>We Build Digital Leaders.<div>Cloud | Portale | KI</div></p>
+        <p style="margin-top:14px;">Straße des Friedens 15a<br />99094 Erfurt</p>
+        <p style="margin-top:14px;"><a href="mailto:info@siteforum.com" style="color:inherit;text-decoration:none;">info@siteforum.com</a><br /><a href="tel:+4936166615810" style="color:inherit;text-decoration:none;">+49 361 6661 5810</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Kompetenzen</h4>
+        <ul>
+          <li><a href="cloud.html">Cloud</a></li>
+          <li><a href="plattform.html">Portale</a></li>
+          <li><a href="ki.html">Angewandte KI</a></li>
+          <li><a href="implementierung-services.html">Implementierung &amp; Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Lösungen</h4>
+        <ul>
+          <li><a href="mitgliederportale.html">Mitgliederportal</a></li>
+          <li><a href="kundenportale.html">Kundenportal</a></li>
+          <li><a href="mitarbeiterportale.html">Mitarbeiterportal</a></li>
+          <li><a href="informationsmanagement.html">Ereignis-Dokumentation</a></li>
+          <li><a href="communities.html">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Referenzen</h4>
+        <ul>
+          <li><a href="referenzen.html">Kundenprojekte</a></li>
+        </ul>
+        <h4 style="margin-top:24px;">Über uns</h4>
+        <ul>
+          <li><a href="ueber-uns.html">Team</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SITEFORUM GmbH. Alle Rechte vorbehalten.</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+function filterNews(cat, btn) {
+  document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+  btn.classList.add('active');
+  document.querySelectorAll('.news-card').forEach(function(card) {
+    if (cat === 'alle' || card.dataset.category === cat) {
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var delay = parseInt(entry.target.dataset.delay || 0, 10);
+      var el = entry.target;
+      setTimeout(function() { el.classList.add('visible'); }, delay);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.ani-fade-in').forEach(function(el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

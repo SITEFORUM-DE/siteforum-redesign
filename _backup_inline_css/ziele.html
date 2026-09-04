@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Website-Redesign – Status & Feedback</title>
+  <style>
+    @font-face {
+      font-family: 'SF Display';
+      src: local('SF Pro Display'), local('Helvetica Neue'), local('Segoe UI');
+      font-weight: 100 900;
+    }
+    @font-face {
+      font-family: 'SF Text';
+      src: local('SF Pro Text'), local('Helvetica Neue'), local('Segoe UI');
+      font-weight: 100 900;
+    }
+
+    :root {
+      --ink: #0f1a2e;
+      --ink-mid: #3d4a5c;
+      --ink-light: #6b7a8d;
+      --surface: #f7f8fa;
+      --white: #ffffff;
+      --accent: #0066a3;
+      --accent-light: #e8f2fa;
+      --rule: #d8dde4;
+      --cyan: #5FC9F5;
+      --cyan-bg: rgba(95,201,245,0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'SF Text', 'Helvetica Neue', 'Segoe UI', system-ui, sans-serif;
+      color: var(--ink);
+      background: var(--surface);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    /* Header */
+    .doc-header {
+      margin-bottom: 48px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--rule);
+    }
+    .doc-eyebrow {
+      font-family: 'SF Display', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .doc-title {
+      font-family: 'SF Display', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: 1.75rem;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.02em;
+      text-wrap: balance;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .doc-meta {
+      font-size: 0.82rem;
+      color: var(--ink-light);
+    }
+
+    /* Sections */
+    .section {
+      margin-bottom: 40px;
+    }
+    .section-title {
+      font-family: 'SF Display', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    .section p {
+      font-size: 0.92rem;
+      color: var(--ink-mid);
+      margin-bottom: 12px;
+    }
+    .section p:last-child { margin-bottom: 0; }
+
+    /* Flow diagram */
+    .flow {
+      display: flex;
+      align-items: stretch;
+      gap: 0;
+      margin: 24px 0;
+    }
+    .flow-card {
+      flex: 1;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 20px 18px;
+    }
+    .flow-card-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .flow-card-title {
+      font-family: 'SF Display', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 6px;
+    }
+    .flow-card-desc {
+      font-size: 0.78rem;
+      color: var(--ink-light);
+      line-height: 1.5;
+    }
+    .flow-arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      width: 36px;
+      color: var(--accent);
+      opacity: 0.35;
+      font-size: 1.2rem;
+    }
+
+    /* List */
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .check-list li {
+      font-size: 0.88rem;
+      color: var(--ink-mid);
+      padding-left: 22px;
+      position: relative;
+      line-height: 1.55;
+    }
+    .check-list li::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 7px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent-light);
+      border: 2px solid var(--accent);
+    }
+
+    /* Pages overview */
+    .pages-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .pages-grid span {
+      font-size: 0.8rem;
+      color: var(--ink-mid);
+      padding: 6px 10px;
+      background: var(--white);
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+    }
+
+    /* Feedback CTA */
+    .feedback-box {
+      background: var(--ink);
+      color: #fff;
+      border-radius: 10px;
+      padding: 28px 28px;
+      margin-top: 48px;
+    }
+    .feedback-box h3 {
+      font-family: 'SF Display', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .feedback-box p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.6;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .page { padding: 36px 16px 60px; }
+      .doc-title { font-size: 1.4rem; }
+      .flow { flex-direction: column; gap: 0; }
+      .flow-arrow { width: auto; height: 28px; transform: rotate(90deg); }
+      .pages-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="doc-header">
+    <div class="doc-eyebrow">SITEFORUM Intern</div>
+    <h1 class="doc-title">Website-Redesign: Status und Feedback</h1>
+    <div class="doc-meta">August 2026</div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Warum ein Redesign?</h2>
+    <p>Unsere aktuelle Website spiegelt nicht mehr wider, wer wir heute sind und wohin wir uns entwickeln. Bestandskunden und neue Interessenten sollen sich auf der neuen Seite sofort wiederfinden &ndash; in ihrem Anwendungsfall, ihrer Branche und in dem, was uns ausmacht.</p>
+    <p>Das Redesign bringt ein modernes Look&nbsp;&amp;&nbsp;Feel, eine klarere Positionierung und deutlich mehr Fokus auf unsere KI-Expertise.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Die zentrale Botschaft: Das Digitale &Ouml;kosystem</h2>
+    <p>Die Startseite kommuniziert ab sofort unser Kernversprechen: <strong>Cloud, Portale und KI als drei Bausteine eines Systems.</strong> Statt einzelne Produkte aufzuz&auml;hlen, erz&auml;hlen wir eine zusammenh&auml;ngende Geschichte &ndash; von der Infrastruktur bis zur intelligenten Datenverarbeitung.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Customer Journey: Cloud &rarr; Portale &rarr; KI</h2>
+    <p>Die drei Kompetenzen bauen aufeinander auf. Diese Logik zieht sich durch die gesamte Website:</p>
+    <div class="flow">
+      <div class="flow-card">
+        <div class="flow-card-label">Basis</div>
+        <div class="flow-card-title">Cloud</div>
+        <div class="flow-card-desc">Sichere, zertifizierte Infrastruktur. Vollst&auml;ndig verwaltet, ISO&nbsp;27001, deutsche Rechenzentren.</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-card">
+        <div class="flow-card-label">Kern</div>
+        <div class="flow-card-title">Portale</div>
+        <div class="flow-card-desc">Mitglieder-, Kunden- und Mitarbeiterportale. Self-Services, Prozess&shy;automatisierung, Zusammenarbeit.</div>
+      </div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-card">
+        <div class="flow-card-label">Veredlung</div>
+        <div class="flow-card-title">Angewandte KI</div>
+        <div class="flow-card-desc">Klassifikation, Suche, Inhalts&shy;analyse &ndash; direkt in den Portalen, DSGVO-konform.</div>
+      </div>
+    </div>
+    <p>Jede Kompetenz-Seite zeigt, wo man sich gerade im &Ouml;kosystem befindet, und leitet zum n&auml;chsten Baustein weiter. Am Ende der KI-Seite schlie&szlig;t sich der Bogen mit Referenzen und Implementierung.</p>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Branchen &amp; L&ouml;sungen: Wiedererkennung f&uuml;r Interessenten</h2>
+    <p>Besucher aus verschiedenen Branchen sollen sich und ihre Herausforderungen auf der Website wiederfinden:</p>
+    <ul class="check-list">
+      <li><strong>Branchen-Bereich auf der Startseite</strong> mit direkter Verlinkung zu den passenden Referenzen (Kammern, Finanzen, Verkehr, Personal, Events)</li>
+      <li><strong>Referenzen-Seite</strong> mit filterbaren Kundenprojekten nach Branche &ndash; Besucher k&ouml;nnen gezielt nach ihrem Bereich filtern</li>
+      <li><strong>Portal-L&ouml;sungen</strong> (Mitglieder, Kunden, Mitarbeiter, Community, Ereignis-Dokumentation) mit je eigener Seite und konkreten Anwendungsf&auml;llen</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Was sich ge&auml;ndert hat</h2>
+    <ul class="check-list">
+      <li>Dark-Theme-Design f&uuml;r die gesamte Website &ndash; moderner, technischer Auftritt</li>
+      <li>Einheitliches Navigationskonzept mit klarer Kompetenz-Hierarchie (Cloud &rarr; Portale &rarr; KI)</li>
+      <li>&Ouml;kosystem-Flow auf allen Kompetenz-Seiten &ndash; zeigt die Position im Gesamtsystem</li>
+      <li>&Uuml;berleitungen zwischen den Seiten (Bridge-Banner) statt isolierter CTA-Bl&ouml;cke</li>
+      <li>Tonalit&auml;t &uuml;berarbeitet &ndash; sachlich und auf Augenh&ouml;he statt &uuml;bertrieben werblich</li>
+      <li>Aktualisierte Zahlen: 320+ Projekte, 28+ Jahre Erfahrung</li>
+      <li>Branchen-Dropdown im Men&uuml; entfernt, stattdessen Referenzen und &Uuml;ber&nbsp;uns als eigene Bereiche</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">Umfang: ~15 Seiten</h2>
+    <div class="pages-grid">
+      <span>Startseite</span>
+      <span>Cloud (neu)</span>
+      <span>Portale</span>
+      <span>Angewandte KI</span>
+      <span>Implementierung</span>
+      <span>Mitgliederportale</span>
+      <span>Kundenportale</span>
+      <span>Mitarbeiterportale</span>
+      <span>Community</span>
+      <span>Ereignis-Dokumentation</span>
+      <span>Referenzen (inkl. Filter nach Branchen)</span>
+      <span>&Uuml;ber uns</span>
+      <span>Karriere</span>
+      <span>News</span>
+      <span>Kontakt</span>
+    </div>
+  </div>
+
+  <div class="feedback-box">
+    <h3>Feedback erw&uuml;nscht</h3>
+    <p><strong>Hinweis:</strong> Wording und einzelne Formulierungen sind noch nicht final &ndash; daran wird noch gefeilt. Euer Feedback soll sich erstmal auf die <strong>High-Level-Struktur und die Gesamt-Message</strong> konzentrieren: Stimmt die Richtung? Passt der Aufbau? Ist die &Ouml;kosystem-Botschaft klar?</p>
+  </div>
+
+</div>
+
+</body>
+</html>

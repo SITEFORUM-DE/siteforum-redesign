@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cloud – SITEFORUM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary:   #003366;
+      --secondary: #006699;
+      --blue-50:   #e6f0f7;
+      --blue-100:  #cce0ee;
+      --blue-200:  #99c2dd;
+      --blue-600:  #006699;
+      --blue-700:  #003366;
+      --navy:      #003366;
+      --slate-600: #475569;
+      --slate-100: #f1f5f9;
+      --white:     #ffffff;
+      --radius-sm: 12px;
+      --radius-md: 20px;
+      --radius-lg: 32px;
+    }
+
+    html { scroll-behavior: smooth; }
+    h1, h2, h3, h4 { overflow-wrap: break-word; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--navy);
+      background: var(--white);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── NAV ──────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 10px 24px; pointer-events: none;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(20px);
+      border: 1px solid #e5e7eb; border-radius: 999px;
+      padding: .5rem .6rem .5rem 1.5rem;
+      box-shadow: 0 1px 2px 0 rgba(10,13,18,0.05);
+      pointer-events: all;
+    }
+    .nav-logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; }
+    .nav-links { display: flex; gap: 8px; list-style: none; align-items: center; }
+    .nav-links li { display: flex; align-items: center; }
+    .nav-links a {
+      text-decoration: none; font-size: 0.9rem; font-weight: 500; color: #374151;
+      padding: 8px 14px; border-radius: 8px; transition: background 0.15s, color 0.15s;
+      display: inline-flex; align-items: center;
+    }
+    .nav-links a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: var(--blue-50); font-weight: 600; }
+    .nav-has-dropdown { position: relative; }
+    .nav-has-dropdown > a { gap: 2px; }
+    .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-has-dropdown::after {
+      content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px;
+    }
+    .nav-dropdown-menu {
+      position: absolute; top: calc(100% + 20px); left: 50%;
+      transform: translateX(-50%) translateY(-6px);
+      background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
+      border: 1px solid #e5e7eb; border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
+      min-width: 220px; padding: 6px;
+      opacity: 0; visibility: hidden; pointer-events: none;
+      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
+      z-index: 200;
+    }
+    .nav-has-dropdown:hover .nav-dropdown-menu {
+      opacity: 1; visibility: visible; pointer-events: all;
+      transform: translateX(-50%) translateY(0);
+    }
+    .nav-dropdown-menu a {
+      display: block; padding: 8px 14px; border-radius: 8px;
+      color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500;
+      white-space: nowrap; transition: background 0.12s, color 0.12s;
+      background: none;
+    }
+    .nav-dropdown-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-dropdown-menu a.active { color: var(--blue-600); background: #eff6ff; }
+    .nav-dropdown-divider { height: 1px; background: #e5e7eb; margin: 4px 8px; }
+    .nav-lang { position: relative; display: flex; align-items: center; }
+    .nav-lang-btn { display: inline-flex; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; color: #374151; font-size: 0.9rem; font-weight: 500; padding: 8px 10px; border-radius: 8px; transition: background 0.15s, color 0.15s; }
+    .nav-lang-btn:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-btn .nav-globe { font-size: 20px !important; }
+    .nav-lang-btn .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
+    .nav-lang:hover .nav-chevron { transform: rotate(180deg); }
+    .nav-lang::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px; }
+    .nav-lang-menu { position: absolute; top: calc(100% + 20px); right: 0; transform: translateY(-6px); background: rgba(255,255,255,0.98); backdrop-filter: blur(20px); border: 1px solid #e5e7eb; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05); min-width: 160px; padding: 6px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; z-index: 200; }
+    .nav-lang:hover .nav-lang-menu { opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0); }
+    .nav-lang-menu a { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 8px; color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500; white-space: nowrap; transition: background 0.12s, color 0.12s; background: none; }
+    .nav-lang-menu a:hover { background: var(--slate-100); color: var(--navy); }
+    .nav-lang-menu a.active { color: var(--blue-600); background: #eff6ff; }
+    .nav-lang-menu a .lang-code { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; color: #9ca3af; margin-left: auto; }
+    .nav-cta {
+      background: var(--blue-600); color: var(--white);
+      padding: 11px 22px; border-radius: 999px;
+      font-size: 0.9rem; font-weight: 600; text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .nav-cta::after { content: "→"; }
+    .nav-cta:hover { background: var(--blue-700); transform: translateY(-1px); }
+
+    /* ─── HERO ──────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      padding: 140px 40px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
+      background-size: 28px 28px; pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1200px; margin: 0 auto;
+      position: relative; z-index: 1;
+    }
+    .solution-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.9);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; padding: 6px 16px;
+      border-radius: 999px; margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 800; letter-spacing: -1.5px;
+      line-height: 1.1; margin: 0 0 24px; color: var(--white);
+    }
+    .hero h1 em { font-style: normal; color: #93c5fd; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      max-width: 600px; margin: 0 0 40px; font-weight: 400; line-height: 1.65;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      background: var(--white); color: var(--primary);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 700; text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 12px; border-radius: 999px;
+    }
+    .hero-tag .material-symbols-rounded { font-size: 14px; color: #93c5fd; }
+
+    /* ─── SECTION WRAPPER ───────────────────────────────────── */
+    section { padding: 100px 40px; }
+    .section-inner { max-width: 1200px; margin: 0 auto; }
+    .ani-fade-in { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease !important; }
+    .ani-fade-in.visible { opacity: 1; transform: none; }
+
+    .section-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--blue-600); margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.15; color: var(--navy); margin-bottom: 20px;
+    }
+    .section-title em { font-style: normal; color: var(--secondary); }
+    .section-sub {
+      font-size: 1.05rem; color: var(--slate-600);
+      max-width: 580px; margin-bottom: 60px;
+    }
+
+    /* ─── INTRO GRID ────────────────────────────────────────── */
+    .intro-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+    }
+    .intro-card {
+      display: flex; flex-direction: column; gap: 14px;
+      padding: 28px 24px; background: var(--white);
+      border-radius: var(--radius-md); border: 1.5px solid #e5e7eb;
+    }
+    .intro-icon {
+      width: 48px; height: 48px; border-radius: var(--radius-sm);
+      background: var(--blue-50); display: flex; align-items: center;
+      justify-content: center; color: var(--secondary); flex-shrink: 0;
+    }
+    .intro-icon .material-symbols-rounded { font-size: 24px; }
+    .intro-card h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .intro-card p { font-size: 0.88rem; color: var(--slate-600); line-height: 1.6; }
+
+    /* ─── FEATURES GROUPED ──────────────────────────────────── */
+    .features-group { margin-bottom: 48px; }
+    .features-group:last-child { margin-bottom: 0; }
+    .features-group-label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.1em; color: var(--blue-600); margin-bottom: 20px;
+      padding-bottom: 12px; border-bottom: 1px solid var(--line, #e5e7eb);
+    }
+    .features-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .feature-card {
+      background: var(--white); border-radius: var(--radius-md);
+      padding: 24px 22px; border: 1.5px solid #e5e7eb;
+      transition: border-color 0.2s, box-shadow 0.2s; cursor: default;
+    }
+    .feature-card:hover {
+      border-color: var(--blue-200);
+      box-shadow: 0 4px 16px rgba(0,51,102,0.08);
+    }
+    .feature-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: var(--blue-100); display: flex; align-items: center;
+      justify-content: center; color: var(--primary); margin-bottom: 16px;
+    }
+    .feature-icon .material-symbols-rounded { font-size: 22px; }
+    .feature-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+    .feature-card p { font-size: 0.84rem; color: var(--slate-600); line-height: 1.55; }
+
+    /* ─── BENEFITS / CHECK LIST ─────────────────────────────── */
+    .benefits-list { display: flex; flex-direction: column; gap: 20px; }
+    .benefit-item { display: flex; gap: 16px; align-items: flex-start; }
+    .benefit-check {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--blue-50); display: flex; align-items: center;
+      justify-content: center; color: var(--secondary); flex-shrink: 0; margin-top: 2px;
+    }
+    .benefit-check .material-symbols-rounded { font-size: 16px; }
+    .benefit-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+    .benefit-item p { font-size: 0.88rem; color: var(--slate-600); line-height: 1.55; }
+
+    /* ─── TECH SECTION ──────────────────────────────────────── */
+    .tech-layout {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+    }
+    .tech-visual {
+      background: linear-gradient(160deg, #003366, #004d99);
+      border-radius: var(--radius-lg); padding: 40px;
+      display: flex; flex-direction: column; gap: 20px;
+    }
+    .tech-visual-label {
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; color: #93c5fd;
+    }
+    .tech-cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .tech-cert-box {
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px; padding: 16px; display: flex; flex-direction: column; gap: 8px;
+    }
+    .tech-cert-icon { color: #93c5fd; }
+    .tech-cert-icon .material-symbols-rounded { font-size: 28px; }
+    .tech-cert-title { font-size: 0.88rem; font-weight: 700; color: #fff; }
+    .tech-cert-desc { font-size: 0.78rem; color: rgba(255,255,255,0.55); line-height: 1.4; }
+
+    /* ─── UPTIME BAR ────────────────────────────────────────── */
+    .uptime-bar-wrap {
+      background: rgba(255,255,255,0.06); border-radius: 999px;
+      height: 6px; overflow: hidden; margin-top: 4px;
+    }
+    .uptime-bar {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, #93c5fd, #60a5fa);
+      width: 99.9%;
+    }
+
+    /* ─── ECOSYSTEM FLOW ──────────────────────────────────── */
+    .eco-flow {
+      display: flex; align-items: stretch; gap: 0;
+    }
+    .eco-flow-card {
+      flex: 1; min-width: 0;
+      background: var(--bg-alt, #0D1526);
+      border-radius: var(--radius-md);
+      padding: 36px 32px;
+      border: 1.5px solid var(--line, #e5e7eb);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      text-decoration: none; color: inherit;
+      display: flex; flex-direction: column;
+    }
+    .eco-flow-card:hover {
+      border-color: var(--blue-200);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+    }
+    .eco-flow-card.eco-active {
+      border-color: var(--blue-600);
+      box-shadow: 0 0 0 2px var(--blue-600), 0 4px 20px rgba(0,0,0,0.25);
+    }
+    .eco-flow-icon {
+      width: 48px; height: 48px; border-radius: var(--radius-sm);
+      background: var(--blue-100); display: flex; align-items: center;
+      justify-content: center; color: var(--blue-600); margin-bottom: 20px;
+    }
+    .eco-flow-icon .material-symbols-rounded { font-size: 24px; }
+    .eco-flow-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; color: var(--navy); }
+    .eco-flow-card p { font-size: 0.88rem; color: var(--slate-600); line-height: 1.6; flex: 1; }
+    .eco-flow-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 16px; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.08em;
+      color: var(--blue-600);
+    }
+    .eco-flow-badge::before {
+      content: ''; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--blue-600); flex-shrink: 0;
+    }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      margin-top: 16px; font-size: 0.88rem; font-weight: 600;
+      color: var(--blue-600); text-decoration: none;
+    }
+    .card-link::after { content: "→"; }
+    .eco-flow-arrow {
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; width: 48px;
+      color: var(--blue-600); opacity: 0.4;
+    }
+    .eco-flow-arrow .material-symbols-rounded { font-size: 28px; }
+
+    /* ─── COMPLEXITY SECTION ─────────────────────────────────── */
+    .complexity-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start;
+    }
+    .complexity-left { }
+    .complexity-right {
+      background: var(--bg-alt, #f1f5f9); border: 1.5px solid var(--line, #e5e7eb);
+      border-radius: var(--radius-md); padding: 32px;
+    }
+    .complexity-stat {
+      display: flex; align-items: baseline; gap: 12px;
+      padding: 16px 0; border-bottom: 1px solid var(--line, #e5e7eb);
+    }
+    .complexity-stat:last-child { border-bottom: none; }
+    .complexity-stat-value {
+      font-size: 1.6rem; font-weight: 800; color: var(--blue-600);
+      white-space: nowrap; flex-shrink: 0;
+    }
+    .complexity-stat-label { font-size: 0.88rem; color: var(--slate-600); line-height: 1.45; }
+
+    /* ─── BRIDGE SECTION ────────────────────────────────────── */
+    .bridge-banner {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      border-radius: var(--radius-lg); margin: 100px 40px 0;
+      text-align: center; position: relative; overflow: hidden;
+    }
+    .bridge-banner::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
+      background-size: 28px 28px; pointer-events: none; z-index: 0;
+    }
+    .bridge-inner { padding: 80px 60px; position: relative; z-index: 1; }
+    .bridge-label {
+      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: #93c5fd; margin-bottom: 16px;
+      display: inline-flex; align-items: center; gap: 14px;
+    }
+    .bridge-title {
+      font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 800;
+      letter-spacing: -1px; line-height: 1.15; color: #fff;
+      max-width: 640px; margin: 0 auto 16px;
+    }
+    .bridge-title em { font-style: normal; color: #93c5fd; }
+    .bridge-sub {
+      font-size: 1.05rem; color: #94a3b8;
+      max-width: 580px; margin: 0 auto 40px;
+    }
+    .bridge-links {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .bridge-link {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.08); border: 1.5px solid rgba(255,255,255,0.2);
+      color: #fff; text-decoration: none;
+      padding: 16px 28px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .bridge-link:hover { background: rgba(255,255,255,0.14); border-color: rgba(255,255,255,0.35); transform: translateY(-1px); }
+    .bridge-link .material-symbols-rounded { font-size: 20px; color: #93c5fd; }
+
+    /* ─── FOOTER ────────────────────────────────────────────── */
+    footer { background: var(--navy); color: #94a3b8; padding: 64px 40px 32px; margin-top: 100px; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    .footer-brand .nav-logo { color: var(--white); display: block; margin-bottom: 16px; }
+    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 260px; }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--white); margin-bottom: 20px; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col a { text-decoration: none; color: #94a3b8; font-size: 0.88rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 28px; font-size: 0.82rem; flex-wrap: wrap; gap: 12px; }
+    .footer-bottom a { color: #94a3b8; text-decoration: none; }
+    .footer-bottom a:hover { color: var(--white); }
+
+    /* ─── HAMBURGER ─────────────────────────────────────────── */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; border: none; background: none; pointer-events: all; }
+    .nav-hamburger span { width: 22px; height: 2px; background: var(--navy); border-radius: 2px; display: block; }
+    .nav-mobile-menu { display: none; position: fixed; top: 76px; left: 16px; right: 16px; background: white; border: 1px solid #e5e7eb; border-radius: var(--radius-md); box-shadow: 0 8px 32px rgba(0,0,0,0.1); padding: 16px; z-index: 99; flex-direction: column; gap: 4px; }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu > a { text-decoration: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; transition: background 0.15s; display: block; }
+    .nav-mobile-menu > a:hover { background: var(--slate-100); }
+    .mob-group { display: flex; flex-direction: column; }
+    .mob-group-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; cursor: pointer; text-align: left; transition: background 0.15s; font-family: inherit; }
+    .mob-group-toggle:hover { background: var(--slate-100); }
+    .mob-chevron { font-size: 18px !important; transition: transform 0.2s; line-height: 1; flex-shrink: 0; }
+    .mob-group.open .mob-chevron { transform: rotate(180deg); }
+    .mob-sub { display: none; flex-direction: column; padding-left: 12px; }
+    .mob-group.open .mob-sub { display: flex; }
+    .mob-sub a { text-decoration: none; font-size: 0.88rem; font-weight: 400; color: #6b7280; padding: 8px 16px; border-radius: 8px; transition: background 0.15s; display: block; }
+    .mob-sub a:hover { background: var(--slate-100); color: var(--navy); }
+
+    /* ─── RESPONSIVE ────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-cta { display: none; }
+      .nav-chevron { display: none; }
+      .nav-actions { gap: 4px !important; margin-right: 10px; }
+      .intro-grid { grid-template-columns: repeat(2, 1fr); }
+      .features-grid { grid-template-columns: repeat(2, 1fr); }
+      .tech-layout { grid-template-columns: 1fr; }
+      .tech-visual { display: none; }
+      .complexity-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .intro-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      h1, h2, h3, h4 { hyphens: auto; }
+      nav { padding: 10px 16px; }
+      .nav-inner { height: 52px; padding: 0.4rem 0.5rem 0.4rem 1rem; }
+      section { padding: 64px 20px; }
+      .hero { padding: 120px 20px 80px; }
+      .bridge-banner { margin: 64px 16px 0; }
+      .footer-top { grid-template-columns: 1fr; gap: 32px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .eco-flow { flex-direction: column; gap: 0; }
+      .eco-flow-arrow { width: auto; height: 32px; transform: rotate(90deg); }
+      .eco-flow-card { padding: 28px 20px; }
+      .bridge-inner { padding: 48px 24px; }
+      .bridge-links { flex-direction: column; align-items: center; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DARK THEME
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      --primary:   #5FC9F5;
+      --secondary: #5FC9F5;
+      --blue-50:   #0D1526;
+      --blue-100:  rgba(95,201,245,0.14);
+      --blue-200:  rgba(95,201,245,0.45);
+      --blue-600:  #5FC9F5;
+      --blue-700:  #8ADAF9;
+      --navy:      #F5F6F8;
+      --slate-600: #9AA7BD;
+      --slate-100: #101B2E;
+      --white:     #0A101E;
+      --bg-alt:    #0D1526;
+      --bg-deep:   #060A12;
+      --line:      rgba(255,255,255,0.10);
+    }
+    body { background: var(--white); color: var(--navy); }
+
+    /* ── NAV ── */
+    .nav-inner { background: rgba(13,21,38,0.85); border-color: var(--line); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .nav-links a { color: rgba(245,246,248,0.75); }
+    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-menu, .nav-lang-menu { background: rgba(13,21,38,0.97); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-dropdown-menu a, .nav-lang-menu a { color: rgba(245,246,248,0.75); }
+    .nav-dropdown-menu a:hover, .nav-lang-menu a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-dropdown-menu a.active, .nav-lang-menu a.active { color: var(--blue-600); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-divider { background: var(--line); }
+    .nav-lang-btn { color: rgba(245,246,248,0.75); }
+    .nav-lang-btn:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-lang-menu a .lang-code { color: rgba(245,246,248,0.4); }
+    .nav-hamburger span { background: var(--navy); }
+    .nav-mobile-menu { background: rgba(13,21,38,0.98); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-mobile-menu > a, .mob-group-toggle { color: rgba(245,246,248,0.8); }
+    .nav-mobile-menu > a:hover, .mob-group-toggle:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .mob-sub a { color: rgba(245,246,248,0.55); }
+    .mob-sub a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+
+    /* ── BREADCRUMB ── */
+    .bc-bar { background: var(--bg-alt); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .bc-sep { color: rgba(255,255,255,0.25); }
+    .bc-current { color: var(--slate-600); }
+
+    /* ── HERO ── */
+    .hero { background: linear-gradient(135deg, #0D1B30 0%, #0A1322 100%); }
+    .hero h1 { color: var(--navy); }
+    .hero h1 em { color: var(--blue-600); }
+    .hero-tag .material-symbols-rounded { color: var(--blue-600); }
+
+    /* ── BUTTONS ── */
+    .btn-primary { background: var(--blue-600); color: #0A101E; }
+    .btn-secondary { background: transparent; color: var(--navy); border-color: rgba(255,255,255,0.25); }
+    .btn-secondary:hover { border-color: var(--blue-600); }
+
+    /* ── CARDS ── */
+    .intro-card, .feature-card { background: var(--bg-alt); border-color: var(--line); }
+    .intro-card:hover, .feature-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .intro-icon, .feature-icon, .benefit-check { background: var(--blue-100); color: var(--blue-600); }
+
+    /* ── ECOSYSTEM FLOW ── */
+    .eco-flow-card { background: var(--bg-alt); border-color: var(--line); }
+    .eco-flow-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+    .eco-flow-card.eco-active { border-color: var(--blue-600); box-shadow: 0 0 0 2px var(--blue-600), 0 4px 20px rgba(0,0,0,0.3); }
+
+    /* ── COMPLEXITY ── */
+    .complexity-right { background: var(--bg-alt); border-color: var(--line); }
+    .complexity-stat { border-bottom-color: var(--line); }
+
+    /* ── BRIDGE ── */
+    .bridge-banner { background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%); border: 1px solid var(--line); }
+    .bridge-banner::before { background-image: none; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--bg-deep); color: var(--slate-600); }
+    .footer-brand .nav-logo, .footer-col h4 { color: var(--navy); }
+    .footer-col a, .footer-bottom a { color: var(--slate-600); }
+    .footer-col a:hover, .footer-bottom a:hover { color: var(--navy); }
+
+    /* ── TYPOGRAFIE ── */
+    h1, h2, h3, h4,
+    .hero h1, .section-title, .section-title em,
+    .stat-value, .bridge-title, .bridge-title em,
+    .complexity-stat-value { font-family: 'Outfit', 'Inter', sans-serif; font-weight: 600; }
+
+    /* ── DEKO-LINIE vor Section-Labels ── */
+    .section-label { display: inline-flex; align-items: center; gap: 14px; }
+    .section-label::before { content: ''; width: 48px; height: 1px; background: var(--blue-600); flex: 0 0 auto; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:32px; width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li class="nav-has-dropdown">
+        <a href="index.html#produkte" class="active">Kompetenzen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="cloud.html" class="active">Cloud</a>
+          <a href="plattform.html">Portale</a>
+          <a href="ki.html">Angewandte KI</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="implementierung-services.html">Implementierung &amp; Services</a>
+        </div>
+      </li>
+      <li class="nav-has-dropdown">
+        <a href="loesungen.html">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="mitgliederportale.html">Mitgliederportale</a>
+          <a href="kundenportale.html">Kundenportale</a>
+          <a href="mitarbeiterportale.html">Mitarbeiterportale</a>
+          <a href="informationsmanagement.html">Ereignis-Dokumentation</a>
+          <a href="communities.html">Community</a>
+        </div>
+      </li>
+      <li><a href="referenzen.html">Referenzen</a></li>
+      <li class="nav-has-dropdown">
+        <a href="ueber-uns.html">Über uns <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ueber-uns.html">Team</a>
+          <a href="karriere.html">Karriere</a>
+          <a href="news.html">News</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
+      <div class="nav-lang">
+        <button class="nav-lang-btn" aria-label="Sprache wählen" aria-haspopup="true">
+          <span class="material-symbols-rounded nav-globe">language</span>
+          <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span>
+        </button>
+        <div class="nav-lang-menu">
+          <a href="#" class="active">Deutsch <span class="lang-code">DE</span></a>
+          <a href="#">English <span class="lang-code">EN</span></a>
+        </div>
+      </div>
+      <a href="kontakt.html" class="nav-cta">Gespräch anfragen</a>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Kompetenzen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="cloud.html" onclick="closeMenu()">Cloud</a>
+      <a href="plattform.html" onclick="closeMenu()">Portale</a>
+      <a href="ki.html" onclick="closeMenu()">Angewandte KI</a>
+      <a href="implementierung-services.html" onclick="closeMenu()">Implementierung &amp; Services</a>
+    </div>
+  </div>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Lösungen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="mitgliederportale.html" onclick="closeMenu()">Mitgliederportale</a>
+      <a href="kundenportale.html" onclick="closeMenu()">Kundenportale</a>
+      <a href="mitarbeiterportale.html" onclick="closeMenu()">Mitarbeiterportale</a>
+      <a href="informationsmanagement.html" onclick="closeMenu()">Ereignis-Dokumentation</a>
+      <a href="communities.html" onclick="closeMenu()">Community</a>
+    </div>
+  </div>
+  <a href="referenzen.html" onclick="closeMenu()">Referenzen</a>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Über uns <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="ueber-uns.html" onclick="closeMenu()">Team</a>
+      <a href="karriere.html" onclick="closeMenu()">Karriere</a>
+      <a href="news.html" onclick="closeMenu()">News</a>
+    </div>
+  </div>
+  <a href="kontakt.html" onclick="closeMenu()" style="color:var(--blue-600);font-weight:600;">Gespräch anfragen</a>
+</div>
+<script>
+  var navToggle = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-mobile-menu');
+  navToggle.addEventListener('click', function() { navMenu.classList.toggle('open'); });
+  function closeMenu() { navMenu.classList.remove('open'); }
+  function toggleMobGroup(btn) { btn.closest('.mob-group').classList.toggle('open'); }
+</script>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="solution-badge">
+      <span class="material-symbols-rounded" style="font-size:14px;">cloud</span>
+      Das Fundament der Plattform
+    </div>
+    <h1>Moderne Infrastruktur. <em>Vollständig verwaltet.</em></h1>
+    <p class="hero-sub">Jede SITEFORUM-Lösung läuft auf unserer Managed Cloud – sicher, stabil und zertifiziert.&nbsp;</p>
+    <div class="hero-actions">
+      <a href="#leistungen" class="btn-primary">Leistungsumfang ansehen</a>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag"><span class="material-symbols-rounded">verified_user</span> ISO 27001 zertifiziert</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">lock</span> DSGVO-konform</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">location_on</span> Deutsche Rechenzentren</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">schedule</span> 24/7 Betrieb</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">signal_cellular_alt</span> 99,95 % Verfügbarkeit</span>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="bc-bar">
+  <div class="bc-inner">
+    <div class="bc-row">
+      <a href="index.html" aria-label="Startseite" title="Startseite" class="bc-home"><span class="material-symbols-rounded">home</span></a>
+      <span class="bc-sep">›</span>
+      <a href="index.html#produkte">Kompetenzen</a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Cloud</span>
+    </div>
+  </div>
+</div>
+
+<!-- ÖKOSYSTEM-EINORDNUNG -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+    <div class="ani-fade-in" style="text-align:center; margin-bottom:60px;">
+      <p class="section-label" style="justify-content:center;">Digitale Plattform</p>
+      <h2 class="section-title" style="max-width:700px; margin:0 auto 20px;">Cloud ist die Basis. <em>Portale und KI bauen darauf auf.</em></h2>
+      <p class="section-sub" style="max-width:620px; margin:0 auto;">Unsere Managed Cloud ist kein eigenständiges Produkt – sie ist das Fundament, auf dem alle SITEFORUM-Lösungen laufen. Sicherheit, Verfügbarkeit und Compliance sind damit von Anfang an gelöst.</p>
+    </div>
+    <div class="eco-flow ani-fade-in">
+      <div class="eco-flow-card eco-active">
+        <div class="eco-flow-icon"><span class="material-symbols-rounded">cloud_done</span></div>
+        <h3>Cloud</h3>
+        <p>Infrastruktur, Sicherheit, Monitoring, Backup, Compliance – alles, was im Hintergrund laufen muss, damit Ihre Lösung einfach funktioniert.</p>
+        <span class="eco-flow-badge">Sie sind hier</span>
+      </div>
+      <div class="eco-flow-arrow"><span class="material-symbols-rounded">arrow_forward</span></div>
+      <a href="plattform.html" class="eco-flow-card">
+        <div class="eco-flow-icon"><span class="material-symbols-rounded">dashboard</span></div>
+        <h3>Portale</h3>
+        <p>Die modulare Plattform für Self-Services und automatisierten Prozesse deckt out-of-the-box einen Großteil Ihrer individuellen Anforderungen ab.</p>
+        <span class="card-link">Mehr zu Portalen</span>
+      </a>
+      <div class="eco-flow-arrow"><span class="material-symbols-rounded">arrow_forward</span></div>
+      <a href="ki.html" class="eco-flow-card">
+        <div class="eco-flow-icon"><span class="material-symbols-rounded">psychology</span></div>
+        <h3>Angewandte KI</h3>
+        <p>KI in Ihrer Lösung integriert - kein Extra. Fortschrittliche Verarbeitung Ihrer Daten mit einsatzbereiten Modellen - ohne Umwege und DSGVO-konform.</p>
+        <span class="card-link">Mehr zu KI</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- WAS WIR ÜBERNEHMEN -->
+<section style="background:var(--slate-100);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Was wir übernehmen</p>
+      <h2 class="section-title">Kein IT-Team nötig. <em>Kein Betriebsstress.</em></h2>
+      <p class="section-sub">Wir übernehmen die Verantwortung für den Betrieb Ihrer Lösung – vollständig und ab dem ersten Tag.</p>
+    </div>
+    <div class="intro-grid">
+      <div class="intro-card ani-fade-in" data-delay="0">
+        <div class="intro-icon"><span class="material-symbols-rounded">monitor_heart</span></div>
+        <div>
+          <h4>24/7 Serverüberwachung</h4>
+          <p>Kontinuierliche Echtzeit-Überwachung aller Systeme. Unregelmäßigkeiten werden erkannt und behoben, bevor sie Ihren Betrieb beeinträchtigen.</p>
+        </div>
+      </div>
+      <div class="intro-card ani-fade-in" data-delay="100">
+        <div class="intro-icon"><span class="material-symbols-rounded">security</span></div>
+        <div>
+          <h4>Sicherheit &amp; Compliance</h4>
+          <p>ISO 27001-zertifiziert, DSGVO-konform, regelmäßige Sicherheitsaudits. Ihr Datenschutz liegt in den Händen erfahrener Systemingenieure.</p>
+        </div>
+      </div>
+      <div class="intro-card ani-fade-in" data-delay="200">
+        <div class="intro-icon"><span class="material-symbols-rounded">backup</span></div>
+        <div>
+          <h4>Backup &amp; Recovery</h4>
+          <p>Automatisierte tägliche Datensicherung mit geprüften Wiederherstellungsprozessen. Im Ernstfall sind Ihre Daten schnell und vollständig wiederhergestellt.</p>
+        </div>
+      </div>
+      <div class="intro-card ani-fade-in" data-delay="300">
+        <div class="intro-icon"><span class="material-symbols-rounded">speed</span></div>
+        <div>
+          <h4>Performance &amp; Skalierung</h4>
+          <p>Automatische Infrastruktur-Skalierung bei Lastspitzen. Ihre Lösung bleibt stabil – egal ob 100 oder 100.000 Nutzer gleichzeitig aktiv sind.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LEISTUNGSUMFANG – GRUPPIERT -->
+<section id="leistungen" style="background:var(--white);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Leistungsumfang</p>
+      <h2 class="section-title">Was im Hintergrund <em>passiert.</em></h2>
+      <p class="section-sub">Ein vollständiger Betriebsservice – von der Infrastruktur bis zur Reaktionszeit.</p>
+    </div>
+
+    <div class="features-group ani-fade-in">
+      <p class="features-group-label">Betrieb &amp; Überwachung</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">monitoring</span></div>
+          <h4>Proaktives Monitoring</h4>
+          <p>Echtzeit-Überwachung von CPU, Speicher, Netzwerk, Festplatten und Dienstverfügbarkeit – mit automatischer Alarmierung bei Anomalien.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">published_with_changes</span></div>
+          <h4>Patch &amp; Update Management</h4>
+          <p>Betriebssystem- und Sicherheitsupdates werden geplant, getestet und eingespielt – ohne ungeplante Ausfälle oder manuelle Eingriffe Ihrerseits.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">analytics</span></div>
+          <h4>Kapazitätsplanung</h4>
+          <p>Regelmäßige Auswertung von Nutzungs- und Lastdaten – damit Engpässe erkannt und Kapazitäten rechtzeitig bereitgestellt werden.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-group ani-fade-in">
+      <p class="features-group-label">Sicherheit &amp; Schutz</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">shield</span></div>
+          <h4>Firewall &amp; Netzwerksicherheit</h4>
+          <p>Mehrstufige Sicherheitsarchitektur mit Web Application Firewall, Intrusion Detection und Netzwerksegmentierung nach aktuellem Stand der Technik.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">encrypted</span></div>
+          <h4>Datenverschlüsselung</h4>
+          <p>Alle Daten werden sowohl at-rest als auch in-transit verschlüsselt – mit TLS 1.3 für Übertragungen und AES-256 für gespeicherte Daten.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">manage_accounts</span></div>
+          <h4>Zugriffskontrolle</h4>
+          <p>Rollenbasierte Zugriffsrechte und Zwei-Faktor-Authentifizierung für alle Administrationszugänge. Kein unbefugter Zugriff auf Ihre Systeme.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="features-group ani-fade-in">
+      <p class="features-group-label">Verfügbarkeit &amp; Compliance</p>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">restore</span></div>
+          <h4>Notfallwiederherstellung</h4>
+          <p>Definierte Failover-Prozesse und Replikationskapazitäten sorgen dafür, dass Ihre Lösung im Ernstfall schnellstmöglich wieder verfügbar ist.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">support_agent</span></div>
+          <h4>SLA-gesicherter Support</h4>
+          <p>Definierte Reaktionszeiten, klare Eskalationsprozesse und ein dediziertes Team – Sie wissen immer, wer zuständig ist und wann reagiert wird.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon"><span class="material-symbols-rounded">fact_check</span></div>
+          <h4>Compliance-Reporting</h4>
+          <p>Regelmäßige Berichte über Sicherheitsstatus, Verfügbarkeit und durchgeführte Maßnahmen – für Ihre internen Audits und Nachweispflichten.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SICHERHEIT & ZERTIFIZIERUNG -->
+<section style="background:var(--slate-100);">
+  <div class="section-inner">
+    <div class="tech-layout">
+      <div>
+        <div class="ani-fade-in">
+          <p class="section-label">Infrastruktur</p>
+          <h2 class="section-title">Sicherheit ohne <em>Kompromisse.</em></h2>
+          <p class="section-sub" style="margin-bottom:40px;">Unsere Infrastruktur erfüllt die höchsten Anforderungen an Datenschutz, Verfügbarkeit und Compliance – zertifiziert und nachweisbar.</p>
+        </div>
+        <div class="benefits-list">
+          <div class="benefit-item ani-fade-in">
+            <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+            <div>
+              <h4>Ausschließlich deutsche Rechenzentren</h4>
+              <p>Hosting in zertifizierten Rechenzentren in Deutschland – keine Daten verlassen den EU-Rechtsraum. Auf Wunsch auch als Private Cloud auf dedizierter Infrastruktur.</p>
+            </div>
+          </div>
+          <div class="benefit-item ani-fade-in">
+            <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+            <div>
+              <h4>ISO/IEC 27001 zertifiziert</h4>
+              <p>Unser Informationssicherheits-Managementsystem ist nach DIN ISO/IEC 27001 zertifiziert – der international anerkannte Standard für Informationssicherheit.</p>
+            </div>
+          </div>
+          <div class="benefit-item ani-fade-in">
+            <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+            <div>
+              <h4>Private Cloud Option</h4>
+              <p>Für erhöhte Anforderungen betreiben wir Ihre Lösung auf dedizierter Hardware in einem isolierten Netzwerk – ohne geteilte Ressourcen mit anderen Kunden.</p>
+            </div>
+          </div>
+          <div class="benefit-item ani-fade-in">
+            <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+            <div>
+              <h4>Regelmäßige Penetrationstests</h4>
+              <p>Unsere Systeme werden regelmäßig durch externe Sicherheitsexperten auf Schwachstellen geprüft – damit potenzielle Angriffsvektoren frühzeitig geschlossen werden.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tech-visual">
+        <div class="tech-visual-label">Zertifizierungen &amp; Standards</div>
+        <div class="tech-cert-grid">
+          <div class="tech-cert-box ani-fade-in">
+            <div class="tech-cert-icon"><span class="material-symbols-rounded">verified_user</span></div>
+            <div class="tech-cert-title">ISO 27001</div>
+            <div class="tech-cert-desc">Zertifiziertes Informationssicherheits-Managementsystem</div>
+          </div>
+          <div class="tech-cert-box ani-fade-in">
+            <div class="tech-cert-icon"><span class="material-symbols-rounded">gavel</span></div>
+            <div class="tech-cert-title">DSGVO-konform</div>
+            <div class="tech-cert-desc">Vollständige EU-DSGVO-Konformität, Hosting in Deutschland</div>
+          </div>
+          <div class="tech-cert-box ani-fade-in">
+            <div class="tech-cert-icon"><span class="material-symbols-rounded">cloud_done</span></div>
+            <div class="tech-cert-title">99,95 % Uptime</div>
+            <div class="tech-cert-desc">
+              Garantierte Verfügbarkeit mit SLA
+              <div class="uptime-bar-wrap" style="margin-top:8px;"><div class="uptime-bar"></div></div>
+            </div>
+          </div>
+          <div class="tech-cert-box ani-fade-in">
+            <div class="tech-cert-icon"><span class="material-symbols-rounded">location_city</span></div>
+            <div class="tech-cert-title">Made in Germany</div>
+            <div class="tech-cert-desc">Rechenzentren in Erfurt und Frankfurt am Main</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KOMPLEXITÄT BELEUCHTEN -->
+<section style="background:var(--white);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Warum Managed</p>
+      <h2 class="section-title">Infrastruktur ist <em>komplex.</em> Ihr Alltag muss es nicht sein.</h2>
+      <p class="section-sub">Den Betrieb einer sicheren, skalierbaren Plattform zu verantworten bindet Ressourcen. Wir nehmen Ihnen diese Verantwortung ab.</p>
+    </div>
+    <div class="complexity-grid">
+      <div class="benefits-list ani-fade-in">
+        <div class="benefit-item">
+          <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+          <div>
+            <h4>Kein eigenes Infrastruktur-Team aufbauen</h4>
+            <p>Systemadministration, Netzwerksicherheit, Patch Management – Kompetenzen, die Sie nicht intern vorhalten müssen.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+          <div>
+            <h4>Keine Zertifizierungen eigenständig erhalten</h4>
+            <p>ISO 27001, DSGVO-Nachweise, Audit-Reports – das übernehmen wir und stellen Ihnen die Dokumentation bereit.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+          <div>
+            <h4>Keine Nachtschichten bei Incidents</h4>
+            <p>24/7-Bereitschaft, Eskalationsprozesse und Notfallwiederherstellung liegen bei unserem Team – nicht bei Ihrem.</p>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <div class="benefit-check"><span class="material-symbols-rounded">check</span></div>
+          <div>
+            <h4>Ein Ansprechpartner statt Ticket-Systeme</h4>
+            <p>Sie erreichen direkt einen Menschen, der Ihre Lösung kennt – keine Warteschleifen, keine anonymen Ticket-Nummern.</p>
+          </div>
+        </div>
+      </div>
+      <div class="complexity-right ani-fade-in" data-delay="150">
+        <div class="complexity-stat">
+          <div class="complexity-stat-value">28+</div>
+          <div class="complexity-stat-label">Jahre Erfahrung im Betrieb digitaler Plattformen</div>
+        </div>
+        <div class="complexity-stat">
+          <div class="complexity-stat-value">320+</div>
+          <div class="complexity-stat-label">Projekte erfolgreich betrieben und betreut</div>
+        </div>
+        <div class="complexity-stat">
+          <div class="complexity-stat-value">99,95 %</div>
+          <div class="complexity-stat-label">garantierte Verfügbarkeit per SLA</div>
+        </div>
+        <div class="complexity-stat">
+          <div class="complexity-stat-value">24/7</div>
+          <div class="complexity-stat-label">Monitoring und Bereitschaft durch unser Team</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ÜBERLEITUNG INS ÖKOSYSTEM -->
+<div class="bridge-banner">
+  <div class="bridge-inner">
+    <p class="bridge-label">Nächste Schicht</p>
+    <h2 class="bridge-title">Auf dieser Grundlage entsteht <em>Ihr Portal.</em></h2>
+    <p class="bridge-sub">Die Cloud sichert den Betrieb. Die Portale bringen Ihre Mitglieder, Kunden und Teams zusammen. Wertvolle Daten entstehen. Die KI macht sie noch besser nutzbar.</p>
+    <div class="bridge-links">
+      <a href="plattform.html" class="bridge-link">
+        <span class="material-symbols-rounded">web</span>
+        Portale entdecken
+      </a>
+      <a href="ki.html" class="bridge-link">
+        <span class="material-symbols-rounded">psychology</span>
+        Angewandte KI entdecken
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:44px; width:auto;" /></a>
+        <p>We Build Digital Leaders.<div>Cloud | Portale | KI</div></p>
+        <p style="margin-top:14px;">Straße des Friedens 15a<br />99094 Erfurt</p>
+        <p style="margin-top:14px;"><a href="mailto:info@siteforum.com" style="color:inherit;text-decoration:none;">info@siteforum.com</a><br /><a href="tel:+4936166615810" style="color:inherit;text-decoration:none;">+49 361 6661 5810</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Kompetenzen</h4>
+        <ul>
+          <li><a href="cloud.html">Cloud</a></li>
+          <li><a href="plattform.html">Portale</a></li>
+          <li><a href="ki.html">Angewandte KI</a></li>
+          <li><a href="implementierung-services.html">Implementierung &amp; Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Lösungen</h4>
+        <ul>
+          <li><a href="mitgliederportale.html">Mitgliederportal</a></li>
+          <li><a href="kundenportale.html">Kundenportal</a></li>
+          <li><a href="mitarbeiterportale.html">Mitarbeiterportal</a></li>
+          <li><a href="informationsmanagement.html">Ereignis-Dokumentation</a></li>
+          <li><a href="communities.html">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Referenzen</h4>
+        <ul>
+          <li><a href="referenzen.html">Kundenprojekte</a></li>
+        </ul>
+        <h4 style="margin-top:24px;">Über uns</h4>
+        <ul>
+          <li><a href="ueber-uns.html">Team</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SITEFORUM GmbH. Alle Rechte vorbehalten.</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var delay = parseInt(entry.target.dataset.delay || 0, 10);
+      var el = entry.target;
+      setTimeout(function() { el.classList.add('visible'); }, delay);
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.ani-fade-in').forEach(function(el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>

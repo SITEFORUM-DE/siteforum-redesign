@@ -3,1253 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SITEFORUM – We Build Digital Leaders</title>
+  <title>SITEFORUM – We grow your digital business.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0&display=block" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --primary:   #003366;
-      --secondary: #006699;
-      --blue-50:   #e6f0f7;
-      --blue-100:  #cce0ee;
-      --blue-200:  #99c2dd;
-      --blue-600:  #006699;
-      --blue-700:  #003366;
-      --navy:      #003366;
-      --slate-600: #475569;
-      --slate-100: #f1f5f9;
-      --white:     #ffffff;
-      --radius-sm: 12px;
-      --radius-md: 20px;
-      --radius-lg: 32px;
-    }
-
-    html { scroll-behavior: smooth; }
-    h1, h2, h3, h4 { overflow-wrap: break-word; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--navy);
-      background: var(--white);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* ─── NAV ──────────────────────────────────────────────── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 10px 24px;
-      pointer-events: none;
-    }
-    .nav-inner {
-      max-width: 1280px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(20px);
-      border: 1px solid #e5e7eb;
-      border-radius: 999px;
-      padding: .5rem .6rem .5rem 1.5rem;
-      box-shadow: 0 1px 2px 0 rgba(10,13,18,0.05);
-      pointer-events: all;
-    }
-    .nav-logo {
-      display: flex;
-      align-items: center;
-      text-decoration: none;
-      flex-shrink: 0;
-    }
-    .nav-links {
-      display: flex;
-      gap: 8px;
-      list-style: none;
-      align-items: center;
-    }
-    .nav-links li { display: flex; align-items: center; }
-    .nav-links a {
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #374151;
-      padding: 8px 14px;
-      border-radius: 8px;
-      transition: background 0.15s, color 0.15s;
-      display: inline-flex; align-items: center;
-    }
-    .nav-links a:hover {
-      background: var(--slate-100);
-      color: var(--navy);
-    }
-    .nav-cta {
-      background: var(--blue-600);
-      color: var(--white);
-      padding: 11px 22px;
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .nav-cta::after { content: "→"; }
-    .nav-cta:hover {
-      background: var(--blue-700);
-      transform: translateY(-1px);
-    }
-    /* ─── NAV DROPDOWN ──────────────────────────────────────── */
-    .nav-has-dropdown { position: relative; }
-    .nav-has-dropdown > a { gap: 2px; }
-    .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
-    .nav-has-dropdown:hover .nav-chevron { transform: rotate(180deg); }
-    /* invisible bridge fills the gap so mouse movement stays within hover zone */
-    .nav-has-dropdown::after {
-      content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px;
-    }
-    .nav-dropdown-menu {
-      position: absolute; top: calc(100% + 20px); left: 50%;
-      transform: translateX(-50%) translateY(-6px);
-      background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
-      border: 1px solid #e5e7eb; border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
-      min-width: 220px; padding: 6px;
-      opacity: 0; visibility: hidden; pointer-events: none;
-      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
-      z-index: 200;
-    }
-    .nav-has-dropdown:hover .nav-dropdown-menu {
-      opacity: 1; visibility: visible; pointer-events: all;
-      transform: translateX(-50%) translateY(0);
-    }
-    .nav-dropdown-menu a {
-      display: block; padding: 8px 14px; border-radius: 8px;
-      color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500;
-      white-space: nowrap; transition: background 0.12s, color 0.12s;
-      background: none;
-    }
-    .nav-dropdown-menu a:hover { background: var(--slate-100); color: var(--navy); }
-    .nav-dropdown-menu a.active { color: var(--blue-600); background: #eff6ff; }
-    .nav-dropdown-divider { height: 1px; background: #e5e7eb; margin: 4px 8px; }
-
-    /* ─── NAV LANGUAGE SWITCHER ─────────────────────────────── */
-    .nav-lang { position: relative; display: flex; align-items: center; }
-    .nav-lang-btn {
-      display: inline-flex; align-items: center; gap: 4px;
-      background: none; border: none; cursor: pointer;
-      color: #374151; font-size: 0.9rem; font-weight: 500;
-      padding: 8px 10px; border-radius: 8px;
-      transition: background 0.15s, color 0.15s;
-    }
-    .nav-lang-btn:hover { background: var(--slate-100); color: var(--navy); }
-    .nav-lang-btn .nav-globe { font-size: 20px !important; }
-    .nav-lang-btn .nav-chevron { font-size: 16px !important; opacity: 0.55; transition: transform 0.2s; }
-    .nav-lang:hover .nav-chevron { transform: rotate(180deg); }
-    .nav-lang::after { content: ''; position: absolute; top: 100%; left: 0; right: 0; height: 24px; }
-    .nav-lang-menu {
-      position: absolute; top: calc(100% + 20px); right: 0;
-      transform: translateY(-6px);
-      background: rgba(255,255,255,0.98); backdrop-filter: blur(20px);
-      border: 1px solid #e5e7eb; border-radius: 12px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.05);
-      min-width: 160px; padding: 6px;
-      opacity: 0; visibility: hidden; pointer-events: none;
-      transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
-      z-index: 200;
-    }
-    .nav-lang:hover .nav-lang-menu {
-      opacity: 1; visibility: visible; pointer-events: all; transform: translateY(0);
-    }
-    .nav-lang-menu a {
-      display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 8px;
-      color: #374151; text-decoration: none; font-size: 0.875rem; font-weight: 500;
-      white-space: nowrap; transition: background 0.12s, color 0.12s; background: none;
-    }
-    .nav-lang-menu a:hover { background: var(--slate-100); color: var(--navy); }
-    .nav-lang-menu a.active { color: var(--blue-600); background: #eff6ff; }
-    .nav-lang-menu a .lang-code { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.5px; color: #9ca3af; margin-left: auto; }
-
-    /* ─── HERO ─────────────────────────────────────────────── */
-    .hero {
-      background: linear-gradient(160deg, #001a33 0%, #002b52 55%, #003a6b 100%);
-      padding: 200px 40px 100px;
-      text-align: center;
-    }
-    .hero-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    .hero h1 {
-      font-size: clamp(3.2rem, 6.5vw, 5.2rem);
-      font-weight: 800;
-      letter-spacing: -2px;
-      line-height: 1.05;
-      max-width: 800px;
-      margin: 0 auto 28px;
-      color: #ffffff;
-    }
-    .hero h1 em {
-      font-style: normal;
-      color: #93c5fd;
-    }
-    .hero-sub {
-      font-size: 1.25rem;
-      color: #c3d4e6;
-      max-width: 640px;
-      margin: 0 auto 48px;
-      font-weight: 400;
-      line-height: 1.6;
-    }
-    .hero-actions {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    .btn-primary {
-      background: var(--blue-600);
-      color: var(--white);
-      padding: 16px 32px;
-      border-radius: var(--radius-sm);
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.2s, transform 0.15s;
-      display: inline-block;
-    }
-    .btn-primary:hover { background: var(--blue-700); transform: translateY(-1px); }
-    .btn-secondary {
-      background: var(--white);
-      color: var(--navy);
-      padding: 16px 32px;
-      border-radius: var(--radius-sm);
-      font-size: 0.95rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1.5px solid rgba(0,0,0,0.1);
-      transition: border-color 0.2s, transform 0.15s;
-      display: inline-block;
-    }
-    .btn-secondary:hover { border-color: var(--blue-300, #93c5fd); transform: translateY(-1px); }
-
-    /* ─── HERO SCROLL CTA ──────────────────────────────────── */
-    .hero-scroll-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: rgba(255,255,255,0.7);
-      font-size: 0.95rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: color 0.2s;
-      flex-direction: column;
-    }
-    .hero-scroll-cta:hover { color: #ffffff; }
-    .hero-scroll-cta .material-symbols-rounded {
-      font-size: 28px;
-      animation: bounce-down 2s ease infinite;
-    }
-    @keyframes bounce-down {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
-    }
-
-    /* ─── CHALLENGE GRID ───────────────────────────────────── */
-    .challenge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-    .challenge-card {
-      display: flex; gap: 20px; align-items: flex-start;
-      padding: 28px 24px; background: var(--white);
-      border-radius: var(--radius-md); border: 1.5px solid #e5e7eb;
-    }
-    .challenge-icon {
-      width: 44px; height: 44px; border-radius: var(--radius-sm);
-      background: rgba(245,158,11,0.12); display: flex; align-items: center;
-      justify-content: center; color: #d97706; flex-shrink: 0;
-    }
-    .challenge-icon .material-symbols-rounded { font-size: 22px; }
-    .challenge-card h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
-    .challenge-card p { font-size: 0.87rem; color: var(--slate-600); line-height: 1.6; }
-
-    /* ─── SCROLL GUIDE ─────────────────────────────────────── */
-    .scroll-guide {
-      text-align: center;
-      margin-top: 56px;
-    }
-    .scroll-guide .hero-scroll-cta {
-      color: var(--slate-600);
-    }
-    .scroll-guide .hero-scroll-cta:hover {
-      color: var(--blue-600);
-    }
-
-    /* ─── WENDEPUNKT ───────────────────────────────────────── */
-    .wendepunkt {
-      background: var(--white);
-      padding: 80px 40px;
-    }
-
-    /* ─── STATS ─────────────────────────────────────────────── */
-    .stats {
-      background: var(--white);
-      padding: 36px 40px;
-      border-bottom: 1px solid var(--slate-100);
-    }
-    .stats-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 40px;
-      text-align: center;
-    }
-    .stat-value {
-      font-size: 2.8rem;
-      font-weight: 800;
-      letter-spacing: -1px;
-      color: var(--navy);
-      line-height: 1;
-    }
-    .stat-value span { color: var(--blue-600); }
-    .stat-label {
-      margin-top: 8px;
-      font-size: 0.9rem;
-      color: var(--slate-600);
-      font-weight: 500;
-    }
-
-    .stats-logos-wrapper {
-      max-width: 1200px;
-      margin: 120px auto 0;
-      padding: 0 0 80px;
-      overflow: hidden;
-      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
-    }
-    .stats-logos {
-      display: flex;
-      align-items: center;
-      gap: 88px;
-      width: max-content;
-      animation: marquee 30s linear infinite;
-    }
-    .stats-logos:hover { animation-play-state: paused; }
-    .stats-logos img {
-      height: 38px;
-      width: auto;
-      opacity: 0.35;
-      filter: grayscale(100%) brightness(1.8);
-      transition: opacity 0.2s;
-      flex-shrink: 0;
-    }
-    .stats-logos img:hover { opacity: 0.7; }
-    @keyframes marquee {
-      0%   { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    /* ─── SECTION WRAPPER ───────────────────────────────────── */
-    section { padding: 100px 40px; }
-    .section-inner { max-width: 1200px; margin: 0 auto; }
-    .ani-fade-in { opacity: 0; transform: translateY(36px); transition: opacity .7s ease, transform .7s ease !important; }
-    .ani-fade-in.visible { opacity: 1; transform: none; }
-
-    .section-label {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--blue-600);
-      margin-bottom: 16px;
-    }
-    .section-title {
-      font-size: clamp(2rem, 3.5vw, 2.8rem);
-      font-weight: 800;
-      letter-spacing: -1px;
-      line-height: 1.15;
-      color: var(--navy);
-      margin-bottom: 20px;
-    }
-    .section-title em { font-style: normal; color: var(--secondary); }
-    .ki-section .section-title em { color: #93c5fd; }
-    .cta-banner .section-title em { color: #93c5fd; }
-    .section-sub {
-      font-size: 1.05rem;
-      color: var(--slate-600);
-      max-width: 520px;
-      margin-bottom: 60px;
-    }
-
-    /* ─── LEISTUNGEN ────────────────────────────────────────── */
-    /* ─── ECOSYSTEM FLOW ──────────────────────────────────── */
-    .eco-flow {
-      display: flex; align-items: stretch; gap: 0;
-    }
-    .eco-flow-card {
-      flex: 1; min-width: 0;
-      background: var(--slate-100);
-      border-radius: var(--radius-md);
-      padding: 40px 36px;
-      border: 1.5px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer; text-decoration: none; color: inherit;
-      display: flex; flex-direction: column;
-    }
-    .eco-flow-card:hover {
-      border-color: var(--blue-200);
-      box-shadow: 0 4px 16px rgba(0,51,102,0.08);
-    }
-    .eco-flow-card.eco-active {
-      border-color: var(--blue-600);
-      box-shadow: 0 0 0 2px var(--blue-600), 0 4px 20px rgba(0,51,102,0.15);
-    }
-    .eco-flow-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--navy); }
-    .eco-flow-card p { font-size: 0.92rem; color: var(--slate-600); line-height: 1.65; flex: 1; }
-    .eco-flow-arrow {
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; width: 48px;
-      color: var(--blue-600); opacity: 0.4;
-    }
-    .eco-flow-arrow .material-symbols-rounded { font-size: 28px; }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 24px;
-    }
-    .card {
-      background: var(--slate-100);
-      border-radius: var(--radius-md);
-      padding: 40px 36px;
-      border: 1.5px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-      display: flex;
-      flex-direction: column;
-    }
-    .card:hover {
-      border-color: var(--blue-200);
-      box-shadow: 0 4px 16px rgba(0,51,102,0.08);
-    }
-    .card-icon {
-      width: 52px; height: 52px;
-      border-radius: var(--radius-sm);
-      background: var(--blue-100);
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 24px;
-      color: var(--primary);
-    }
-    .card-icon .material-symbols-rounded { font-size: 26px; }
-    .card h3 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--navy);
-    }
-    .card p {
-      font-size: 0.92rem;
-      color: var(--slate-600);
-      line-height: 1.65;
-      flex: 1;
-    }
-    .card-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin-top: 24px;
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--blue-600);
-      text-decoration: none;
-    }
-    .card-link:hover { color: var(--blue-700); }
-    .card-link::after { content: "→"; }
-
-    /* ─── SOLUTIONS SLIDER ─────────────────────────────────── */
-    .solutions-slider-wrap {
-      position: relative;
-      width: 100vw;
-      margin-left: calc(50% - 50vw);
-      margin-right: calc(50% - 50vw);
-    }
-    .solutions-slider-wrap::after {
-      content: '';
-      position: absolute;
-      top: 0; right: 0; bottom: 0;
-      width: 160px;
-      background: linear-gradient(to right, transparent 0%, var(--blue-50) 70%);
-      pointer-events: none;
-      z-index: 1;
-      transition: opacity 0.3s;
-    }
-    .solutions-slider-wrap.at-end::after { opacity: 0; }
-    /* Touch-Geräte: kein Fade – der sichtbare Karten-Peek zeigt, dass es weitergeht */
-    @media (pointer: coarse) {
-      .solutions-slider-wrap::after { display: none; }
-    }
-    .solutions-slider {
-      display: flex;
-      gap: 20px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-padding-left: max(40px, calc((100vw - 1200px) / 2));
-      -webkit-overflow-scrolling: touch;
-      padding: 12px max(40px, calc((100vw - 1200px) / 2)) 16px;
-      scrollbar-width: none;
-    }
-    .solutions-slider::-webkit-scrollbar { display: none; }
-    .solutions-slider .card {
-      min-width: 300px;
-      max-width: 300px;
-      scroll-snap-align: start;
-      flex-shrink: 0;
-      background: var(--white);
-      border: 1.5px solid #e5e7eb;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    .solutions-slider .card:hover {
-      border-color: var(--blue-200);
-      box-shadow: 0 4px 16px rgba(0,51,102,0.08);
-    }
-    .slider-controls {
-      display: flex;
-      gap: 8px;
-      margin-top: 24px;
-      justify-content: flex-end;
-    }
-    .slider-btn {
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      border: 1.5px solid #e5e7eb;
-      background: var(--white);
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--navy);
-      transition: background 0.15s, border-color 0.15s;
-    }
-    .slider-btn:hover { background: var(--blue-50); border-color: var(--blue-200); }
-    .slider-btn .material-symbols-rounded { font-size: 20px; }
-
-    /* ─── SERVICES STRIP ───────────────────────────────────── */
-    .card-services-strip {
-      background: var(--slate-100);
-      border-radius: var(--radius-sm);
-      padding: 20px 28px;
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      border: 1.5px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .card-services-strip:hover {
-      border-color: var(--blue-200);
-      box-shadow: 0 4px 16px rgba(0,51,102,0.08);
-    }
-    .card-services-strip-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: var(--blue-100);
-      display: flex; align-items: center; justify-content: center;
-      color: var(--primary);
-      flex-shrink: 0;
-    }
-    .card-services-strip-icon .material-symbols-rounded { font-size: 22px; }
-    .card-services-strip-body { flex: 1; }
-    .card-services-strip-body h4 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 4px;
-    }
-    .card-services-strip-body p {
-      font-size: 0.85rem;
-      color: var(--slate-600);
-      line-height: 1.5;
-      margin: 0;
-    }
-
-    /* ─── KI HIGHLIGHT ──────────────────────────────────────── */
-    .ki-section {
-      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
-      color: var(--white);
-      border-radius: var(--radius-lg);
-      margin: 0 40px 0;
-      overflow: hidden;
-    }
-    .ki-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 80px 60px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-    .ki-section .section-label { color: #93c5fd; }
-    .ki-section .section-title { color: var(--white); margin-bottom: 20px; }
-    .ki-section .section-sub { color: #94a3b8; max-width: 100%; margin-bottom: 32px; }
-    .ki-features {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-    .ki-feature {
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: var(--radius-sm);
-      padding: 20px 24px;
-      display: flex;
-      gap: 16px;
-      align-items: flex-start;
-    }
-    .ki-feature-icon { flex-shrink: 0; margin-top: 2px; color: #93c5fd; }
-    .ki-feature-icon .material-symbols-rounded { font-size: 24px; }
-    .ki-feature h4 { font-size: 0.95rem; font-weight: 600; color: var(--white); margin-bottom: 4px; }
-    .ki-feature p { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
-
-    /* ─── SUCCESS STORIES ───────────────────────────────────── */
-    .stories-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
-    }
-    .story-card {
-      background: var(--white);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      border: 1.5px solid #e5e7eb;
-      transition: transform 0.2s, box-shadow 0.2s;
-      text-decoration: none;
-      display: block;
-      color: inherit;
-    }
-    .story-card:hover {
-      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
-      border-color: var(--blue-200);
-    }
-    .story-img-wrap {
-      position: relative;
-      height: 220px;
-      overflow: hidden;
-      background: var(--blue-50);
-    }
-    .story-img-wrap img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    .story-customer-badge {
-      position: absolute;
-      bottom: 14px;
-      left: 14px;
-      width: 72px;
-      height: 72px;
-      border-radius: 10px;
-      border: 1.5px solid #e5e7eb;
-      background: #fff;
-      overflow: hidden;
-    }
-    .story-customer-badge img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-    .story-body { padding: 28px 28px 32px; }
-    .story-tag {
-      font-size: 0.72rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: var(--secondary);
-      margin-bottom: 10px;
-      display: block;
-    }
-    .story-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 16px;
-      line-height: 1.4;
-    }
-    .story-result {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--blue-50);
-      border-radius: 10px;
-      padding: 14px 18px;
-      margin-bottom: 20px;
-    }
-    .story-result-value {
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: var(--secondary);
-      line-height: 1;
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    .story-result-label { font-size: 0.82rem; color: var(--slate-600); line-height: 1.45; }
-    .story-link {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--blue-600);
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .story-link::after { content: "→"; }
-    @media (max-width: 768px) { .stories-grid { grid-template-columns: 1fr; } }
-
-    /* ─── BRANCHEN ──────────────────────────────────────────── */
-    .branchen { background: var(--blue-50); }
-    .branchen-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 16px;
-    }
-    .branche-card {
-      background: var(--white);
-      border-radius: var(--radius-md);
-      padding: 28px 16px 24px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      gap: 14px;
-      font-weight: 600;
-      font-size: 0.88rem;
-      line-height: 1.35;
-      color: var(--navy);
-      border: 1.5px solid transparent;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-    .branche-card:hover {
-      border-color: var(--blue-200);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    }
-    .branche-icon {
-      width: 52px; height: 52px;
-      border-radius: 14px;
-      background: var(--blue-50);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--secondary);
-      flex-shrink: 0;
-      transition: background 0.2s;
-    }
-    .branche-card:hover .branche-icon { background: var(--blue-100); }
-    .branche-icon .material-symbols-rounded { font-size: 24px; }
-    @media (max-width: 1024px) { .branchen-grid { grid-template-columns: repeat(4, 1fr); } }
-    @media (max-width: 640px)  { .branchen-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } .branche-card { padding: 20px 12px 18px; } }
-
-    /* ─── REFERENZEN ────────────────────────────────────────── */
-    .referenzen { background: var(--white); }
-    .referenzen .section-label,
-    .referenzen .section-title,
-    .referenzen .section-sub { text-align: center; }
-    .referenzen .section-sub { margin: 0 auto 48px; }
-
-    /* Logo Grid */
-    .logo-grid-wrap {
-      position: relative;
-    }
-    .logo-grid-wrap::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 220px;
-      background: linear-gradient(to bottom, transparent 0%, var(--white) 65%);
-      pointer-events: none;
-    }
-    .logo-grid {
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 16px;
-      width: 100%;
-    }
-    .logo-frame {
-      width: 100%;
-      min-width: 0;
-      position: relative;
-      background: var(--white);
-      border: 1.5px solid #e5e7eb;
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    /* Padding-bottom trick garantiert echte Quadrate */
-    .logo-frame::before {
-      content: '';
-      display: block;
-      padding-bottom: 100%;
-    }
-    .logo-frame img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-    .logo-frame:hover {
-      border-color: var(--blue-200);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    }
-    @media (max-width: 1024px) { .logo-grid { grid-template-columns: repeat(4, 1fr); } }
-    @media (max-width: 640px)  { .logo-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; } }
-
-    /* ─── CTA BANNER ────────────────────────────────────────── */
-    .cta-banner {
-      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
-      border-radius: var(--radius-lg);
-      margin: 0 40px;
-      text-align: center;
-    }
-    .cta-banner .section-inner { padding: 80px 40px; }
-    .cta-banner .section-label { color: #93c5fd; }
-    .cta-banner .section-title { max-width: 640px; margin: 0 auto 16px; color: var(--white); }
-    .cta-banner .section-sub { margin: 0 auto 40px; text-align: center; color: #94a3b8; }
-    .cta-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-
-    /* ─── FOOTER ────────────────────────────────────────────── */
-    footer {
-      background: var(--navy);
-      color: #94a3b8;
-      padding: 64px 40px 32px;
-      margin-top: 100px;
-    }
-    .footer-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .footer-top {
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-    }
-    .footer-brand .nav-logo { color: var(--white); display: block; margin-bottom: 16px; }
-    .footer-brand p { font-size: 0.88rem; line-height: 1.65; max-width: 260px; }
-    .footer-col h4 {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      color: var(--white);
-      margin-bottom: 20px;
-    }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .footer-col a {
-      text-decoration: none;
-      color: #94a3b8;
-      font-size: 0.88rem;
-      transition: color 0.2s;
-    }
-    .footer-col a:hover { color: var(--white); }
-    .footer-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding-top: 28px;
-      font-size: 0.82rem;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .footer-bottom a { color: #94a3b8; text-decoration: none; }
-    .footer-bottom a:hover { color: var(--white); }
-
-    /* ─── HERO VIDEO BACKGROUND ─────────────────────────────── */
-    .hero { position: relative; overflow: hidden; }
-    .hero-video {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 0;
-      pointer-events: none;
-    }
-    /* dark overlay so the light text stays readable */
-    .hero::after {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 75% 70% at 50% 45%, rgba(0,20,40,0.35), rgba(0,20,40,0.7)),
-        linear-gradient(160deg, rgba(0,26,51,0.55) 0%, rgba(0,43,82,0.5) 100%);
-      z-index: 1;
-      pointer-events: none;
-    }
-    .hero-inner { position: relative; z-index: 2; }
-
-    .ki-section { position: relative; }
-    .ki-section::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
-      background-size: 28px 28px;
-      pointer-events: none;
-    }
-    .ki-inner { position: relative; z-index: 1; }
-
-    .cta-banner { position: relative; overflow: hidden; }
-    .cta-banner::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1.5px, transparent 1.5px);
-      background-size: 28px 28px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .cta-banner .section-inner { position: relative; z-index: 1; }
-
-    /* ─── HAMBURGER ─────────────────────────────────────────── */
-    .nav-hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      padding: 6px;
-      border: none;
-      background: none;
-      pointer-events: all;
-    }
-    .nav-hamburger span {
-      display: block;
-      width: 22px;
-      height: 2px;
-      background: var(--navy);
-      border-radius: 2px;
-      transition: all 0.2s;
-    }
-    .nav-mobile-menu {
-      display: none;
-      position: fixed;
-      top: 76px;
-      left: 16px;
-      right: 16px;
-      background: white;
-      border: 1px solid #e5e7eb;
-      border-radius: var(--radius-md);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-      padding: 16px;
-      z-index: 99;
-      flex-direction: column;
-      gap: 4px;
-    }
-    .nav-mobile-menu.open { display: flex; }
-    .nav-mobile-menu > a { text-decoration: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; transition: background 0.15s; display: block; }
-    .nav-mobile-menu > a:hover { background: var(--slate-100); }
-    .mob-group { display: flex; flex-direction: column; }
-    .mob-group-toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; background: none; border: none; font-size: 0.95rem; font-weight: 500; color: #374151; padding: 12px 16px; border-radius: 10px; cursor: pointer; text-align: left; transition: background 0.15s; font-family: inherit; }
-    .mob-group-toggle:hover { background: var(--slate-100); }
-    .mob-chevron { font-size: 18px !important; transition: transform 0.2s; line-height: 1; flex-shrink: 0; }
-    .mob-group.open .mob-chevron { transform: rotate(180deg); }
-    .mob-sub { display: none; flex-direction: column; padding-left: 12px; }
-    .mob-group.open .mob-sub { display: flex; }
-    .mob-sub a { text-decoration: none; font-size: 0.88rem; font-weight: 400; color: #6b7280; padding: 8px 16px; border-radius: 8px; transition: background 0.15s; display: block; }
-    .mob-sub a:hover { background: var(--slate-100); color: var(--navy); }
-
-    /* ─── RESPONSIVE: TABLET ────────────────────────────────── */
-    @media (max-width: 1024px) {
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      .nav-cta { display: none; }
-      .nav-chevron { display: none; }
-      .nav-actions { gap: 4px !important; margin-right: 10px; }
-
-      .stats-inner { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
-
-      .ki-inner {
-        grid-template-columns: 1fr;
-        gap: 48px;
-        padding: 60px 40px;
-      }
-
-      .footer-top {
-        grid-template-columns: 1fr 1fr;
-        gap: 32px;
-      }
-
-      .branchen-grid {
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      }
-    }
-
-    /* ─── RESPONSIVE: MOBILE ─────────────────────────────────── */
-    @media (max-width: 640px) {
-      h1, h2, h3, h4 { hyphens: auto; }
-      /* Nav */
-      nav { padding: 10px 16px; }
-      .nav-links { display: none; }
-      .nav-inner { height: 52px; padding: 0.4rem 0.5rem 0.4rem 1rem; }
-      .nav-cta { padding: 9px 16px; font-size: 0.82rem; }
-
-      /* Hero */
-      .hero { padding: 130px 20px 88px; }
-      .hero h1 { font-size: 2.6rem; letter-spacing: -1px; }
-      .hero-sub { font-size: 1.05rem; }
-      .hero-actions { flex-direction: column; align-items: center; }
-      .hero-actions .btn-primary,
-      .hero-actions .btn-secondary { width: 100%; text-align: center; justify-content: center; }
-
-      /* Stats */
-      .stats { padding: 40px 20px; }
-      .stats-inner { grid-template-columns: 1fr; gap: 28px; }
-      .stat-value { font-size: 2.2rem; }
-
-      /* Sections */
-      section { padding: 64px 20px; }
-      .solutions-slider {
-        scroll-padding-left: 20px;
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-      .solutions-slider-wrap::after { display: none; }
-      .section-title { font-size: 1.8rem; }
-      .section-sub { font-size: 0.95rem; }
-
-      /* Stats Logos */
-      .stats-logos-wrapper { margin-top: 80px; }
-      .stats-logos { gap: 48px; animation-duration: 20s; }
-      .stats-logos img { height: 30px; }
-
-      /* Challenge Grid */
-      .challenge-grid { grid-template-columns: 1fr; }
-
-      /* Wendepunkt */
-      .wendepunkt { padding: 56px 20px; }
-
-      /* Eco Flow */
-      .eco-flow { flex-direction: column; gap: 0; }
-      .eco-flow-arrow { width: auto; height: 32px; transform: rotate(90deg); }
-      .eco-flow-card { padding: 28px 24px; }
-
-      /* Cards */
-      .cards-grid { grid-template-columns: 1fr; }
-      .card { padding: 28px 24px; }
-      .card-services-strip { flex-direction: column; align-items: flex-start; gap: 12px; }
-
-      /* KI section */
-      .ki-section { border-radius: var(--radius-md); margin: 0 16px; }
-      .ki-inner { padding: 48px 28px; gap: 32px; }
-      .ki-section .section-title { font-size: 1.8rem; }
-
-      /* REFERenzen */
-      .branchen-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-      .branche-card { padding: 20px 16px; font-size: 0.85rem; }
-
-      /* CTA Banner */
-      .cta-banner { border-radius: var(--radius-md); margin: 0 16px; }
-      .cta-banner .section-inner { padding: 56px 28px; }
-      .cta-actions { flex-direction: column; align-items: center; }
-      .cta-actions a { width: 100%; text-align: center; justify-content: center; }
-
-      /* Footer */
-      footer { padding: 48px 20px 24px; margin-top: 64px; }
-      .footer-top { grid-template-columns: 1fr; gap: 32px; }
-      .footer-bottom { flex-direction: column; align-items: flex-start; gap: 16px; }
-    }
-
-    /* ═══════════════════════════════════════════════════════════
-       DARK THEME (dunkel & kontrast-reich)
-       Überschreibt die hellen Regeln – später zuletzt = gewinnt.
-       ═══════════════════════════════════════════════════════════ */
-    :root {
-      --primary:   #5FC9F5;
-      --secondary: #5FC9F5;
-      --blue-50:   #0D1526;
-      --blue-100:  rgba(95,201,245,0.14);
-      --blue-200:  rgba(95,201,245,0.45);
-      --blue-600:  #5FC9F5;
-      --blue-700:  #8ADAF9;
-      --navy:      #F5F6F8;   /* jetzt: primäre Textfarbe */
-      --slate-600: #9AA7BD;
-      --slate-100: #101B2E;
-      --white:     #0A101E;   /* jetzt: Seiten-Hintergrund + Invers-Text auf Akzent */
-      --bg-alt:    #0D1526;
-      --bg-deep:   #060A12;
-      --line:      rgba(255,255,255,0.10);
-    }
-
-    body { background: var(--white); color: var(--navy); }
-
-    /* ── NAV ── */
-    .nav-inner { background: rgba(13,21,38,0.85); border-color: var(--line); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
-    .nav-links a { color: rgba(245,246,248,0.75); }
-    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .nav-dropdown-menu, .nav-lang-menu { background: rgba(13,21,38,0.97); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
-    .nav-dropdown-menu a, .nav-lang-menu a { color: rgba(245,246,248,0.75); }
-    .nav-dropdown-menu a:hover, .nav-lang-menu a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .nav-dropdown-menu a.active, .nav-lang-menu a.active { color: var(--blue-600); background: rgba(95,201,245,0.12); }
-    .nav-dropdown-divider { background: var(--line); }
-    .nav-lang-btn { color: rgba(245,246,248,0.75); }
-    .nav-lang-btn:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .nav-lang-menu a .lang-code { color: rgba(245,246,248,0.4); }
-    .nav-hamburger span { background: var(--navy); }
-    .nav-mobile-menu { background: rgba(13,21,38,0.98); border-color: var(--line); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
-    .nav-mobile-menu > a, .mob-group-toggle { color: rgba(245,246,248,0.8); }
-    .nav-mobile-menu > a:hover, .mob-group-toggle:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-    .mob-sub a { color: rgba(245,246,248,0.55); }
-    .mob-sub a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
-
-    /* ── STATS LOGOS ── */
-    .stats-logos img { filter: grayscale(100%) brightness(3); opacity: 0.25; }
-    .stats-logos img:hover { opacity: 0.6; }
-
-    /* ── CHALLENGE GRID ── */
-    .challenge-card { background: var(--bg-alt); border-color: var(--line); }
-    .challenge-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-    .challenge-icon { background: rgba(245,158,11,0.15); color: #f59e0b; }
-
-    /* ── WENDEPUNKT ── */
-    .wendepunkt { background: var(--white); }
-
-    /* ── HERO ── */
-    .hero h1 em { color: var(--blue-600); }
-    .hero-sub { color: rgba(245,246,248,0.65); }
-    /* Weicher Verlauf am Hero-Ende → nahtloser Übergang zur nächsten Section */
-    .hero::before {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; bottom: 0;
-      height: 320px;
-      background: linear-gradient(to bottom, rgba(10,16,30,0) 0%, var(--white) 100%);
-      z-index: 2;
-      pointer-events: none;
-    }
-
-    /* ── STATS ── */
-    .stats { background: var(--white); border-bottom-color: var(--line); }
-
-    /* ── BUTTONS ── */
-    .btn-secondary { background: transparent; color: var(--navy); border-color: rgba(255,255,255,0.25); }
-    .btn-secondary:hover { border-color: var(--blue-600); }
-
-    /* ── ECO FLOW ── */
-    .eco-flow-card { background: var(--bg-alt); border-color: var(--line); }
-    .eco-flow-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-    .eco-flow-card.eco-active { border-color: var(--blue-600); box-shadow: 0 0 0 2px var(--blue-600), 0 4px 20px rgba(0,0,0,0.3); }
-
-    /* ── CARDS / SLIDER ── */
-    .card { background: var(--bg-alt); border-color: var(--line); }
-    .card:hover { border-color: var(--blue-200); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-    .card-icon { background: var(--blue-100); color: var(--blue-600); }
-    .solutions-slider .card { background: var(--bg-alt); border-color: var(--line); }
-    .solutions-slider .card:hover { border-color: var(--blue-200); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-    .solutions-slider-wrap::after { background: linear-gradient(to right, transparent 0%, var(--white) 70%); }
-    .card-services-strip { background: var(--bg-alt); }
-    .card-services-strip:hover { border-color: var(--blue-200); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-    .card-services-strip-icon { background: var(--blue-100); color: var(--blue-600); }
-    .slider-btn { background: var(--bg-alt); border-color: var(--line); color: var(--navy); }
-    .slider-btn:hover { background: rgba(95,201,245,0.12); border-color: var(--blue-200); }
-
-    /* ── STORY CARDS ── */
-    .story-card { background: var(--bg-alt); border-color: var(--line); }
-    .story-card:hover { border-color: var(--blue-200); box-shadow: 0 8px 32px rgba(0,0,0,0.45); }
-    .story-img-wrap { background: var(--bg-alt); }
-    .story-result { background: rgba(95,201,245,0.10); }
-
-    /* ── BRANCHEN ── */
-    .branchen { background: var(--bg-alt); }
-    .branche-card { background: var(--white); border-color: var(--line); }
-    .branche-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
-    .branche-icon { background: var(--blue-100); }
-    .branche-card:hover .branche-icon { background: rgba(95,201,245,0.22); }
-
-    /* ── DOT-PATTERN OVERLAY (wiederverwendbar) ── */
-    .pattern-dots { position: relative; }
-    .pattern-dots::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.09) 1.3px, transparent 1.3px);
-      background-size: 24px 24px;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .pattern-dots > * { position: relative; z-index: 1; }
-
-    /* ── REFERENZEN ── */
-    .referenzen { background: var(--white); }
-    .logo-grid-wrap::after { background: linear-gradient(to bottom, transparent 0%, var(--white) 65%); }
-    .logo-frame { background: var(--bg-alt); border-color: var(--line); opacity: 0.7; transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s; }
-    .logo-frame:hover { opacity: 1; border-color: var(--blue-200); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
-
-    /* ── KI-SECTION (dunkles Panel, Text hell) ── */
-    .ki-section {
-      background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%);
-      border: 1px solid var(--line);
-      color: var(--navy);
-    }
-    .ki-section .section-title, .ki-feature h4 { color: var(--navy); }
-    .ki-section .section-title em,
-    .cta-banner .section-title em { color: var(--blue-600); }
-    .ki-section .section-label,
-    .cta-banner .section-label { color: var(--blue-600); }
-    .ki-feature-icon { color: var(--blue-600); }
-    .ki-feature { background: rgba(255,255,255,0.04); border-color: var(--line); }
-
-    /* ── CTA BANNER (dunkles Panel, Titel hell) ── */
-    .cta-banner {
-      background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%);
-      border: 1px solid var(--line);
-    }
-    .cta-banner .section-title { color: var(--navy); }
-
-    /* ── FOOTER ── */
-    footer { background: var(--bg-deep); }
-    .footer-top { border-bottom-color: var(--line); }
-    .footer-brand .nav-logo, .footer-col h4 { color: var(--navy); }
-
-    /* ── TYPOGRAFIE: Headlines in Space Grotesk ── */
-    h1, h2, h3, h4,
-    .hero h1, .section-title, .section-title em,
-    .stat-value, .story-title, .story-result-value,
-    .card h3 { font-family: 'Outfit', 'Inter', sans-serif; font-weight: 600; }
-
-    /* ── DEKO-LINIE vor Section-Labels (wie Vorlage) ── */
-    .section-label { display: inline-flex; align-items: center; gap: 14px; }
-    .section-label::before {
-      content: '';
-      width: 48px; height: 1px;
-      background: var(--blue-600);
-      flex: 0 0 auto;
-    }
-    /* Ausnahmen: zentrierte Labels & KI-Section (hat bereits NEU-Badge) */
-    .cta-banner .section-label::before,
-    .ki-section .section-label::before { display: none; }
-    .ki-section::before, .cta-banner::before { background-image: none; }
-    /* zentriertes Referenzen-Label mittig ausrichten (Linie + Text als Gruppe) */
-    .referenzen .section-label { display: flex; justify-content: center; }
-  </style>
 </head>
-<body>
+<body class="page-home">
 
 <!-- NAV -->
 <nav>
@@ -1269,7 +30,7 @@
         </div>
       </li>
       <li class="nav-has-dropdown">
-        <a href="loesungen.html">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <a href="#loesungen">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
         <div class="nav-dropdown-menu">
           <a href="mitgliederportale.html">Mitgliederportal</a>
           <a href="kundenportale.html">Kundenportal</a>
@@ -1299,6 +60,10 @@
           <a href="#">English <span class="lang-code">EN</span></a>
         </div>
       </div>
+      <a href="#" class="nav-login" aria-label="Login zum Kundenportal">
+        <span class="material-symbols-rounded">login</span>
+        <span class="nav-login-label">Login</span>
+      </a>
       <button class="nav-hamburger" id="nav-toggle" aria-label="Menü öffnen">
         <span></span><span></span><span></span>
       </button>
@@ -1345,26 +110,27 @@
 </script>
 
 <!-- HERO -->
-<header class="hero">
+<header class="hero" id="start">
   <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="videos/hero-poster.jpg" aria-hidden="true">
     <source src="videos/hero-waves.mp4" type="video/mp4" />
   </video>
   <div class="hero-inner">
     <div class="hero-content" style="display:flex; flex-direction:column; align-items:center;">
-      <h1>We Build<br><font color="#5fc9f5">Digital Leaders.</font></h1>
-      <p class="hero-sub">Komplexität verstehen. Strukturen verbinden. Prozesse vereinfachen. Digitalisierung weiterdenken.</p>
-      <a href="#ausgangslage" class="hero-scroll-cta"><span>Mehr erfahren</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
+      <h1>We <span class="hero-grow" id="hero-typer"></span><br><span class="hero-accent">your digital business.</span></h1>
+      <p class="hero-sub">Seit über 28 Jahren entwickeln wir digitale Plattformen, die gewachsene Strukturen verbinden, Prozesse vereinfachen und Organisationen zukunftsfähig machen.</p>
+      <p class="hero-blocks">Cloud <span>|</span> Portale <span>|</span> KI</p>
     </div>
   </div>
+  <a href="#ausgangslage" class="hero-scroll-cta"><span>Mehr erfahren</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
 </header>
 
 <!-- PAIN SECTION -->
 <section id="ausgangslage" class="pain-section" style="background:var(--white);">
   <div class="section-inner">
-    <div class="ani-fade-in">
-      <p class="section-label">Die Ausgangslage</p>
-      <h2 class="section-title">Gewachsene Strukturen<em>. Steigende Komplexität.</em></h2>
-      <p class="section-sub">Organisationen wachsen. Systeme wachsen mit – aber selten zusammen.</p>
+    <div class="ani-fade-in" style="text-align:center; max-width:720px; margin:0 auto;">
+      <p class="section-label">Ihre Herausforderungen</p>
+      <h2 class="section-title">Wir kennen <em>Ihre Herausforderungen.</em></h2>
+      <p class="section-sub" style="margin-left:auto; margin-right:auto;">Gewachsene Strukturen, steigende Komplexität – diese Muster begegnen uns in vielen Organisationen. Und wir wissen, wie man sie auflöst.</p>
     </div>
     <div class="challenge-grid ani-fade-in">
       <div class="challenge-card">
@@ -1395,29 +161,32 @@
           <p>Stakeholder erwarten digitale Zugänge – ohne Portal bleibt jede Anfrage ein manueller Vorgang.</p>
         </div>
       </div>
-    </div>
-    <div class="scroll-guide ani-fade-in">
-      <a href="#produkte" class="hero-scroll-cta"><span>Zur Lösung</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
+      <div class="challenge-card">
+        <div class="challenge-icon"><span class="material-symbols-rounded">speed</span></div>
+        <div>
+          <h4>Wachsender Wettbewerbsdruck</h4>
+          <p>Digitale Angebote werden zum Standard – wer nicht mithält, verliert Kunden und Mitglieder an agilere Anbieter.</p>
+        </div>
+      </div>
+      <div class="challenge-card">
+        <div class="challenge-icon"><span class="material-symbols-rounded">psychology</span></div>
+        <div>
+          <h4>Und jetzt noch Künstliche Intelligenz</h4>
+          <p>Alle reden von KI – aber wo anfangen, wenn die Grundlagen fehlen? Ohne strukturierte Daten und verbundene Systeme bleibt KI ein Versprechen ohne Wirkung.</p>
+        </div>
+      </div>
     </div>
   </div>
+  <a href="#produkte" class="section-scroll-cta"><span>Weiter</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
 </section>
-
-<!-- WENDEPUNKT -->
-<div class="wendepunkt">
-  <div class="section-inner" style="text-align:center; max-width:720px;">
-    <h2 class="section-title" style="color:var(--navy); margin-bottom:16px;">Es gibt einen besseren Weg<em>.</em></h2>
-    <p style="font-size:1.05rem; color:var(--slate-600); line-height:1.7; margin-bottom:12px;">Seit 28 Jahren begleiten wir Organisationen dabei, gewachsene Strukturen in ein verbundenes System zu verwandeln – Schritt für Schritt, ohne Brüche.</p>
-    <p style="font-size:0.95rem; color:var(--blue-600); font-weight:600;">Cloud | Portale | KI – Drei Bausteine. Eine Plattform.</p>
-  </div>
-</div>
 
 <!-- PRODUKTE & SERVICES -->
 <section id="produkte" class="pattern-dots" style="background:var(--white);">
   <div class="section-inner">
-    <div class="ani-fade-in">
+    <div class="ani-fade-in" style="text-align:center; max-width:720px; margin:0 auto 24px;">
       <p class="section-label">So lösen wir es</p>
-      <h2 class="section-title">Drei Bausteine. Eine Plattform<em>.</em></h2>
-      <p class="section-sub"><br></p>
+      <h2 class="section-title">Es gibt einen besseren Weg:<br><em>Drei Bausteine. Eine Plattform.</em></h2>
+      <p class="section-sub" style="margin-left:auto; margin-right:auto;">Seit 28 Jahren verwandeln wir gewachsene Strukturen in ein verbundenes System – Schritt für Schritt, ohne Medienbrüche.</p>
     </div>
     <div class="eco-flow ani-fade-in">
       <a href="cloud.html" class="eco-flow-card">
@@ -1443,69 +212,166 @@
     </div>
 
   </div>
+  <a href="#ki-highlight" class="section-scroll-cta"><span>Weiter</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
 </section>
 
-<!-- VERSPRECHEN -->
-<div class="wendepunkt">
-  <div class="section-inner" style="text-align:center; max-width:720px;">
-    <h2 class="section-title" style="color:var(--navy); margin-bottom:16px;">Bessere Services. Zentrale Informationen. Mehr Automatisierung für <em>unternehmenskritische Prozesse.</em></h2>
-    <p style="font-size:1.05rem; color:var(--slate-600); line-height:1.7;">Eine Plattform, die mit Ihren Anforderungen wächst.</p>
+<!-- KI HIGHLIGHT -->
+<section id="ki-highlight" style="background: var(--white);">
+  <div class="ki-section">
+    <div class="ki-inner">
+      <div class="ani-fade-in">
+        <p class="section-label" style="margin-bottom:16px;">Angewandte KI</p>
+        <h2 class="section-title">KI, die <em>Ihre Prozesse</em> unterstützt.</h2>
+        <p class="section-sub">Wir integrieren KI direkt in Ihr Portal – auf Basis Ihrer Daten, DSGVO-konform und vollständig unter Ihrer Kontrolle.</p>
+        <a href="ki.html" class="btn-primary">Mehr zu KI</a>
+      </div>
+      <div class="ki-features">
+        <div class="ki-feature ani-fade-in" data-delay="0">
+          <div class="ki-feature-icon"><span class="material-symbols-rounded">chat</span></div>
+          <div>
+            <h4>KI-Assistenten&nbsp;</h4>
+            <p>Chatbots oder Assistenten mit geschützten Zugriff auf Ihre Dokumente, Prozesse oder Wissensbasen.</p>
+          </div>
+        </div>
+        <div class="ki-feature ani-fade-in" data-delay="100">
+          <div class="ki-feature-icon"><span class="material-symbols-rounded">auto_awesome</span></div>
+          <div>
+            <h4>Intelligente Agenten</h4>
+            <p>Automatisierte Workflows, Klassifizierung und intelligente Zusammenfassung und Verarbeitung von Informationen und Prozessen für effiziente, fehlerfreie Abläufe.</p>
+          </div>
+        </div>
+        <div class="ki-feature ani-fade-in" data-delay="200">
+          <div class="ki-feature-icon"><span class="material-symbols-rounded">lock</span></div>
+          <div>
+            <h4>Maßgeschneiderte Integration</h4>
+            <p>Führende KI-Modelle von Claude, OpenAI oder Azure AI&nbsp; nach Wunsch für maßgeschneiderte Lösungen für Ihren konkreten Anwendungsfall.</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <a href="#ergebnis" class="section-scroll-cta"><span>Weiter</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
+</section>
+
+<!-- VERSPRECHEN / DAS ERGEBNIS -->
+<div class="wendepunkt" id="ergebnis">
+  <div class="section-inner" style="text-align:center; max-width:820px;">
+    <p class="section-label" style="margin-bottom:16px;">Das Ergebnis</p>
+    <h2 class="section-title" style="color:var(--navy); margin-bottom:16px;">Bessere Services. Zentrale Informationen. Mehr Automatisierung für <em>unternehmenskritische Prozesse.</em></h2>
+    <p style="font-size:1.05rem; color:var(--slate-600); line-height:1.7;">Eine Plattform, die mit Ihren Anforderungen wächst – und der zahlreiche Unternehmen vertrauen.</p>
+    <div class="hero-stats ani-fade-in" style="margin: 44px auto 0;">
+      <div class="hero-stat"><div class="stat-prefix">in</div><div class="stat-value">320<span>+</span></div><div class="stat-label">Projekten</div></div>
+      <div class="hero-stat"><div class="stat-prefix">mehr als</div><div class="stat-value">99,95<span>%</span></div><div class="stat-label">Verfügbarkeit</div></div>
+      <div class="hero-stat"><div class="stat-prefix">dank</div><div class="stat-value">28<span>+</span></div><div class="stat-label">Jahren Erfahrung</div></div>
+    </div>
+  </div>
+  <div class="ergebnis-logos" aria-label="Unsere Kunden">
+    <div class="logo-marquee">
+      <div class="logo-track">
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="VBL" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="Abellio" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="National Express" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="THOR" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="Nordwest Factoring" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="HRcom" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odgers_mono.png" alt="Odgers Berndtson" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_spitzke_mono.png" alt="Spitzke" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lak_mono.png" alt="LAK BW" />
+        <!-- Duplikat fuer nahtlosen Loop -->
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odgers_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_spitzke_mono.png" alt="" aria-hidden="true" />
+        <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lak_mono.png" alt="" aria-hidden="true" />
+      </div>
+    </div>
+  </div>
+  <a href="#referenzen" class="section-scroll-cta"><span>Weiter</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
 </div>
 
-<!-- STATS -->
-<div class="stats">
-  <div class="stats-inner">
-    <div>
-      <div class="stat-label">in</div>
-      <div class="stat-value">320<span>+</span></div>
-      <div class="stat-label">Projekten</div>
+<!-- REFERENZEN (direkt hinter Das Ergebnis) -->
+<section class="pattern-dots" id="referenzen">
+  <div class="section-inner">
+    <div class="ani-fade-in" style="text-align:center; max-width:720px; margin:0 auto 44px;">
+      <p class="section-label">Referenzen</p>
+      <h2 class="section-title">Ergebnisse, die für sich <em>sprechen.</em></h2>
+      <p class="section-sub" style="margin-left:auto; margin-right:auto;">Über 320 Projekte in 28 Jahren – ein Querschnitt der Lösungen, die wir für unsere Kunden umgesetzt haben.</p>
     </div>
-    <div>
-      <div class="stat-label">mehr als</div>
-      <div class="stat-value">99,95<span>%</span></div>
-      <div class="stat-label">Verfügbarkeit</div>
+    <div class="ref-showcase-grid ani-fade-in">
+      <a href="referenzen.html#finanzen" class="ref-showcase-card" style="background-image:url('solution-headers/SITEFORUM_Header_Lösungen_Kundenportale.jpg')">
+        <span class="ref-showcase-branche">Finanzen</span>
+        <span class="ref-showcase-logo"><img src="customer-logos/SITEFORUM_Kunden_VBL.jpg" alt="VBL" /></span>
+        <div class="ref-showcase-body">
+          <div class="ref-showcase-stat">4,4 Mio.<span>Versicherte im Self-Service</span></div>
+          <h3>VBL</h3>
+        </div>
+      </a>
+      <a href="referenzen.html#kammern" class="ref-showcase-card" style="background-image:url('solution-headers/SITEFORUM_Header_Lösungen_Kundenportale_2.jpg')">
+        <span class="ref-showcase-branche">Kammern &amp; Verbände</span>
+        <span class="ref-showcase-logo"><img src="customer-logos/SITEFORUM_Kunden_lak-bw.jpg" alt="LAK Baden-Württemberg" /></span>
+        <div class="ref-showcase-body">
+          <div class="ref-showcase-stat">13.500+<span>Mitglieder digital betreut</span></div>
+          <h3>LAK Baden-Württemberg</h3>
+        </div>
+      </a>
+      <a href="referenzen.html#finanzen" class="ref-showcase-card" style="background-image:url('solution-headers/SITEFORUM_Header_Lösungen_InvoiceManagement.jpg')">
+        <span class="ref-showcase-branche">Finanzen</span>
+        <span class="ref-showcase-logo"><img src="customer-logos/SITEFORUM_Kunden_nordwest-factoring.png" alt="nordwest Factoring" /></span>
+        <div class="ref-showcase-body">
+          <div class="ref-showcase-stat">200.000<span>Rechnungen/Jahr automatisiert</span></div>
+          <h3>nordwest Factoring</h3>
+        </div>
+      </a>
+      <a href="referenzen.html#personal" class="ref-showcase-card" style="background-image:url('solution-headers/SITEFORUM_Header_Lösungen_Mitarbeiterportale.jpg')">
+        <span class="ref-showcase-branche">Personaldienstleistungen</span>
+        <span class="ref-showcase-logo"><img src="customer-logos/SITEFORUM_Kunden_THOR.jpg" alt="THOR" /></span>
+        <div class="ref-showcase-body">
+          <div class="ref-showcase-stat">360°<span>Prozesse für 1.000 Mitarbeiter</span></div>
+          <h3>THOR</h3>
+        </div>
+      </a>
+      <a href="referenzen.html#verkehr" class="ref-showcase-card" style="background-image:url('solution-headers/SITEFORUM_Header_Lösungen_Informationsmanagement_Lagebericht.jpg')">
+        <span class="ref-showcase-branche">Verkehr &amp; Transport</span>
+        <span class="ref-showcase-logo"><img src="customer-logos/SITEFORUM_Kunden_abellio.jpg" alt="Abellio" /></span>
+        <div class="ref-showcase-body">
+          <div class="ref-showcase-stat">50.000+<span>Betriebsvorfälle/Jahr erfasst &amp; verteilt</span></div>
+          <h3>Abellio</h3>
+        </div>
+      </a>
+      <a href="referenzen.html" class="ref-showcase-card ref-showcase-cta">
+        <span class="ref-showcase-cta-icon"><span class="material-symbols-rounded">arrow_forward</span></span>
+        <div class="ref-showcase-cta-text">
+          <strong>Alle Referenzen ansehen</strong>
+          <span>Über 320 Projekte in 28 Jahren</span>
+        </div>
+      </a>
     </div>
-    <div>
-      <div class="stat-label">dank</div>
-      <div class="stat-value">28<span>+</span></div>
-      <div class="stat-label">Jahren Erfahrung</div>
+    <div class="branchen-tags ani-fade-in">
+      <span class="branchen-tags-label">Branchen:</span>
+      <a href="referenzen.html#kammern">Kammern &amp; Verbände</a>
+      <a href="referenzen.html#finanzen">Finanzen</a>
+      <a href="referenzen.html#verkehr">Verkehr &amp; Transport</a>
+      <a href="referenzen.html#personal">Personaldienstleistungen</a>
+      <a href="referenzen.html#events">Events &amp; Vereine</a>
+      <a href="referenzen.html#weitere">Weitere Projekte</a>
     </div>
   </div>
-  <div class="stats-logos-wrapper">
-    <div class="stats-logos">
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="VBL" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="Abellio" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="National Express" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="THOR" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="Nordwest Factoring" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="HRcom" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odgers_mono.png" alt="Odgers Berndtson" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_spitzke_mono.png" alt="Spitzke" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lak_mono.png" alt="LAK BW" />
-      <!-- Duplikat für nahtlosen Loop -->
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_vbl_mono.png" alt="VBL" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_abellio_mono.png" alt="Abellio" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_national-express_mono.png" alt="National Express" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odeg_mono.png" alt="ODEG" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_THOR_mono.png" alt="THOR" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_nordwest_mono.png" alt="Nordwest Factoring" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_hrcom_mono.png" alt="HRcom" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_odgers_mono.png" alt="Odgers Berndtson" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_spitzke_mono.png" alt="Spitzke" />
-      <img src="customer-logos/monochrome/website-versions/SITEFORUM_Kunden_lak_mono.png" alt="LAK BW" />
-    </div>
-  </div>
-</div>
+  <a href="#loesungen" class="section-scroll-cta"><span>Weiter</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
+</section>
 
 <!-- LÖSUNGEN -->
 <section id="loesungen" style="background:var(--blue-50);">
   <div class="section-inner">
     <div style="display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:40px;">
       <div class="ani-fade-in">
-        <p class="section-label">Lösungen</p>
-        <h2 class="section-title" style="margin-bottom:12px;"><em>Lösungen,&nbsp;</em>die zu Ihnen passen.</h2>
+        <p class="section-label">Etablierte Lösungen</p>
+        <h2 class="section-title" style="margin-bottom:12px;">Lösungen, die auch <em>zu Ihnen passen?</em></h2>
         <p class="section-sub" style="margin-bottom:0;">Modularer Aufbau, Self-Services und Prozess-Automatisierung.&nbsp;</p>
       </div>
       <div class="slider-controls">
@@ -1516,51 +382,45 @@
     <div class="solutions-slider-wrap">
       <div class="solutions-slider" id="solutions-slider">
 
-        <div class="card ani-fade-in">
+        <a class="card ani-fade-in" href="mitarbeiterportale.html">
           <div class="card-icon"><span class="material-symbols-rounded">badge</span></div>
           <h3>Mitarbeiterportale</h3>
           <p>Komplexe Prozesse als digitale Self-Services – von Onboarding über interne Kommunikation, Dokumentenverwaltung,&nbsp; Einsatzplanung bis Stundennachweisen.</p>
-          <a href="#" class="card-link">Mehr erfahren</a>
-        </div>
+          <span class="card-link">Mehr erfahren</span>
+        </a>
 
-        <div class="card ani-fade-in">
+        <a class="card ani-fade-in" href="kundenportale.html">
           <div class="card-icon"><span class="material-symbols-rounded">person_pin</span></div>
           <h3>Kundenportale</h3>
           <p>Moderne Self-Service-Bereiche für Ihre Kunden – individuelle Dashboards, Dokumentenzugang und automatisierte Prozesse rund um die Uhr.</p>
-          <a href="#" class="card-link">Mehr erfahren</a>
-        </div>
+          <span class="card-link">Mehr erfahren</span>
+        </a>
 
-        <div class="card ani-fade-in">
+        <a class="card ani-fade-in" href="mitgliederportale.html">
           <div class="card-icon"><span class="material-symbols-rounded">groups</span></div>
           <h3>Mitgliederportale</h3>
           <p>Für Verbände und Organisationen: Mitgliederverwaltung, Self-Services und digitale Zusammenarbeit in einer Lösung.</p>
-          <a href="#" class="card-link">Mehr erfahren</a>
-        </div>
+          <span class="card-link">Mehr erfahren</span>
+        </a>
 
-        <div class="card ani-fade-in">
+        <a class="card ani-fade-in" href="informationsmanagement.html">
           <div class="card-icon"><span class="material-symbols-rounded">train</span></div>
           <h3>Ereignis-Dokumentation</h3>
           <p>Erfassung, Dokumentation und Verteilung von Ereignissen im ÖPNV, ergeben einen standardisierten Lagebericht für verteilte Leitstellen.</p>
-          <a href="#" class="card-link">Mehr erfahren</a>
-        </div>
+          <span class="card-link">Mehr erfahren</span>
+        </a>
 
-        <div class="card ani-fade-in">
-          <div class="card-icon"><span class="material-symbols-rounded">account_balance</span></div>
-          <h3>Factoringportale</h3>
-          <p>Eine mandantenfähige Plattform für Factoring-Dienstleister: Kundenanbindung, KI gestützte Workflow-Automatisierung und transparente Finanzprozesse.</p>
-          <a href="#" class="card-link">Mehr erfahren</a>
-        </div>
-
-        <div class="card ani-fade-in">
+        <a class="card ani-fade-in" href="communities.html">
           <div class="card-icon"><span class="material-symbols-rounded">hub</span></div>
           <h3>Netzwerke &amp; Communities</h3>
           <p>Wissensmanagement, Kommunikation und Community-Building – eine moderne Plattform für Zusammenarbeit und Austausch.</p>
-          <a href="#" class="card-link">Mehr erfahren</a>
-        </div>
+          <span class="card-link">Mehr erfahren</span>
+        </a>
 
       </div>
     </div>
   </div>
+  <a href="#kontakt" class="section-scroll-cta"><span>Weiter</span><span class="material-symbols-rounded">keyboard_arrow_down</span></a>
 </section>
 <script>
   (function() {
@@ -1595,77 +455,37 @@
   })();
 </script>
 
-<!-- KI HIGHLIGHT -->
-<section style="padding: 0 0 100px; background: var(--white);">
-  <div class="ki-section">
-    <div class="ki-inner">
-      <div class="ani-fade-in">
-        <p class="section-label" style="margin-bottom:16px;">Angewandte KI</p>
-        <h2 class="section-title">KI, die <em>Ihre Prozesse</em> unterstützt.</h2>
-        <p class="section-sub">Wir integrieren KI direkt in Ihr Portal – auf Basis Ihrer Daten, DSGVO-konform und vollständig unter Ihrer Kontrolle.</p>
-        <a href="ki.html" class="btn-primary">Mehr zu KI</a>
-      </div>
-      <div class="ki-features">
-        <div class="ki-feature ani-fade-in" data-delay="0">
-          <div class="ki-feature-icon"><span class="material-symbols-rounded">chat</span></div>
-          <div>
-            <h4>KI-Assistenten&nbsp;</h4>
-            <p>Chatbots oder Assistenten mit geschützten Zugriff auf Ihre Dokumente, Prozesse oder Wissensbasen.</p>
-          </div>
-        </div>
-        <div class="ki-feature ani-fade-in" data-delay="100">
-          <div class="ki-feature-icon"><span class="material-symbols-rounded">auto_awesome</span></div>
-          <div>
-            <h4>Intelligente Agenten</h4>
-            <p>Automatisierte Workflows, Klassifizierung und intelligente Zusammenfassung und Verarbeitung von Informationen und Prozessen für effiziente, fehlerfreie Abläufe.</p>
-          </div>
-        </div>
-        <div class="ki-feature ani-fade-in" data-delay="200">
-          <div class="ki-feature-icon"><span class="material-symbols-rounded">lock</span></div>
-          <div>
-            <h4>Maßgeschneiderte Integration</h4>
-            <p>Führende KI-Modelle von Claude, OpenAI oder Azure AI&nbsp; nach Wunsch für maßgeschneiderte Lösungen für Ihren konkreten Anwendungsfall.</p>
-          </div>
-        </div>
-      </div>
+<!-- CTA "Jetzt starten" (eigenständige Section, nicht full-height) -->
+<section class="cta-section" id="kontakt">
+  <p class="section-label ani-fade-in">Jetzt starten</p>
+  <h2 class="section-title ani-fade-in">Bereit für <em>Ihre digitale Zukunft?</em></h2>
+  <p class="section-sub ani-fade-in">Lassen Sie uns gemeinsam herausfinden, welche Lösung zu Ihnen passt.</p>
+  <div class="cta-actions ani-fade-in">
+    <a href="mailto:info@siteforum.com" class="btn-primary">Gespräch anfragen</a>
+    <a href="tel:+4936166615810" class="btn-secondary">+49 361 6661 5810</a>
+  </div>
+  <div class="cta-contacts ani-fade-in">
+    <span class="cta-contacts-label">Ihre Ansprechpartner</span>
+    <div class="cta-avatars">
+      <a href="ueber-uns.html" class="cta-contact">
+        <img src="team/tanja.jpg" alt="Tanja" />
+        <span>Tanja</span>
+      </a>
+      <a href="ueber-uns.html" class="cta-contact">
+        <img src="team/SF_Team_Nick.jpg" alt="Nick" />
+        <span>Nick</span>
+      </a>
+      <a href="ueber-uns.html" class="cta-contact">
+        <img src="team/peter.jpg" alt="Peter" />
+        <span>Peter</span>
+      </a>
+      <a href="ueber-uns.html" class="cta-contact">
+        <img src="team/caroline.jpg" alt="Caroline" />
+        <span>Caroline</span>
+      </a>
     </div>
   </div>
 </section>
-
-<!-- BRANCHEN -->
-<section class="branchen pattern-dots" id="branchen" style="padding-top:60px;">
-  <div class="section-inner">
-    <div class="ani-fade-in">
-      <p class="section-label">Branchen</p>
-      <h2 class="section-title">Einsatzfälle in verschiedenen<em>&nbsp;Branchen.</em></h2>
-      <p class="section-sub" style="margin-bottom:48px;">In folgenden Branchen haben wir tiefe Expertise und bewährte Lösungen – einsatzbereit, individuell anpassbar.</p>
-    </div>
-    <div class="branchen-grid">
-      <a href="referenzen.html#kammern" class="branche-card ani-fade-in" data-delay="0"><span class="branche-icon"><span class="material-symbols-rounded">domain</span></span> Kammern &amp; Verbände</a>
-      <a href="referenzen.html#finanzen" class="branche-card ani-fade-in" data-delay="75"><span class="branche-icon"><span class="material-symbols-rounded">currency_exchange</span></span> Finanzen</a>
-      <a href="referenzen.html#verkehr" class="branche-card ani-fade-in" data-delay="150"><span class="branche-icon"><span class="material-symbols-rounded">train</span></span> Verkehr &amp; Transport</a>
-      <a href="referenzen.html#personal" class="branche-card ani-fade-in" data-delay="225"><span class="branche-icon"><span class="material-symbols-rounded">work</span></span> Personaldienstleistungen</a>
-      <a href="referenzen.html#events" class="branche-card ani-fade-in" data-delay="300"><span class="branche-icon"><span class="material-symbols-rounded">celebration</span></span> Events &amp; Vereine</a>
-      <a href="referenzen.html#weitere" class="branche-card ani-fade-in" data-delay="375"><span class="branche-icon"><span class="material-symbols-rounded">add_circle</span></span> Weitere Projekte</a>
-    </div>
-  </div>
-</section>
-
-
-<!-- CTA BANNER -->
-<div class="cta-banner" id="kontakt" style="margin-top: 80px;">
-  <div class="section-inner">
-    <div class="ani-fade-in">
-      <p class="section-label">Jetzt starten</p>
-      <h2 class="section-title">Bereit für <em>Ihre digitale Zukunft?</em></h2>
-      <p class="section-sub">Lassen Sie uns gemeinsam herausfinden, welche Lösung zu Ihnen passt.</p>
-    </div>
-    <div class="cta-actions">
-      <a href="mailto:info@siteforum.com" class="btn-primary">Gespräch anfragen</a>
-      <a href="tel:+4936166615810" class="btn-secondary">+49 361 6661 5810</a>
-    </div>
-  </div>
-</div>
 
 <!-- FOOTER -->
 <footer>
@@ -1673,7 +493,7 @@
     <div class="footer-top">
       <div class="footer-brand">
         <a href="index.html" class="nav-logo"><img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:44px; width:auto;" /></a>
-        <p>We Build Digital Leaders.<div>Cloud | Portale | KI</div></p>
+        <p>We grow your digital business.<br />Cloud | Portale | KI</p>
         <p style="margin-top:14px;">Straße des Friedens 15a<br />99094 Erfurt</p>
         <p style="margin-top:14px;"><a href="mailto:info@siteforum.com" style="color:inherit;text-decoration:none;">info@siteforum.com</a><br /><a href="tel:+4936166615810" style="color:inherit;text-decoration:none;">+49 361 6661 5810</a></p>
       </div>
@@ -1758,6 +578,84 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('.stat-value, .benefits-stat-big, .benefits-sub-stat-val').forEach(function(el) { sio.observe(el); });
 })();
+</script>
+
+<!-- DOT-NAVIGATION (Full-Height-Sections) -->
+<div class="dot-nav" role="navigation" aria-label="Abschnitte">
+  <a href="#start" class="dot-nav-item" data-target="start" aria-label="Start"></a>
+  <a href="#ausgangslage" class="dot-nav-item" data-target="ausgangslage" aria-label="Herausforderungen"></a>
+  <a href="#produkte" class="dot-nav-item" data-target="produkte" aria-label="So lösen wir es"></a>
+  <a href="#ki-highlight" class="dot-nav-item" data-target="ki-highlight" aria-label="Angewandte KI"></a>
+  <a href="#ergebnis" class="dot-nav-item" data-target="ergebnis" aria-label="Das Ergebnis"></a>
+  <a href="#referenzen" class="dot-nav-item" data-target="referenzen" aria-label="Referenzen"></a>
+  <a href="#loesungen" class="dot-nav-item" data-target="loesungen" aria-label="Lösungen"></a>
+  <a href="#kontakt" class="dot-nav-item" data-target="kontakt" aria-label="Jetzt starten"></a>
+</div>
+<script>
+  (function() {
+    var dots = Array.prototype.slice.call(document.querySelectorAll('.dot-nav-item'));
+    if (!dots.length) return;
+    var sections = dots.map(function(d) { return document.getElementById(d.dataset.target); });
+    function update() {
+      var mid = window.innerHeight / 2, best = 0, bestDist = Infinity;
+      sections.forEach(function(s, i) {
+        if (!s) return;
+        var r = s.getBoundingClientRect();
+        var d = Math.abs(r.top + r.height / 2 - mid);
+        if (d < bestDist) { bestDist = d; best = i; }
+      });
+      dots.forEach(function(d, i) { d.classList.toggle('active', i === best); });
+    }
+    var ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function() { update(); ticking = false; });
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  })();
+</script>
+<script>
+  document.querySelectorAll('.challenge-card').forEach(function(card) {
+    card.addEventListener('click', function() { card.classList.toggle('active'); });
+  });
+  (function() {
+    var el = document.getElementById('hero-typer');
+    if (!el) return;
+    var words = ['build', 'power', 'scale', 'run', 'grow'];
+    var current = 0, deleting = false, charIndex = 0;
+    var typeSpeed = 120, deleteSpeed = 80, pauseAfterType = 1800, pauseAfterDelete = 300;
+    function tick() {
+      var word = words[current];
+      if (!deleting) {
+        charIndex++;
+        el.textContent = word.substring(0, charIndex);
+        if (charIndex === word.length) {
+          if (current === words.length - 1) {
+            el.classList.add('done');
+            return;
+          }
+          deleting = true;
+          setTimeout(tick, pauseAfterType);
+          return;
+        }
+        setTimeout(tick, typeSpeed);
+      } else {
+        charIndex--;
+        el.textContent = word.substring(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          current++;
+          setTimeout(tick, pauseAfterDelete);
+          return;
+        }
+        setTimeout(tick, deleteSpeed);
+      }
+    }
+    setTimeout(tick, 800);
+  })();
 </script>
 </body>
 </html>

@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lösungen – Portale für jeden Anwendungsfall | SITEFORUM</title>
+  <meta name="description" content="Maßgeschneiderte Portale auf Basis der SITEFORUM-Plattform: Mitglieder-, Kunden- und Mitarbeiterportale, Ereignis-Dokumentation, Intranet, Communities und Corporate Websites – branchenunabhängig und schnell einsatzbereit." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,1,0" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── HERO (SUBPAGE) ────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, #003366 0%, #004d99 100%);
+      padding: 220px 40px 170px;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; inset: 0;
+      background-image: radial-gradient(circle, rgba(255,255,255,0.16) 1.5px, transparent 1.5px);
+      background-size: 28px 28px; pointer-events: none;
+    }
+    .hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 800; letter-spacing: -1.5px;
+      line-height: 1.1; margin: 0 0 24px; color: var(--white);
+    }
+    .hero h1 em { font-style: normal; color: #93c5fd; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.7);
+      max-width: 620px; margin: 0 0 40px; font-weight: 400; line-height: 1.65;
+    }
+    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 48px; }
+    .btn-primary {
+      background: var(--white); color: var(--primary);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 700; text-decoration: none;
+      transition: opacity 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-primary:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-secondary {
+      background: transparent; color: var(--white);
+      padding: 16px 32px; border-radius: var(--radius-sm);
+      font-size: 0.95rem; font-weight: 600; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      transition: border-color 0.2s, transform 0.15s; display: inline-block;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.6); transform: translateY(-1px); }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.78rem; font-weight: 500; color: rgba(255,255,255,0.65);
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 12px; border-radius: 999px;
+    }
+    .hero-tag .material-symbols-rounded { font-size: 14px; color: #93c5fd; }
+
+    /* ─── SOLUTIONS GRID ────────────────────────────────────── */
+    .sol-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .sol-card {
+      background: var(--white); border: 1.5px solid #e5e7eb;
+      border-radius: var(--radius-md); padding: 32px 28px;
+      text-decoration: none; color: inherit; display: flex; flex-direction: column;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .sol-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 16px rgba(0,51,102,0.08); }
+    .sol-icon {
+      width: 52px; height: 52px; border-radius: var(--radius-sm);
+      background: var(--blue-100); display: flex; align-items: center; justify-content: center;
+      color: var(--primary); margin-bottom: 20px;
+    }
+    .sol-icon .material-symbols-rounded { font-size: 26px; }
+    .sol-card h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 12px; color: var(--navy); }
+    .sol-card p { font-size: 0.92rem; color: var(--slate-600); line-height: 1.65; flex: 1; }
+    .sol-link {
+      display: inline-flex; align-items: center; gap: 6px; margin-top: 20px;
+      font-size: 0.88rem; font-weight: 600; color: var(--blue-600);
+    }
+    .sol-link::after { content: "→"; }
+    @media (max-width: 900px) { .sol-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 640px) { .sol-grid { grid-template-columns: 1fr; } }
+
+    /* ═══════════════════════════════════════════════════════════
+       DARK THEME (dunkel & kontrast-reich) – zuletzt = gewinnt
+       ═══════════════════════════════════════════════════════════ */
+    :root {
+      --primary:   #5FC9F5;
+      --secondary: #5FC9F5;
+      --blue-50:   #0D1526;
+      --blue-100:  rgba(95,201,245,0.14);
+      --blue-200:  rgba(95,201,245,0.45);
+      --blue-600:  #5FC9F5;
+      --blue-700:  #8ADAF9;
+      --navy:      #F5F6F8;
+      --slate-600: #9AA7BD;
+      --slate-100: #101B2E;
+      --white:     #0A101E;
+    }
+    body { background: var(--white); color: var(--navy); }
+
+    /* ── NAV ── */
+    .nav-inner { background: rgba(13,21,38,0.85); border-color: var(--blue-200); box-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+    .nav-links a { color: rgba(245,246,248,0.75); }
+    .nav-links a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-links a.active { color: var(--navy); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-menu, .nav-lang-menu { background: rgba(13,21,38,0.97); border-color: rgba(255,255,255,0.10); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-dropdown-menu a, .nav-lang-menu a { color: rgba(245,246,248,0.75); }
+    .nav-dropdown-menu a:hover, .nav-lang-menu a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-dropdown-menu a.active, .nav-lang-menu a.active { color: var(--blue-600); background: rgba(95,201,245,0.12); }
+    .nav-dropdown-divider { background: rgba(255,255,255,0.10); }
+    .nav-lang-btn { color: rgba(245,246,248,0.75); }
+    .nav-lang-btn:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .nav-lang-menu a .lang-code { color: rgba(245,246,248,0.4); }
+    .nav-hamburger span { background: var(--navy); }
+    .nav-mobile-menu { background: rgba(13,21,38,0.98); border-color: rgba(255,255,255,0.10); box-shadow: 0 8px 32px rgba(0,0,0,0.55); }
+    .nav-mobile-menu > a, .mob-group-toggle { color: rgba(245,246,248,0.8); }
+    .nav-mobile-menu > a:hover, .mob-group-toggle:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+    .mob-sub a { color: rgba(245,246,248,0.55); }
+    .mob-sub a:hover { background: rgba(255,255,255,0.07); color: var(--navy); }
+
+    /* ── BREADCRUMB ── */
+    .bc-bar { background: #0D1526; border-top: 1px solid rgba(255,255,255,0.10); border-bottom: 1px solid rgba(255,255,255,0.10); }
+    .bc-sep { color: rgba(255,255,255,0.25); }
+    .bc-current { color: var(--slate-600); }
+
+    /* ── HERO ── */
+    .hero { background: var(--white); }
+    .hero h1 { color: var(--navy); }
+    .hero h1 em { color: var(--blue-600); }
+    .hero-sub { color: rgba(245,246,248,0.7); }
+    .hero-tag { background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.12); color: rgba(245,246,248,0.7); }
+    .hero-tag .material-symbols-rounded { color: var(--blue-600); }
+    .solution-badge { background: rgba(95,201,245,0.12); border-color: rgba(95,201,245,0.3); color: var(--blue-600); }
+    .hero-actions .btn-secondary { background: var(--white); }
+
+    /* ── BUTTONS ── */
+    .btn-primary { background: var(--blue-600); color: #0A101E; }
+    .btn-secondary { background: transparent; color: var(--navy); border-color: rgba(255,255,255,0.25); }
+    .btn-secondary:hover { border-color: var(--blue-600); }
+
+    /* ── CARDS ── */
+    .sol-card, .case-card, .news-card { background: #0D1526; border-color: rgba(255,255,255,0.10); }
+    .sol-card:hover, .case-card:hover, .news-card:hover { border-color: var(--blue-200); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+    .sol-icon { background: var(--blue-100); color: var(--blue-600); }
+    .sol-card h3, .case-body h3, .news-title { color: var(--navy); }
+    .sol-card p, .case-body p, .news-teaser { color: var(--slate-600); }
+    .case-top { background: linear-gradient(135deg, #10233D 0%, #0C1A2E 100%); }
+    .case-tag { color: var(--blue-600); }
+
+    /* ── LOGO WALL (helle Kacheln für JPG-Logos) ── */
+    .logo-frame { background: #F5F6F8; border-color: rgba(255,255,255,0.10); opacity: 0.82; transition: opacity 0.2s, border-color 0.2s, box-shadow 0.2s; }
+    .logo-frame:hover { opacity: 1; border-color: var(--blue-200); box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner { background: linear-gradient(150deg, #0F1D33 0%, #0A1322 100%); border: 1px solid rgba(255,255,255,0.10); }
+    .cta-banner::before { background-image: none; }
+    .cta-banner .section-label, .cta-banner .section-title em { color: var(--blue-600); }
+    .cta-banner .section-title { color: var(--navy); }
+    .cta-banner .section-sub { color: var(--slate-600); }
+    .cta-contact-label-top, .cta-contact-link .material-symbols-rounded { color: var(--blue-600); }
+    .cta-contact-name { color: var(--navy); }
+    .cta-contact-link { color: rgba(245,246,248,0.7); }
+    .cta-contact-link:hover { color: var(--navy); }
+
+    /* ── FOOTER ── */
+    footer { background: #060A12; color: var(--slate-600); }
+    .footer-brand .nav-logo, .footer-col h4 { color: var(--navy); }
+    .footer-col a, .footer-bottom a { color: var(--slate-600); }
+    .footer-col a:hover, .footer-bottom a:hover { color: var(--navy); }
+
+    /* ── TYPOGRAFIE: Outfit-Headlines ── */
+    h1, h2, h3, h4, .hero h1, .section-title, .section-title em { font-family: 'Outfit', 'Inter', sans-serif; font-weight: 600; }
+
+    /* ── DEKO-LINIE vor Section-Labels ── */
+    .section-label { display: inline-flex; align-items: center; gap: 14px; }
+    .section-label::before { content: ''; width: 48px; height: 1px; background: var(--blue-600); flex: 0 0 auto; }
+    .cta-banner .section-label { justify-content: center; }
+    .cta-banner .section-label::before { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:32px; width:auto;" />
+    </a>
+    <ul class="nav-links">
+      <li class="nav-has-dropdown">
+        <a href="index.html#produkte">Kompetenzen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="cloud.html">Cloud</a>
+          <a href="plattform.html">Portale</a>
+          <a href="ki.html">Angewandte KI</a>
+          <div class="nav-dropdown-divider"></div>
+          <a href="index.html#produkte">Implementierung &amp; Services</a>
+        </div>
+      </li>
+      <li class="nav-has-dropdown">
+        <a href="loesungen.html" class="active">Lösungen <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="mitgliederportale.html">Mitgliederportale</a>
+          <a href="kundenportale.html">Kundenportale</a>
+          <a href="mitarbeiterportale.html">Mitarbeiterportale</a>
+          <a href="informationsmanagement.html">Ereignis-Dokumentation</a>
+          <a href="communities.html">Community</a>
+        </div>
+      </li>
+<li><a href="referenzen.html">Referenzen</a></li>
+      <li class="nav-has-dropdown">
+        <a href="ueber-uns.html">Über uns <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span></a>
+        <div class="nav-dropdown-menu">
+          <a href="ueber-uns.html">Team</a>
+          <a href="karriere.html">Karriere</a>
+          <a href="news.html">News</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-actions" style="display:flex;align-items:center;gap:12px;">
+      <div class="nav-lang">
+        <button class="nav-lang-btn" aria-label="Sprache wählen" aria-haspopup="true">
+          <span class="material-symbols-rounded nav-globe">language</span>
+          <span class="material-symbols-rounded nav-chevron">keyboard_arrow_down</span>
+        </button>
+        <div class="nav-lang-menu">
+          <a href="#" class="active">Deutsch <span class="lang-code">DE</span></a>
+          <a href="#">English <span class="lang-code">EN</span></a>
+        </div>
+      </div>
+      <a href="kontakt.html" class="nav-cta">Gespräch anfragen</a>
+      <button class="nav-hamburger" id="nav-toggle" aria-label="Menü">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Kompetenzen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="cloud.html" onclick="closeMenu()">Cloud</a>
+      <a href="plattform.html" onclick="closeMenu()">Portale</a>
+      <a href="ki.html" onclick="closeMenu()">Angewandte KI</a>
+      <a href="implementierung-services.html" onclick="closeMenu()">Implementierung &amp; Services</a>
+    </div>
+  </div>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Lösungen <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="mitgliederportale.html" onclick="closeMenu()">Mitgliederportale</a>
+      <a href="kundenportale.html" onclick="closeMenu()">Kundenportale</a>
+      <a href="mitarbeiterportale.html" onclick="closeMenu()">Mitarbeiterportale</a>
+      <a href="informationsmanagement.html" onclick="closeMenu()">Ereignis-Dokumentation</a>
+      <a href="communities.html" onclick="closeMenu()">Community</a>
+    </div>
+  </div>
+  <a href="referenzen.html" onclick="closeMenu()">Referenzen</a>
+  <div class="mob-group">
+    <button class="mob-group-toggle" onclick="toggleMobGroup(this)">Über uns <span class="material-symbols-rounded mob-chevron">keyboard_arrow_down</span></button>
+    <div class="mob-sub">
+      <a href="ueber-uns.html" onclick="closeMenu()">Team</a>
+      <a href="karriere.html" onclick="closeMenu()">Karriere</a>
+      <a href="news.html" onclick="closeMenu()">News</a>
+    </div>
+  </div>  <a href="kontakt.html" onclick="closeMenu()" style="color:var(--blue-600);font-weight:600;">Gespräch anfragen</a>
+</div>
+<script>
+  var navToggle = document.getElementById('nav-toggle');
+  var navMenu = document.getElementById('nav-mobile-menu');
+  navToggle.addEventListener('click', function() { navMenu.classList.toggle('open'); });
+  function closeMenu() { navMenu.classList.remove('open'); }
+  function toggleMobGroup(btn) { btn.closest('.mob-group').classList.toggle('open'); }
+</script>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-inner">
+    <div class="solution-badge">
+      <span class="material-symbols-rounded" style="font-size:14px;">apps</span>
+      Lösungen
+    </div>
+    <h1>Portale für <em>Ihren</em> Anwendungsfall.</h1>
+    <p class="hero-sub">Auf Basis unserer Plattform entwickeln wir maßgeschneiderte Portale – branchenunabhängig, sicher und schnell einsatzbereit. Von Mitglieder- und Kundenportalen bis zu Intranet, Communities und Corporate Websites.</p>
+    <div class="hero-actions">
+      <a href="kontakt.html" class="btn-primary">Beratung anfragen</a>
+      <a href="#loesungen" class="btn-secondary">Lösungen entdecken</a>
+    </div>
+    <div class="hero-tags">
+      <span class="hero-tag"><span class="material-symbols-rounded">verified_user</span> ISO 27001 zertifiziert</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">lock</span> DSGVO-konform</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">cloud_done</span> SaaS-Betrieb</span>
+      <span class="hero-tag"><span class="material-symbols-rounded">location_on</span> Made in Germany</span>
+    </div>
+  </div>
+</header>
+
+<!-- BREADCRUMB -->
+<div class="bc-bar">
+  <div class="bc-inner">
+    <div class="bc-row">
+      <a href="index.html" aria-label="Startseite" title="Startseite" class="bc-home"><span class="material-symbols-rounded">home</span></a>
+      <span class="bc-sep">›</span>
+      <span class="bc-current">Lösungen</span>
+    </div>
+  </div>
+</div>
+
+<!-- SOLUTIONS -->
+<section id="loesungen" style="background:var(--white);">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Unsere Lösungen</p>
+      <h2 class="section-title">Maßgeschneiderte <em>Portale</em></h2>
+      <p class="section-sub">Jede Lösung baut auf derselben sicheren Plattform auf – kombinierbar, erweiterbar und individuell auf Ihre Prozesse zugeschnitten.</p>
+    </div>
+    <div class="sol-grid">
+
+      <a href="mitgliederportale.html" class="sol-card ani-fade-in">
+        <div class="sol-icon"><span class="material-symbols-rounded">groups</span></div>
+        <h3>Mitgliederportale</h3>
+        <p>Der Game-Changer für Verbände und Organisationen: Mitgliederverwaltung, Self-Service und digitale Zusammenarbeit in einem Portal.</p>
+        <span class="sol-link">Mehr erfahren</span>
+      </a>
+
+      <a href="kundenportale.html" class="sol-card ani-fade-in">
+        <div class="sol-icon"><span class="material-symbols-rounded">person_pin</span></div>
+        <h3>Kundenportale</h3>
+        <p>Moderne Self-Service-Bereiche für Ihre Kunden – individuelle Dashboards, Dokumentenzugang und automatisierte Prozesse rund um die Uhr.</p>
+        <span class="sol-link">Mehr erfahren</span>
+      </a>
+
+      <a href="mitarbeiterportale.html" class="sol-card ani-fade-in">
+        <div class="sol-icon"><span class="material-symbols-rounded">badge</span></div>
+        <h3>Mitarbeiterportale</h3>
+        <p>Komplexe HR-Prozesse als digitale Self-Services – von Onboarding über Dokumentenverwaltung bis zur internen Kommunikation.</p>
+        <span class="sol-link">Mehr erfahren</span>
+      </a>
+
+      <a href="informationsmanagement.html" class="sol-card ani-fade-in">
+        <div class="sol-icon"><span class="material-symbols-rounded">train</span></div>
+        <h3>Ereignis-Dokumentation</h3>
+        <p>Standardisierte Erfassung, Verteilung und Dokumentation von Lageberichten – in Echtzeit, für Transport- und Schienenbetreiber.</p>
+        <span class="sol-link">Mehr erfahren</span>
+      </a>
+
+      <a href="communities.html" class="sol-card ani-fade-in">
+        <div class="sol-icon"><span class="material-symbols-rounded">forum</span></div>
+        <h3>Communities</h3>
+        <p>Community-Building und Vernetzung – digitale Räume für Austausch, Engagement und gemeinsames Arbeiten.</p>
+        <span class="sol-link">Mehr erfahren</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner" id="kontakt" style="margin-top: 100px;">
+  <div class="section-inner">
+    <div class="ani-fade-in">
+      <p class="section-label">Jetzt starten</p>
+      <h2 class="section-title">Welche Lösung passt zu <em>Ihrem Vorhaben?</em></h2>
+      <p class="section-sub">Lassen Sie uns gemeinsam herausfinden, welches Portal Ihre Prozesse am besten unterstützt – kostenlos und unverbindlich.</p>
+    </div>
+    <div class="cta-contact-block">
+      <div class="cta-contact-label-top">Ihr Ansprechpartner</div>
+      <div class="cta-contact-avatar">
+        <img src="team/SF_Team_Nick.jpg" alt="Nick Walter" />
+      </div>
+      <div class="cta-contact-name">Nick Walter</div>
+      <div class="cta-contact-role">Projektleiter</div>
+      <div class="cta-contact-links">
+        <a href="mailto:n.walter@siteforum.com" class="cta-contact-link">
+          <span class="material-symbols-rounded">mail</span>
+          n.walter@siteforum.com
+        </a>
+        <a href="tel:+493616661811" class="cta-contact-link">
+          <span class="material-symbols-rounded">phone</span>
+          +49 361 6661 5811
+        </a>
+      </div>
+    </div>
+    <div class="cta-actions">
+      <a href="mailto:info@siteforum.com" class="btn-primary" style="background:var(--blue-600);color:#0A101E;">Beratung anfragen</a>
+      <a href="tel:+4936166615810" class="btn-secondary" style="background:transparent;color:var(--navy);border-color:rgba(255,255,255,0.25);">+49 361 6661 5810</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo"><img src="SITEFORUM_logo_white.png" alt="SITEFORUM" style="height:44px; width:auto;" /></a>
+        <p>We Build Digital Leaders.<div>Cloud | Portale | KI</div></p>
+        <p style="margin-top:14px;">Straße des Friedens 15a<br />99094 Erfurt</p>
+        <p style="margin-top:14px;"><a href="mailto:info@siteforum.com" style="color:inherit;text-decoration:none;">info@siteforum.com</a><br /><a href="tel:+4936166615810" style="color:inherit;text-decoration:none;">+49 361 6661 5810</a></p>
+      </div>
+      <div class="footer-col">
+        <h4>Kompetenzen</h4>
+        <ul>
+          <li><a href="cloud.html">Cloud</a></li>
+          <li><a href="plattform.html">Portale</a></li>
+          <li><a href="ki.html">Angewandte KI</a></li>
+          <li><a href="implementierung-services.html">Implementierung &amp; Services</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Lösungen</h4>
+        <ul>
+          <li><a href="mitgliederportale.html">Mitgliederportal</a></li>
+          <li><a href="kundenportale.html">Kundenportal</a></li>
+          <li><a href="mitarbeiterportale.html">Mitarbeiterportal</a></li>
+          <li><a href="informationsmanagement.html">Ereignis-Dokumentation</a></li>
+          <li><a href="communities.html">Community</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Referenzen</h4>
+        <ul>
+          <li><a href="referenzen.html">Kundenprojekte</a></li>
+        </ul>
+        <h4 style="margin-top:24px;">Über uns</h4>
+        <ul>
+          <li><a href="ueber-uns.html">Team</a></li>
+          <li><a href="karriere.html">Karriere</a></li>
+          <li><a href="news.html">News</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 SITEFORUM GmbH. Alle Rechte vorbehalten.</span>
+      <div style="display:flex; gap:24px;">
+        <a href="#">Impressum</a>
+        <a href="#">Datenschutz</a>
+        <a href="#">AGB</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function() {
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (!entry.isIntersecting) return;
+      var el = entry.target;
+      el.classList.add('visible');
+      io.unobserve(entry.target);
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.ani-fade-in').forEach(function(el) { io.observe(el); });
+})();
+</script>
+</body>
+</html>
